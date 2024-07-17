@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:icon="@drawable/ic_fast_learning"
+        android:title="快学" />
     <item
         android:id="@+id/nav_search"
-        android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:icon="@drawable/ic_history"
+        android:title="党史" />
     <item
         android:id="@+id/nav_notifications"
-        android:icon="@drawable/ic_notifications"
-        android:title="Notifications" />
+        android:icon="@drawable/ic_discover"
+        android:title="发现" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:icon="@drawable/ic_tieba"
+        android:title="贴吧" />
     <item
         android:id="@+id/nav_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:icon="@drawable/ic_profile"
+        android:title="我的" />
 </menu>
