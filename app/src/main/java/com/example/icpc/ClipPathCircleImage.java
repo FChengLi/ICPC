@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import android.annotation.SuppressLint;
+@SuppressLint("AppCompatCustomView")
 
 public class ClipPathCircleImage extends ImageView {
     private int width;
