@@ -17,13 +17,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean isLoggedIn = checkLoginStatus();
-                if (isLoggedIn) {
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+//                if (isLoggedIn) {
+//                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                    startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                }
                 finish();
             }
         }, 2000); // 延迟2秒
