@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 // 验证用户
                 if (userDAO.checkUser(phoneNumber, password)) {
                     // 用户验证成功，跳转到MainActivity
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                 } else {
                     // 用户验证失败，显示错误信息
