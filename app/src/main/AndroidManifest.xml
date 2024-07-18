@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    package="com.example.icpc">
 
     <application
         android:allowBackup="true"
@@ -10,14 +10,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ICPC"
-        tools:targetApi="31">
+        android:theme="@style/Theme.ICPC">
+
         <activity android:name=".LoginActivity"
             android:exported="true">
         </activity>
+
         <activity android:name=".HomeActivity"
             android:exported="true">
         </activity>
+
+        <activity android:name=".RegisterActivity"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".RetrieveActivity"
+            android:exported="true">
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
