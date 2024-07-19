@@ -30,7 +30,7 @@
             android:name=".TestActivity"
             android:exported="false" />
         <activity
-            android:name=".Message_Fragment"
+            android:name=".MessageActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
