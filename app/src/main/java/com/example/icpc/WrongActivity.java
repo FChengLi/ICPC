@@ -8,11 +8,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Editing_Fragment extends AppCompatActivity {
+public class WrongActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editing_fragment);
+        setContentView(R.layout.activity_wrong);
     }
 }
