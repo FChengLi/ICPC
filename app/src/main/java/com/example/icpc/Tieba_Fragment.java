@@ -55,9 +55,9 @@ public class Tieba_Fragment extends Fragment {
             public CharSequence getPageTitle(int position) {
                 switch (position) {
                     case 0:
-                        return "Fragment 1";
+                        return "我的吧";
                     case 1:
-                        return "Fragment 2";
+                        return "吧广场";
                     default:
                         return null;
                 }
