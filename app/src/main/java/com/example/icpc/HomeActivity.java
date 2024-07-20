@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.EditText;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -13,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
     private FrameLayout customFab;
     private FrameLayout fabContainer;
-    @SuppressLint("ClickableViewAccessibility")
+    private int margin = 16; // 边距
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +66,14 @@ public class HomeActivity extends AppCompatActivity {
                         float newX = event.getRawX() + dX;
                         float newY = event.getRawY() + dY;
 
-                        // 检查是否在边界内
+                        // 设置移动范围限制，确保顶部和底部都有固定的空隙
+                        int topMargin = 16;
+                        int bottomMargin =450;
+
                         if (newX < 0) newX = 0;
                         if (newX > fabContainer.getWidth() - view.getWidth()) newX = fabContainer.getWidth() - view.getWidth();
-                        if (newY < 0) newY = 0;
-                        if (newY > fabContainer.getHeight() - view.getHeight()) newY = fabContainer.getHeight() - view.getHeight();
+                        if (newY < topMargin) newY = topMargin;  // 顶部边界
+                        if (newY > fabContainer.getHeight() - view.getHeight() - bottomMargin) newY = fabContainer.getHeight() - view.getHeight() - bottomMargin;  // 底部边界
 
                         view.setX(newX);
                         view.setY(newY);
@@ -97,6 +101,16 @@ public class HomeActivity extends AppCompatActivity {
             // 使用 HomeFragment 替换 fragment_container 容器
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fast_Learning_Fragment()).commit();
         }
+
+        // 为搜索框设置点击监听器
+        EditText searchEditText = findViewById(R.id.search_edit_text);
+        searchEditText.setOnClickListener(this::onSearchClick);
+
+        View whiteRectangle = findViewById(R.id.white_rectangle);
+        whiteRectangle.setOnClickListener(this::onSearchClick);
+
+        View searchIcon = findViewById(R.id.search_icon);
+        searchIcon.setOnClickListener(this::onSearchClick);
     }
     // 定义底部导航栏的选择监听器
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

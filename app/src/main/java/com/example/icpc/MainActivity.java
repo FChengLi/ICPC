@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean isLoggedIn = checkLoginStatus();
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
 //                if (isLoggedIn) {
 //                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
