@@ -11,17 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:srcCompat="@drawable/clear" />
-
-    <TextView
-        android:id="@+id/first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        android:text="找回密码"
-        android:textColor="@android:color/darker_gray" />
-
+        app:srcCompat="@drawable/catchicon" />
 
     <ImageView
         android:id="@+id/imageView2"

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.icpc.ClipPathCircleImage
+        android:id="@+id/avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="3dp"
+        android:src="@drawable/mybaicon">
+
+    </com.example.icpc.ClipPathCircleImage>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/avatar"
+        android:layout_marginTop="3dp"
+        android:text="时事新闻吧" />
+
+    <TextView
+        android:id="@+id/favour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/avatar"
+        android:layout_alignBottom="@id/avatar"
+        android:layout_marginBottom="5dp"
+        android:textSize="12sp"
+        android:text="关注330.2w" />
+
+    <TextView
+        android:id="@+id/tienum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/favour"
+        android:layout_toRightOf="@id/favour"
+        android:textSize="12sp"
+        android:text="帖子2.2kw" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:text="关注" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/avatar"
+        app:srcCompat="@drawable/catchicon" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView3"
+        android:textSize="18dp"
+        android:text="卡特琳娜镇楼（本人作品之一）..." />
+
+
+</RelativeLayout>

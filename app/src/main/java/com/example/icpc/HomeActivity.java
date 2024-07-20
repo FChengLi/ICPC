@@ -13,12 +13,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
     private FrameLayout customFab;
     private FrameLayout fabContainer;
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         // Setup the top toolbar
         Toolbar topToolbar = findViewById(R.id.top_toolbar);
         setSupportActionBar(topToolbar);
@@ -93,29 +92,28 @@ public class HomeActivity extends AppCompatActivity {
         customFab.bringToFront();
 
         // 如果 savedInstanceState 为空，表示是第一次创建活动，加载默认的 Fragment
+
         if (savedInstanceState == null) {
             // 使用 HomeFragment 替换 fragment_container 容器
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fast_Learning_Fragment()).commit();
         }
     }
-
     // 定义底部导航栏的选择监听器
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {
                 // 定义一个变量来存储选中的 Fragment
                 Fragment selectedFragment = null;
-
                 // 根据选择的导航项 ID，实例化相应的 Fragment
                 int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
+                if (itemId == R.id.nav_fast_learning) {
                     selectedFragment = new Fast_Learning_Fragment();
-                } else if (itemId == R.id.nav_search) {
+                } else if (itemId == R.id.nav_history) {
                     selectedFragment = new History_Fragment();
-                } else if (itemId == R.id.nav_notifications) {
+                } else if (itemId == R.id.nav_discover) {
                     selectedFragment = new Discover_Fragment();
-                } else if (itemId == R.id.nav_profile) {
+                } else if (itemId == R.id.nav_tieba) {
                     selectedFragment = new Tieba_Fragment();
-                } else if (itemId == R.id.nav_settings) {
+                } else if (itemId == R.id.nav_profile) {
                     selectedFragment = new Profile_Fragment();
                 }
 

@@ -2,28 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/infor_backgroud"
-        android:scaleType="centerCrop" >
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/infor_backgroud">
 
-    </ImageView>
+        </ImageView>
 
         <com.example.icpc.ClipPathCircleImage
             android:id="@+id/avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/avatar">
 
         </com.example.icpc.ClipPathCircleImage>
@@ -31,34 +31,37 @@
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/avatar"
+            android:layout_marginTop="5dp"
             android:layout_alignTop="@id/avatar"
             android:gravity="center_vertical|left"
             android:text="用户名"
             android:textColor="@color/white"
-            android:textSize="30sp">
+            android:textSize="20sp">
 
         </TextView>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_height="35dp"
+            android:layout_alignLeft="@id/username"
             android:layout_toRightOf="@id/avatar"
             android:layout_below="@id/username"
             android:text="账号"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:id="@+id/id">
 
         </TextView>
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/setting"
+            android:layout_marginRight="20dp"
+            android:layout_alignTop="@id/username"
             android:layout_alignParentRight="true"
             android:id="@+id/setting">
 
@@ -70,75 +73,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/avatar"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="10dp"
             android:text="个性签名"
             android:textColor="@color/white"
             android:layout_alignLeft="@id/avatar"
-            android:textSize="25sp">
-
-        </TextView>
-
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="42dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/rounded_background2"
-            android:gravity="center"
-            android:text="浏览记录"
-            android:textSize="30sp">
-
-        </TextView>
-
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="42dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/rounded_background2"
-            android:gravity="center"
-            android:text="阅读偏好"
-            android:textSize="30sp">
+            android:textSize="18sp">
 
         </TextView>
 
         <TextView
             android:id="@+id/fansnumber"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:paddingLeft="25dp"
             android:layout_below="@id/signature"
             android:layout_alignLeft="@id/avatar"
             android:layout_marginTop="20dp"
             android:gravity="center|center_vertical"
             android:text="6"
             android:textColor="@color/white"
-            android:textSize="30sp">
+            android:textSize="25sp">
 
         </TextView>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:gravity="center|center_vertical"
             android:layout_alignLeft="@id/fansnumber"
             android:id="@+id/fan"
             android:text="粉丝数"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:layout_below="@id/fansnumber">
 
         </TextView>
 
         <TextView
-            android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:gravity="center|center_vertical"
             android:text="6"
-            android:textSize="30sp"
+            android:textSize="25sp"
+            android:layout_marginLeft="45dp"
             android:id="@+id/idolsnumber"
             android:layout_toRightOf="@id/fansnumber"
             android:layout_below="@id/signature"
@@ -148,12 +125,12 @@
         </TextView>
 
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:gravity="center|center_vertical"
             android:id="@+id/idol"
             android:text="关注数"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:layout_below="@id/idolsnumber"
             android:layout_toRightOf="@id/fan">
@@ -161,34 +138,42 @@
         </TextView>
 
         <TextView
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
             android:layout_below="@id/signature"
+
             android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/rounded_background"
             android:gravity="center"
             android:text="编辑资料"
             android:textColor="#FFFFFF"
-            android:textSize="30sp">
+            android:textSize="16sp">
 
         </TextView>
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/favour"
+    <!-- 上方导航栏 -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="收藏"
-        android:gravity="center"
-        android:textSize="35sp">
+        android:layout_height="wrap_content">
 
-    </TextView>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- 切换内容的ViewPager -->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </LinearLayout>
