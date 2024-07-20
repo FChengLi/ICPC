@@ -18,13 +18,13 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 boolean isLoggedIn = checkLoginStatus();
 
-                Intent intent = new Intent(MainActivity.this, ArticleContentActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 
-                // 初始化Bundle并添加一些数据
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", 1); // 文章ID
-                bundle.putInt("commentSum", 10); // 评论总数
-                intent.putExtras(bundle);
+//                // 初始化Bundle并添加一些数据
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("id", 1); // 文章ID
+//                bundle.putInt("commentSum", 10); // 评论总数
+//                intent.putExtras(bundle);
 
                 startActivity(intent);
 

@@ -13,14 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/back"
-        app:titleTextColor="#ff0000"
+        app:titleTextColor="@color/black"
+        app:title="返回"
         app:titleMarginStart="100dp">
-        <TextView
-            android:text="正文"
-            android:textSize="23sp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
         <ImageView
             android:id="@+id/my"
             android:layout_width="30dp"
