@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.EditText;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -13,10 +14,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
     private FrameLayout customFab;
     private FrameLayout fabContainer;
+    private int margin = 16; // 边距
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         // Setup the top toolbar
         Toolbar topToolbar = findViewById(R.id.top_toolbar);
         setSupportActionBar(topToolbar);
@@ -27,7 +31,6 @@ public class HomeActivity extends AppCompatActivity {
         // 设置导航栏的选择监听器
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        // Default fragment
         // 初始化自定义悬浮按钮
         customFab = findViewById(R.id.custom_fab);
         fabContainer = findViewById(R.id.fab_container);
@@ -43,10 +46,9 @@ public class HomeActivity extends AppCompatActivity {
             int fabHeight = customFab.getHeight();
             int centerY = (fabContainerHeight - fabHeight) / 2;
             customFab.setX(fabContainer.getWidth() - customFab.getWidth() - 16);
-            customFab.setY(centerY);
+            customFab.setY(centerY); // 初始Y位置
         });
 
-        // 设置自定义悬浮按钮的触摸监听器
         customFab.setOnTouchListener(new View.OnTouchListener() {
             private float dX, dY;
             private int lastAction;
@@ -64,11 +66,14 @@ public class HomeActivity extends AppCompatActivity {
                         float newX = event.getRawX() + dX;
                         float newY = event.getRawY() + dY;
 
-                        // 检查是否在边界内
+                        // 设置移动范围限制，确保顶部和底部都有固定的空隙
+                        int topMargin = 16;
+                        int bottomMargin =450;
+
                         if (newX < 0) newX = 0;
                         if (newX > fabContainer.getWidth() - view.getWidth()) newX = fabContainer.getWidth() - view.getWidth();
-                        if (newY < 0) newY = 0;
-                        if (newY > fabContainer.getHeight() - view.getHeight()) newY = fabContainer.getHeight() - view.getHeight();
+                        if (newY < topMargin) newY = topMargin;  // 顶部边界
+                        if (newY > fabContainer.getHeight() - view.getHeight() - bottomMargin) newY = fabContainer.getHeight() - view.getHeight() - bottomMargin;  // 底部边界
 
                         view.setX(newX);
                         view.setY(newY);
@@ -91,12 +96,22 @@ public class HomeActivity extends AppCompatActivity {
         customFab.bringToFront();
 
         // 如果 savedInstanceState 为空，表示是第一次创建活动，加载默认的 Fragment
-
         if (savedInstanceState == null) {
             // 使用 HomeFragment 替换 fragment_container 容器
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fast_Learning_Fragment()).commit();
         }
+
+        // 为搜索框设置点击监听器
+        EditText searchEditText = findViewById(R.id.search_edit_text);
+        searchEditText.setOnClickListener(this::onSearchClick);
+
+        View whiteRectangle = findViewById(R.id.white_rectangle);
+        whiteRectangle.setOnClickListener(this::onSearchClick);
+
+        View searchIcon = findViewById(R.id.search_icon);
+        searchIcon.setOnClickListener(this::onSearchClick);
     }
+
     // 定义底部导航栏的选择监听器
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {
@@ -122,4 +137,10 @@ public class HomeActivity extends AppCompatActivity {
                 // 返回 true 表示处理了这个选择事件
                 return true;
             };
+
+    // 定义搜索框和图标的点击事件处理函数
+    public void onSearchClick(View view) {
+        Intent intent = new Intent(HomeActivity.this, Search_Fragment.class);
+        startActivity(intent);
+    }
 }

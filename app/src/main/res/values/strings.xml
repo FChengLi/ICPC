@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ICPC</string>
+    <string name="search_hint">搜索</string>
+    <string name="search">搜索</string>
+    <string name="history_search">历史搜索</string>
+    <string name="no_search_history">还没有任何搜索记录</string>
+    <string name="hot_search">热门搜索</string>
+    <string name="username">luke</string>
+    <string name="search_icon_description">搜索图标</string>
 </resources>

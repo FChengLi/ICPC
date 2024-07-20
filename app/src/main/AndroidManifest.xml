@@ -32,6 +32,12 @@
         <activity android:name=".RetrieveActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".Search_Fragment"
+            android:exported="true">
+        </activity>
+        <activity android:name=".Profile_Fragment"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
