@@ -111,22 +111,15 @@
 
         <FrameLayout
             android:id="@+id/custom_fab"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/circular_background"
+            android:background="@drawable/ic_custom_image"
             android:clipToPadding="false"
             android:elevation="6dp">
 
-            <ImageView
-                android:id="@+id/fab_image"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:contentDescription="Custom FAB"
-                android:padding="16dp"
-                android:src="@drawable/ic_custom_image" />
         </FrameLayout>
     </FrameLayout>
 </RelativeLayout>

@@ -83,7 +83,7 @@ public class Aides_Activity extends AppCompatActivity {
 
             // 添加默认提示词和用户消息
             JSONArray messagesArray = new JSONArray();
-            messagesArray.put(new JSONObject().put("role", "system").put("content", "你是一个党史小助手，你的名字是“i党史”小助手，你服务于i党史app，你主要回答用户关于党政和党史的问题，注意要避免回答过于敏感的问题（中国敏感的内容）"));
+            messagesArray.put(new JSONObject().put("role", "system").put("content", "你是一个党史小助手，你的名字是“i党史”小助手，你服务于i党史app，你主要回答用户关于党史或者时事政治的问题，注意要避免回答过于敏感的问题（中国敏感的内容），回答相关问题的时候要具有中国特色"));
             messagesArray.put(new JSONObject().put("role", "user").put("content", userMessage));
 
             jsonObject.put("messages", messagesArray);
