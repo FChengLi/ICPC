@@ -17,10 +17,13 @@
             android:name=".WrongActivity"
             android:exported="false" />
         <activity
-            android:name=".Special_TestActivity"
-            android:exported="false" />
+            android:name=".ArticleContentActivity"
+            android:exported="true" />
         <activity
             android:name=".ArticleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Special_TestActivity"
             android:exported="false" />
         <activity
             android:name=".Vedio_DetailActivity"
@@ -38,7 +41,7 @@
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".AnotherActivity"
+            android:name=".Aides_Activity"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"

@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,8 +17,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean isLoggedIn = checkLoginStatus();
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+                Intent intent = new Intent(MainActivity.this, ArticleContentActivity.class);
+
+                // 初始化Bundle并添加一些数据
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", 1); // 文章ID
+                bundle.putInt("commentSum", 10); // 评论总数
+                intent.putExtras(bundle);
+
                 startActivity(intent);
+
 //                if (isLoggedIn) {
 //                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 //                    startActivity(intent);
@@ -38,7 +44,5 @@ public class MainActivity extends AppCompatActivity {
         // 在这里检查用户的登录状态
         // 返回true表示用户已登录，返回false表示用户未登录
         return false; // 默认未登录
-
-
     }
 }

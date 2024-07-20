@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         fabContainer = findViewById(R.id.fab_container);
 
         customFab.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, AnotherActivity.class);
+            Intent intent = new Intent(HomeActivity.this, Aides_Activity.class);
             startActivity(intent);
         });
 
@@ -89,15 +89,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // 把自定义悬浮按钮置于页面顶部
-        customFab.bringToFront();
+        // 为搜索框设置点击监听器
+        EditText searchEditText = findViewById(R.id.search_edit_text);
+        searchEditText.setOnClickListener(this::onSearchClick);
 
-        // 如果 savedInstanceState 为空，表示是第一次创建活动，加载默认的 Fragment
+        View whiteRectangle = findViewById(R.id.white_rectangle);
+        whiteRectangle.setOnClickListener(this::onSearchClick);
 
-        if (savedInstanceState == null) {
-            // 使用 HomeFragment 替换 fragment_container 容器
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fast_Learning_Fragment()).commit();
-        }
+        View searchIcon = findViewById(R.id.search_icon);
+        searchIcon.setOnClickListener(this::onSearchClick);
+    }
+    // 定义搜索框和图标的点击事件处理函数
+    public void onSearchClick(View view) {
+        Intent intent = new Intent(HomeActivity.this, Search_Fragment.class);
+        startActivity(intent);
     }
     // 定义底部导航栏的选择监听器
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
