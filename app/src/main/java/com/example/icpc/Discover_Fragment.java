@@ -40,8 +40,8 @@ public class Discover_Fragment extends Fragment {
         imageList.add(R.drawable.image3);
 
         // 创建适配器
-        SlideAdapter slideAdapter = new SlideAdapter(imageList);
-        viewPager.setAdapter(slideAdapter);
+        Discover_image_Adapter discoverimageAdapter = new Discover_image_Adapter(imageList);
+        viewPager.setAdapter(discoverimageAdapter);
 
         // 启动轮播
         handler.postDelayed(runnable, DELAY_MS);

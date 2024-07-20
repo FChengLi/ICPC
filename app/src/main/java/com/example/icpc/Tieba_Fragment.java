@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -31,39 +30,7 @@ public class Tieba_Fragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return new Myba_Fragment();
-                    case 1:
-                        return new Basquare_Fragment();
-                    default:
-                        return null;
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 2; // 总共有两个同级的Fragment
-            }
-
-            @Nullable
-            @Override
-            public CharSequence getPageTitle(int position) {
-                switch (position) {
-                    case 0:
-                        return "我的吧";
-                    case 1:
-                        return "吧广场";
-                    default:
-                        return null;
-                }
-            }
-        };
-
+        TiebaPagerAdapter adapter = new TiebaPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
     }
 }

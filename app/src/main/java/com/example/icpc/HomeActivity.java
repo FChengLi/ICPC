@@ -106,15 +106,15 @@ public class HomeActivity extends AppCompatActivity {
                 Fragment selectedFragment = null;
                 // 根据选择的导航项 ID，实例化相应的 Fragment
                 int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
+                if (itemId == R.id.nav_fast_learning) {
                     selectedFragment = new Fast_Learning_Fragment();
-                } else if (itemId == R.id.nav_search) {
+                } else if (itemId == R.id.nav_history) {
                     selectedFragment = new History_Fragment();
-                } else if (itemId == R.id.nav_notifications) {
+                } else if (itemId == R.id.nav_discover) {
                     selectedFragment = new Discover_Fragment();
-                } else if (itemId == R.id.nav_profile) {
+                } else if (itemId == R.id.nav_tieba) {
                     selectedFragment = new Tieba_Fragment();
-                } else if (itemId == R.id.nav_settings) {
+                } else if (itemId == R.id.nav_profile) {
                     selectedFragment = new Profile_Fragment();
                 }
 

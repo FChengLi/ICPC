@@ -6,7 +6,7 @@
 <androidx.viewpager2.widget.ViewPager2
     android:id="@+id/slideshow"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="230dp">
 
 </androidx.viewpager2.widget.ViewPager2>
 

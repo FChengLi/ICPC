@@ -6,6 +6,7 @@
 
     <!-- 上方导航栏 -->
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/barlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,6 +21,7 @@
 
     <!-- 切换内容的ViewPager -->
     <androidx.viewpager.widget.ViewPager
+        android:layout_below="@id/barlayout"
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

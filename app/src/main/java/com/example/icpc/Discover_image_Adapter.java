@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.SlideViewHolder> {
+public class Discover_image_Adapter extends RecyclerView.Adapter<Discover_image_Adapter.SlideViewHolder> {
     private List<Integer> imageList;
 
-    public SlideAdapter(List<Integer> imageList) {
+    public Discover_image_Adapter(List<Integer> imageList) {
         this.imageList = imageList;
     }
 
     @NonNull
     @Override
     public SlideViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_discover, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_slide, parent, false);
         return new SlideViewHolder(view);
     }
 
@@ -40,7 +40,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.SlideViewHol
 
         public SlideViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.slideshow);
+            imageView = itemView.findViewById(R.id.slide_image);
         }
     }
 }
