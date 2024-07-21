@@ -48,9 +48,9 @@ public class Discover_Fragment extends Fragment {
 
         // 初始化文章列表
         List<Article> articleList = new ArrayList<>();
-        articleList.add(new Article("Title 1", "Source 1", "Date 1", R.drawable.image1));
-        articleList.add(new Article("Title 2", "Source 2", "Date 2", R.drawable.image2));
-        articleList.add(new Article("Title 3", "Source 3", "Date 3", R.drawable.image3));
+        articleList.add(new Article(1, "Author 1", "Time 1", "Content 1", 10, 20, "Title 1", "Source 1", "Date 1", R.drawable.image1));
+        articleList.add(new Article(2, "Author 2", "Time 2", "Content 2", 15, 25, "Title 2", "Source 2", "Date 2", R.drawable.image2));
+        articleList.add(new Article(3, "Author 3", "Time 3", "Content 3", 20, 30, "Title 3", "Source 3", "Date 3", R.drawable.image3));
 
         // 设置RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
