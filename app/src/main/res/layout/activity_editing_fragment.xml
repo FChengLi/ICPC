@@ -5,15 +5,36 @@
     android:layout_height="match_parent"
     android:background="#E4DEDE">
 
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/return1"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/return1" />
+        <TextView
+            android:id="@+id/middle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="编辑资料"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
     <com.example.icpc.ClipPathCircleImage
+        android:layout_below="@+id/title"
         android:id="@+id/avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/infor"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:src="@drawable/avatar">
-
     </com.example.icpc.ClipPathCircleImage>
 
     <ImageView
@@ -24,196 +45,133 @@
         android:layout_alignBottom="@id/avatar"
         app:srcCompat="@drawable/scaning" />
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="60dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="20sp"
+    <LinearLayout
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:layout_below="@id/avatar"
-        android:text="账号" />
+        android:layout_marginTop="60dp">
+        <TextView
+            android:id="@+id/chphone"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:text="手机号" />
+        <TextView
+            android:id="@+id/egphone"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="phone"
+            android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/go1"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/right" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="1dp"
-        android:paddingLeft="20dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="20sp"
+    <LinearLayout
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@color/white"
-        android:layout_below="@id/id"
-        android:text="用户名" />
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@id/phone">
+        <TextView
+            android:id="@+id/chnickname"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:text="昵称" />
+        <TextView
+            android:id="@+id/egnickname"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text=""
+            android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/go2"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/right" />
+    </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
         android:paddingLeft="20dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:background="@color/white"
-        android:layout_below="@id/username"
-        android:text="邮箱" />
+        android:paddingRight="20dp"
+        android:layout_below="@id/name">
+        <TextView
+            android:id="@+id/chemail"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:text="邮箱" />
+        <TextView
+            android:id="@+id/egemail"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text=""
+            android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/go3"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/right" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/chpassword"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="1dp"
+    <LinearLayout
+        android:id="@+id/passward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
         android:paddingLeft="20dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:background="@color/white"
-        android:layout_below="@id/email"
-        android:text="修改密码" />
-
-    <TextView
-        android:id="@+id/area"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="1dp"
-        android:paddingLeft="20dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:background="@color/white"
-        android:layout_below="@id/chpassword"
-        android:text="地区" />
-
-    <TextView
-        android:id="@+id/certification"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="1dp"
-        android:paddingLeft="20dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:background="@color/white"
-        android:layout_below="@id/area"
-        android:text="实名认证" />
-
-    <TextView
-        android:id="@+id/idinfo"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:gravity="center|right"
-        android:background="@color/white"
-        android:layout_below="@id/avatar"
-        android:layout_alignTop="@id/id"
-        android:layout_toRightOf="@id/id"
-        android:text="13154665748    " />
-
-    <TextView
-        android:id="@+id/usernameinfo"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:gravity="center|right"
-        android:background="@color/white"
-        android:layout_below="@id/avatar"
-        android:layout_alignTop="@id/username"
-        android:layout_toRightOf="@id/username"
-        android:text="冷艳绝情美少女    " />
-
-    <TextView
-        android:id="@+id/emailinfo"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:gravity="center|right"
-        android:background="@color/white"
-        android:layout_below="@id/avatar"
-        android:layout_alignTop="@id/email"
-        android:layout_toRightOf="@id/email"
-        android:text="qweasd@163.com    " />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:gravity="center|right"
-        android:background="@color/white"
-        android:layout_below="@id/avatar"
-        android:layout_alignTop="@id/chpassword"
-        android:layout_toRightOf="@id/chpassword"
-        android:text="    " />
-
-    <TextView
-        android:id="@+id/certificationinfo"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:gravity="center|right"
-        android:background="@color/white"
-        android:layout_below="@id/avatar"
-        android:layout_alignTop="@id/certification"
-        android:layout_toRightOf="@id/certification"
-        android:text="已认证    " />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/id"
-        app:srcCompat="@drawable/right" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/username"
-        app:srcCompat="@drawable/right" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/email"
-        app:srcCompat="@drawable/right" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/chpassword"
-        app:srcCompat="@drawable/right" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/certification"
-        app:srcCompat="@drawable/right" />
-
-    <Spinner
-        android:id="@+id/areainfo"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_toRightOf="@id/area"
-        android:background="@color/white"
-        android:layout_alignTop="@id/area"/>
-
-    <TextView
-        android:id="@+id/infor"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="编辑资料"
-
-        android:textSize="22sp" />
-
-    <ImageView
-        android:id="@+id/return1"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        app:srcCompat="@drawable/return1" />
-
+        android:paddingRight="20dp"
+        android:layout_below="@id/email">
+        <TextView
+            android:id="@+id/changepassword"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:text="修改密码" />
+        <TextView
+            android:id="@+id/blank"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text=""
+            android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/go4"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/right" />
+    </LinearLayout>
 
 </RelativeLayout>

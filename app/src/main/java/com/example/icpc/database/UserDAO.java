@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 public class UserDAO {
     private SQLiteDatabase db;
@@ -44,5 +43,65 @@ public class UserDAO {
         values.put("password", newPassword);
         int rows = db.update("user", values, "user_id=?", new String[]{userId});
         return rows > 0;
+    }
+
+    public boolean updateNickname(String userId, String newNickname) {
+        ContentValues values = new ContentValues();
+        values.put("nickname", newNickname);
+        int rows = db.update("user", values, "user_id=?", new String[]{userId});
+        return rows > 0;
+    }
+
+    public boolean updateEmail(String userId, String newEmail) {
+        ContentValues values = new ContentValues();
+        values.put("email", newEmail);
+        int rows = db.update("user", values, "user_id=?", new String[]{userId});
+        return rows > 0;
+    }
+
+    public User getUserInfo(String userId) {
+        User user = null;
+        Cursor cursor = db.query("user", new String[]{"user_id", "nickname", "email"},
+                "user_id=?", new String[]{userId}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
+            String email = cursor.getString(cursor.getColumnIndex("email"));
+            user = new User(userId, nickname, email);
+            cursor.close();
+        }
+        return user;
+    }
+
+    // 内部类 User
+    public static class User {
+        private String userId;
+        private String nickname;
+        private String email;
+
+        public User(String userId, String nickname, String email) {
+            this.userId = userId;
+            this.nickname = nickname;
+            this.email = email;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
     }
 }
