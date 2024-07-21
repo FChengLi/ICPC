@@ -52,6 +52,9 @@
         <activity android:name=".Search_Fragment"
             android:exported="true">
         </activity>
+        <activity android:name=".DetailActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
