@@ -4,28 +4,17 @@ public class Article {
     private String title;
     private String source;
     private String date;
-    private int imageResource;
+    private int imageResId;
 
-    public Article(String title, String source, String date, int imageResource) {
+    public Article(String title, String source, String date, int imageResId) {
         this.title = title;
         this.source = source;
         this.date = date;
-        this.imageResource = imageResource;
+        this.imageResId = imageResId;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public int getImageResource() {
-        return imageResource;
-    }
+    public String getTitle() { return title; }
+    public String getSource() { return source; }
+    public String getDate() { return date; }
+    public int getImageResId() { return imageResId; }
 }

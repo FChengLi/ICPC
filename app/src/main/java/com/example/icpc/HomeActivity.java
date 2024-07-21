@@ -32,10 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         customFab = findViewById(R.id.custom_fab);
         fabContainer = findViewById(R.id.fab_container);
 
-        customFab.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, AnotherActivity.class);
-            startActivity(intent);
-        });
+
 
         // 设置自定义悬浮按钮的初始位置
         customFab.post(() -> {

@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     saveUserIdToPreferences(phoneNumber);
 
                     // 跳转到HomeActivity
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, z_first.class);
                     startActivity(intent);
                     finish();
                 } else {

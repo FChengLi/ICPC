@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
-
     private List<Article> articleList;
 
     public ArticleAdapter(List<Article> articleList) {
@@ -28,12 +27,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        Article currentArticle = articleList.get(position);
-        Log.d("ArticleAdapter", "onBindViewHolder: Binding article at position " + position + " with title " + currentArticle.getTitle());
-        holder.itemTitle.setText(currentArticle.getTitle());
-        holder.itemSource.setText(currentArticle.getSource());
-        holder.itemDate.setText(currentArticle.getDate());
-        holder.itemImage.setImageResource(currentArticle.getImageResource());
+        Article article = articleList.get(position);
+        holder.title.setText(article.getTitle());
+        holder.source.setText(article.getSource());
+        holder.date.setText(article.getDate());
+        holder.image.setImageResource(article.getImageResId());
     }
 
     @Override
@@ -42,17 +40,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     }
 
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
-        public TextView itemTitle;
-        public TextView itemSource;
-        public TextView itemDate;
-        public ImageView itemImage;
+        TextView title, source, date;
+        ImageView image;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemTitle = itemView.findViewById(R.id.itemTitle);
-            itemSource = itemView.findViewById(R.id.itemSource);
-            itemDate = itemView.findViewById(R.id.itemDate);
-            itemImage = itemView.findViewById(R.id.itemImage);
+            title = itemView.findViewById(R.id.itemTitle);
+            source = itemView.findViewById(R.id.itemSource);
+            date = itemView.findViewById(R.id.itemDate);
+            image = itemView.findViewById(R.id.itemImage);
         }
     }
 }

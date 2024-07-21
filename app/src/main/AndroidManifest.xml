@@ -56,6 +56,12 @@
         <activity android:name=".Search_Fragment"
             android:exported="true">
         </activity>
+        <activity android:name=".z_add"></activity>
+        <activity android:name=".z_delete"></activity>
+        <activity android:name=".z_change"></activity>
+        <activity android:name=".z_first"></activity>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
