@@ -1,30 +1,33 @@
 package com.example.icpc;
-
 public class DataItem {
-    private int imageResId;
+    private String imageUrl;
+    private String source;
     private String title;
-    private String description;
 
-    public DataItem(int imageResId, String title, String description) {
-        this.imageResId = imageResId;
+    public DataItem(String imageUrl, String source, String title) {
+        this.imageUrl = imageUrl;
+        this.source = source;
         this.title = title;
-        this.description = description;
     }
 
-    public int getImageResId() {
-        return imageResId;
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setTitle(String title) {

@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.ViewHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
     private List<DataItem> mDataList;
     private Context mContext;
 
-    public VedioAdapter(Context context, List<DataItem> dataList) {
+    public VideoAdapter(Context context, List<DataItem> dataList) {
         mContext = context;
         mDataList = dataList;
     }
@@ -32,9 +32,8 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DataItem item = mDataList.get(position);
 
-        holder.imageView.setImageResource(item.getImageResId());
+
         holder.textView1.setText(item.getTitle());
-        holder.textView2.setText(item.getDescription());
     }
 
     @Override
@@ -49,9 +48,9 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.ViewHolder> 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView10);
-            textView1 = itemView.findViewById(R.id.textView9);
-            textView2 = itemView.findViewById(R.id.textView11);
+            imageView = itemView.findViewById(R.id.cover);
+            textView1 = itemView.findViewById(R.id.source);
+            textView2 = itemView.findViewById(R.id.title);
         }
     }
 }

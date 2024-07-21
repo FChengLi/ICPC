@@ -1,6 +1,8 @@
 package com.example.icpc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -70,9 +72,13 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // 验证用户
                 if (userDAO.checkUser(phoneNumber, password)) {
-                    // 用户验证成功，跳转到MainActivity
+                    // 用户验证成功，保存用户ID到SharedPreferences
+                    saveUserIdToPreferences(phoneNumber);
+
+                    // 跳转到HomeActivity
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     // 用户验证失败，显示错误信息
                     Toast.makeText(LoginActivity.this, "手机号或密码错误", Toast.LENGTH_SHORT).show();
@@ -107,6 +113,13 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RetrieveActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void saveUserIdToPreferences(String userId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("currentUserId", userId);
+        editor.apply();
     }
 
     // 关闭数据库连接
