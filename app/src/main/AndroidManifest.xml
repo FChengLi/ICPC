@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -20,6 +21,9 @@
         <activity
             android:name=".Special_TestActivity"
             android:exported="false" />
+        <activity
+            android:name=".ArticleContentActivity"
+            android:exported="true" />
         <activity
             android:name=".ArticleActivity"
             android:exported="false" />
@@ -39,20 +43,35 @@
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".AnotherActivity"
+            android:name=".Aides_Activity"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
         <activity
+            android:name=".EditingActivity">
+
+        </activity>
+
+        <activity
             android:name=".RetrieveActivity"
             android:exported="true" />
+        <activity android:name=".Search_Fragment"
+            android:exported="true">
+
+        </activity>
+        <activity android:name=".DetailActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".z_add"></activity>
+        <activity android:name=".z_delete"></activity>
+        <activity android:name=".z_change"></activity>
+        <activity android:name=".z_first"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

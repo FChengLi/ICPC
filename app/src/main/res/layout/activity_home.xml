@@ -21,11 +21,13 @@
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_gravity="start"
+            android:translationX="-16dp"
             android:src="@drawable/ic_logo" />
 
         <!-- Search EditText and Icon -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="300dp"
+            android:translationX="-19dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/profile_icon"
@@ -89,33 +91,6 @@
         android:layout_below="@id/top_toolbar"
         android:layout_weight="1" >
 
-        <FrameLayout
-            android:id="@+id/fab_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <FrameLayout
-                android:id="@+id/custom_fab"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_gravity="center|end"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/circular_background"
-                android:clipToPadding="false"
-                android:elevation="6dp">
-
-                <ImageView
-                    android:id="@+id/fab_image"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    android:contentDescription="Custom FAB"
-                    android:padding="16dp"
-                    android:src="@drawable/ic_custom_image" />
-            </FrameLayout>
-        </FrameLayout>
-    </FrameLayout>
-
     <!-- 底部导航栏 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -125,6 +100,26 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <!-- 自定义悬浮按钮 -->
+    <FrameLayout
+        android:id="@+id/fab_container"
+        android:layout_width="match_parent"
+        android:layout_height="740dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="-85dp">
 
+        <FrameLayout
+            android:id="@+id/custom_fab"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/ic_custom_image"
+            android:clipToPadding="false"
+            android:elevation="6dp">
 
+        </FrameLayout>
+    </FrameLayout>
 </RelativeLayout>

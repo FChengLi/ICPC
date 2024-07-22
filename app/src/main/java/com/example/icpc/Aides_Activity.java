@@ -1,11 +1,14 @@
 package com.example.icpc;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -15,24 +18,34 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AnotherActivity extends AppCompatActivity {
+public class Aides_Activity extends AppCompatActivity {
 
     private static final String API_URL = "https://api.oaipro.com/v1/chat/completions";
     private static final String API_KEY = "sk-NW1S9pufv0oNMbOXE38eA5D2419649Bc8d20463f9d71911d";
 
-    private TextView tvChat;
+    private RecyclerView rvChat;
     private EditText etMessage;
     private Button btnSend;
+    private ImageView ivBack;
+    private ChatAdapter chatAdapter;
+    private List<ChatMessage> chatMessages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aides);
 
-        tvChat = findViewById(R.id.tv_chat);
+        rvChat = findViewById(R.id.rv_chat);
         etMessage = findViewById(R.id.et_message);
         btnSend = findViewById(R.id.btn_send);
+        ivBack = findViewById(R.id.iv_back);
+
+        chatAdapter = new ChatAdapter(chatMessages);
+        rvChat.setLayoutManager(new LinearLayoutManager(this));
+        rvChat.setAdapter(chatAdapter);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,25 +53,40 @@ public class AnotherActivity extends AppCompatActivity {
                 String message = etMessage.getText().toString();
                 if (!message.isEmpty()) {
                     etMessage.setText("");
-                    appendChat("You: " + message);
+                    addMessage("You", message);
                     sendMessageToAI(message);
                 }
             }
         });
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // 返回上一页
+            }
+        });
     }
 
-    private void appendChat(String message) {
-        String currentText = tvChat.getText().toString();
-        tvChat.setText(currentText + "\n" + message);
+    private void addMessage(String sender, String message) {
+        chatMessages.add(new ChatMessage(sender, message));
+        chatAdapter.notifyItemInserted(chatMessages.size() - 1);
+        rvChat.scrollToPosition(chatMessages.size() - 1);
     }
 
-    private void sendMessageToAI(String message) {
+    private void sendMessageToAI(String userMessage) {
         OkHttpClient client = new OkHttpClient();
 
         try {
+            // 创建请求内容
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("model", "gpt-3.5-turbo");  // 确保使用正确的模型
-            jsonObject.put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", message)));
+            jsonObject.put("model", "gpt-3.5-turbo");
+
+            // 添加默认提示词和用户消息
+            JSONArray messagesArray = new JSONArray();
+            messagesArray.put(new JSONObject().put("role", "system").put("content", "你是一个党史小助手，你的名字是“i党史”小助手，你服务于i党史app，你主要回答用户关于党史或者时事政治的问题，注意要避免回答过于敏感的问题（中国敏感的内容），回答相关问题的时候要具有中国特色"));
+            messagesArray.put(new JSONObject().put("role", "user").put("content", userMessage));
+
+            jsonObject.put("messages", messagesArray);
 
             RequestBody body = RequestBody.create(
                     MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
@@ -77,7 +105,7 @@ public class AnotherActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            appendChat("Error: " + e.getMessage());
+                            addMessage("Error", e.getMessage());
                         }
                     });
                 }
@@ -94,15 +122,15 @@ public class AnotherActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    appendChat("AI: " + aiMessage);
+                                    typeMessage(aiMessage, "AI");
                                 }
                             });
                         } catch (Exception e) {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    appendChat("Error parsing JSON: " + e.getMessage());
-                                    appendChat("Response: " + responseData);
+                                    addMessage("Error", "Error parsing JSON: " + e.getMessage());
+                                    addMessage("Response", responseData);
                                 }
                             });
                         }
@@ -110,15 +138,38 @@ public class AnotherActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                appendChat("Error: " + response.message());
-                                appendChat("Response: " + responseData);
+                                addMessage("Error", response.message());
+                                addMessage("Response", responseData);
                             }
                         });
                     }
                 }
             });
         } catch (Exception e) {
-            appendChat("Error: " + e.getMessage());
+            addMessage("Error", e.getMessage());
         }
+    }
+
+    private void typeMessage(final String message, final String sender) {
+        final int delay = 100; // 每个字母的延迟时间（毫秒）
+        final int[] index = {0};
+        final Handler handler = new Handler();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (index[0] < message.length()) {
+                    if (index[0] == 0) {
+                        addMessage(sender, message.substring(0, index[0] + 1));
+                    } else {
+                        chatAdapter.updateMessage(chatMessages.size() - 1, message.substring(0, index[0] + 1));
+                    }
+                    index[0]++;
+                    handler.postDelayed(this, delay);
+                }
+            }
+        };
+
+        handler.post(runnable);
     }
 }

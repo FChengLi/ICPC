@@ -10,6 +10,7 @@ import com.example.icpc.database.DatabaseHelper;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +21,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean isLoggedIn = checkLoginStatus();
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+
+                Intent intent = new Intent(MainActivity.this, z_first.class);
+
+//                // 初始化Bundle并添加一些数据
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("id", 1); // 文章ID
+//                bundle.putInt("commentSum", 10); // 评论总数
+//                intent.putExtras(bundle);
+
                 startActivity(intent);
 //                if (isLoggedIn) {
 //                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);

@@ -3,14 +3,12 @@ package com.example.icpc;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.icpc.database.DatabaseHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,11 +40,23 @@ public class Discover_Fragment extends Fragment {
         imageList.add(R.drawable.image3);
 
         // 创建适配器
-        Discover_image_Adapter discoverimageAdapter = new Discover_image_Adapter(imageList);
-        viewPager.setAdapter(discoverimageAdapter);
+        Discover_image_Adapter discoverImageAdapter = new Discover_image_Adapter(imageList);
+        viewPager.setAdapter(discoverImageAdapter);
 
         // 启动轮播
         handler.postDelayed(runnable, DELAY_MS);
+
+        // 初始化文章列表
+        List<Article> articleList = new ArrayList<>();
+        articleList.add(new Article(1, "Author 1", "Time 1", "Content 1", 10, 20, "Title 1", "Source 1", "Date 1", R.drawable.image1));
+        articleList.add(new Article(2, "Author 2", "Time 2", "Content 2", 15, 25, "Title 2", "Source 2", "Date 2", R.drawable.image2));
+        articleList.add(new Article(3, "Author 3", "Time 3", "Content 3", 20, 30, "Title 3", "Source 3", "Date 3", R.drawable.image3));
+
+        // 设置RecyclerView
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ArticleAdapter articleAdapter = new ArticleAdapter(articleList);
+        recyclerView.setAdapter(articleAdapter);
 
         return view;
     }
