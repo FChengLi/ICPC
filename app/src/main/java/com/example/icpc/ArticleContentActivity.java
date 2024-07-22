@@ -78,6 +78,8 @@ public class ArticleContentActivity extends AppCompatActivity {
                 viewModel.addComment(commentText);
                 commentContent.setText("");
                 Toast.makeText(ArticleContentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+                commentSum.setText(String.valueOf(data.getInt("content_comment_sum") + 1));
+                viewModel.incrementComment();
             }
         });
 
@@ -94,7 +96,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         // 点赞按钮点击事件
         llStar.setOnClickListener(v -> {
             ivStar.setSelected(true);
-            starSum.setText(String.valueOf(data.getInt("starSum") + 1));
+            starSum.setText(String.valueOf(data.getInt("star_sum") + 1));
             viewModel.incrementStar();
             Toast.makeText(ArticleContentActivity.this, "点赞成功!", Toast.LENGTH_SHORT).show();
         });
@@ -157,7 +159,10 @@ public class ArticleContentActivity extends AppCompatActivity {
         commentSum.setText(String.valueOf(article.getCommentSum()));
         starSum.setText(String.valueOf(article.getStarSum()));
     }
-
+    private void updateCommentCount() {
+        int commentCount = viewModel.getCommentCount(articleId);
+        commentSum.setText(String.valueOf(commentCount));
+    }
     // 导航到作者详情页
     private void navigateToAuthorDetail(int authorId) {
         Intent intent = new Intent(ArticleContentActivity.this, PersonalInformationDetailsPageActivity.class);

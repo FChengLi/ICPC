@@ -52,10 +52,9 @@
 
         <ImageView
             android:id="@+id/iv_comment_star"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:src="@drawable/article_star" />
-
         <TextView
             android:id="@+id/commentStarSum"
             android:text="5"

@@ -1,13 +1,14 @@
 package com.example.icpc.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ArticleDatabase extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "articleDatabase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_ARTICLES = "articles";
     public static final String COLUMN_ID = "id";
@@ -59,5 +60,17 @@ public class ArticleDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENTS);
         onCreate(db);
+    }
+
+    public int getCommentCount(int postId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT COUNT(*) FROM " + TABLE_COMMENTS + " WHERE " + COLUMN_POST_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(postId)});
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
     }
 }

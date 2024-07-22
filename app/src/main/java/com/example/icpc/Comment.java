@@ -1,5 +1,6 @@
 package com.example.icpc;
-
+import java.util.HashSet;
+import java.util.Set;
 // 评论类，表示文章中的一条评论
 public class Comment {
     // 评论的ID
@@ -12,7 +13,6 @@ public class Comment {
     private String content;
     // 评论的点赞数量
     private int starSum;
-
     // 构造方法，用于初始化评论对象
     public Comment(int id, String authorName, String time, String content, int starSum) {
         this.id = id;
@@ -20,6 +20,7 @@ public class Comment {
         this.time = time;
         this.content = content;
         this.starSum = starSum;
+
     }
 
     // 获取评论ID
@@ -46,4 +47,5 @@ public class Comment {
     public int getStarSum() {
         return starSum;
     }
+
 }

@@ -42,4 +42,10 @@ public class ArticleContentViewModel extends AndroidViewModel {
     public void incrementStar() {
         repository.incrementStar(article.getValue().getId());
     }
+    public void incrementComment() {
+        repository.incrementComment(article.getValue().getId());
+    }
+    public int getCommentCount(int postId) {
+        return repository.getCommentCount(postId);
+    }
 }

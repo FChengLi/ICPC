@@ -72,6 +72,23 @@ public class ArticleRepository {
             cursor.close();
         }
     }
+    public void incrementComment(int articleId) {
+        SQLiteDatabase db = database.getWritableDatabase();
+        Cursor cursor = db.query(ArticleDatabase.TABLE_ARTICLES, null, ArticleDatabase.COLUMN_ID + "=?",
+                new String[]{String.valueOf(articleId)}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int comment_sum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_SUM));
+            ContentValues values = new ContentValues();
+            values.put(ArticleDatabase.COLUMN_COMMENT_SUM,  comment_sum+ 1);
+            db.update(ArticleDatabase.TABLE_ARTICLES, values, ArticleDatabase.COLUMN_ID + "=?",
+                    new String[]{String.valueOf(articleId)});
+            loadArticleFromDatabase(articleId);
+            cursor.close();
+        }
+    }
+    public int getCommentCount(int postId) {
+        return database.getCommentCount(postId);
+    }
 
     private void loadArticleFromDatabase(int articleId) {
         SQLiteDatabase db = database.getReadableDatabase();
