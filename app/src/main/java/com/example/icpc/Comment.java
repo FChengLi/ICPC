@@ -20,7 +20,6 @@ public class Comment {
         this.time = time;
         this.content = content;
         this.starSum = starSum;
-
     }
 
     // 获取评论ID
