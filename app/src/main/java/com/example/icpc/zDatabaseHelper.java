@@ -3,11 +3,12 @@ package com.example.icpc;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class zDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "Database";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "Database"; // 确保文件名正确
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_VIDEO = "Video";
     public static final String COLUMN_ID = "id";
@@ -23,15 +24,11 @@ public class zDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FORUM_ID = "forum_id";
     public static final String COLUMN_SECTION = "section";
     public static final String COLUMN_FORUM_NAME = "forum_name";
-    public static final String COLUMN_FORUM_DESCRIPTION = "forum_description";
-    public static final String COLUMN_CREATOR_ID = "creator_id";
-    public static final String COLUMN_TOTAL_POSTS = "total_posts";
     public static final String COLUMN_USERS = "users";
-    public static final String COLUMN_CREATION_TIME = "creation_time";
 
     private static final String TABLE_VIDEO_CREATE =
             "CREATE TABLE " + TABLE_VIDEO + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY, " +  // id字段已经是PRIMARY KEY，默认为唯一
+                    COLUMN_ID + " INTEGER PRIMARY KEY, " +
                     COLUMN_TITLE + " TEXT, " +
                     COLUMN_DESCRIPTION + " TEXT, " +
                     COLUMN_AUTHOR + " TEXT, " +
@@ -40,17 +37,13 @@ public class zDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_FAVORITES + " INTEGER" +
                     ");";
 
-    // 新增论坛表的创建语句
+    // 修正后的论坛表创建语句
     private static final String TABLE_FORUM_CREATE =
             "CREATE TABLE " + TABLE_FORUM + " (" +
                     COLUMN_FORUM_ID + " INTEGER PRIMARY KEY, " +
                     COLUMN_SECTION + " TEXT, " +
                     COLUMN_FORUM_NAME + " TEXT, " +
-                    COLUMN_FORUM_DESCRIPTION + " TEXT, " +
-                    COLUMN_CREATOR_ID + " INTEGER, " +
-                    COLUMN_TOTAL_POSTS + " INTEGER, " +
-                    COLUMN_USERS + " INTEGER, " +
-                    COLUMN_CREATION_TIME + " TEXT" +
+                    COLUMN_USERS + " INTEGER" +
                     ");";
 
     public zDatabaseHelper(Context context) {
@@ -59,14 +52,18 @@ public class zDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("zDatabaseHelper", "Creating tables...");
         db.execSQL(TABLE_VIDEO_CREATE);
         db.execSQL(TABLE_FORUM_CREATE); // 创建论坛表
+        Log.d("zDatabaseHelper", "Tables created successfully.");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("zDatabaseHelper", "Upgrading database from version " + oldVersion + " to " + newVersion);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VIDEO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORUM); // 删除旧的论坛表
         onCreate(db);
+        Log.d("zDatabaseHelper", "Database upgraded successfully.");
     }
 }

@@ -1,5 +1,7 @@
 package com.example.icpc;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Basquare_Fragment extends Fragment {
 
@@ -23,32 +27,26 @@ public class Basquare_Fragment extends Fragment {
     private List<String> boardList;
     private List<ContentFragment> fragmentList;
     private ContentPagerAdapter pagerAdapter;
+    private zDatabaseHelper dbHelper; // 添加数据库助手
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = new zDatabaseHelper(getContext()); // 初始化数据库助手
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_basquare, container, false);
 
         leftRecyclerView = view.findViewById(R.id.leftRecyclerView);
         viewPager = view.findViewById(R.id.viewPager);
 
-        // 初始化板块数据
+        // 从数据库读取板块数据
         boardList = new ArrayList<>();
-        boardList.add("板块1");
-        boardList.add("板块2");
-        boardList.add("板块3");
-        // 更多板块...
-
-        // 初始化Fragment列表
         fragmentList = new ArrayList<>();
-        for (String board : boardList) {
-            fragmentList.add(ContentFragment.newInstance(board));
-        }
+        loadBoardData();
 
         // 设置RecyclerView
         BoardAdapter boardAdapter = new BoardAdapter(boardList);
@@ -70,4 +68,31 @@ public class Basquare_Fragment extends Fragment {
 
         return view;
     }
+
+    private void loadBoardData() {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+
+        // 创建一个映射来将数据库中的 section 值转换为显示名称
+        Map<String, String> sectionNameMap = new HashMap<>();
+        sectionNameMap.put("1", "政治");
+        sectionNameMap.put("2", "历史");
+        sectionNameMap.put("3", "党员");
+
+        try {
+            db = dbHelper.getReadableDatabase();
+            cursor = db.rawQuery("SELECT section FROM Forum GROUP BY section", null);
+            while (cursor.moveToNext()) {
+                String section = cursor.getString(0);
+                String displayName = sectionNameMap.getOrDefault(section, section); // 使用映射来获取显示名称
+
+                boardList.add(displayName); // 根据 section 生成板块名称
+                fragmentList.add(ContentFragment.newInstance(section));
+            }
+        } finally {
+            if (cursor != null) cursor.close();
+            if (db != null && db.isOpen()) db.close();
+        }
+    }
+
 }

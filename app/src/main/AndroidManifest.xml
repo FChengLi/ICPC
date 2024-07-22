@@ -16,12 +16,6 @@
         android:theme="@style/Theme.ICPC"
         tools:targetApi="31">
         <activity
-            android:name=".WrongActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Special_TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".ArticleContentActivity"
             android:exported="true" />
         <activity

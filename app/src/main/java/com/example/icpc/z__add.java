@@ -30,11 +30,7 @@ public class z__add extends AppCompatActivity {
         editTextForumId = findViewById(R.id.a);
         editTextSection = findViewById(R.id.b);
         editTextForumName = findViewById(R.id.c);
-        editTextForumDescription = findViewById(R.id.d);
-        editTextCreatorId = findViewById(R.id.e);
-        editTextTotalPosts = findViewById(R.id.f);
         editTextUsers = findViewById(R.id.g);
-        editTextCreationTime = findViewById(R.id.h);
         buttonAdd = findViewById(R.id.loginButton);
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +67,7 @@ public class z__add extends AppCompatActivity {
 
         String section = editTextSection.getText().toString();
         String forumName = editTextForumName.getText().toString();
-        String forumDescription = editTextForumDescription.getText().toString();
-        int creatorId = Integer.parseInt(editTextCreatorId.getText().toString());
-        int totalPosts = Integer.parseInt(editTextTotalPosts.getText().toString());
         int users = Integer.parseInt(editTextUsers.getText().toString());
-        String creationTime = editTextCreationTime.getText().toString();
-
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
@@ -84,11 +75,7 @@ public class z__add extends AppCompatActivity {
             values.put(zDatabaseHelper.COLUMN_FORUM_ID, forumId);
             values.put(zDatabaseHelper.COLUMN_SECTION, section);
             values.put(zDatabaseHelper.COLUMN_FORUM_NAME, forumName);
-            values.put(zDatabaseHelper.COLUMN_FORUM_DESCRIPTION, forumDescription);
-            values.put(zDatabaseHelper.COLUMN_CREATOR_ID, creatorId);
-            values.put(zDatabaseHelper.COLUMN_TOTAL_POSTS, totalPosts);
             values.put(zDatabaseHelper.COLUMN_USERS, users);
-            values.put(zDatabaseHelper.COLUMN_CREATION_TIME, creationTime);
 
             long newRowId = db.insert(zDatabaseHelper.TABLE_FORUM, null, values);
             if (newRowId == -1) {
