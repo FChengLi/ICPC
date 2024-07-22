@@ -87,7 +87,34 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="70dp"
         android:layout_below="@id/top_toolbar"
-        android:layout_weight="1" />
+        android:layout_weight="1" >
+
+        <FrameLayout
+            android:id="@+id/fab_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/custom_fab"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/circular_background"
+                android:clipToPadding="false"
+                android:elevation="6dp">
+
+                <ImageView
+                    android:id="@+id/fab_image"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Custom FAB"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_custom_image" />
+            </FrameLayout>
+        </FrameLayout>
+    </FrameLayout>
 
     <!-- 底部导航栏 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -98,30 +125,6 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <!-- 自定义悬浮按钮 -->
-    <FrameLayout
-        android:id="@+id/fab_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
 
-        <FrameLayout
-            android:id="@+id/custom_fab"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/circular_background"
-            android:elevation="6dp" android:clipToPadding="false">
 
-            <ImageView
-                android:id="@+id/fab_image"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:contentDescription="Custom FAB"
-                android:padding="16dp"
-                android:src="@drawable/ic_custom_image" />
-    </FrameLayout>
-</FrameLayout>
-    </RelativeLayout>
+</RelativeLayout>
