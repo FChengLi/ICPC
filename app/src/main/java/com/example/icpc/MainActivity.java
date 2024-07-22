@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 boolean isLoggedIn = checkLoginStatus();
 
-                Intent intent = new Intent(MainActivity.this, z_first.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 
 //                // 初始化Bundle并添加一些数据
 //                Bundle bundle = new Bundle();

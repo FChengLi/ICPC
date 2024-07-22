@@ -4,6 +4,7 @@ public class CommentItem {
     private String username;
     private String comment;
     private boolean liked;
+    private int videoId; // 新增字段
 
     // Getters and setters
 
@@ -29,5 +30,13 @@ public class CommentItem {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public int getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(int videoId) {
+        this.videoId = videoId;
     }
 }

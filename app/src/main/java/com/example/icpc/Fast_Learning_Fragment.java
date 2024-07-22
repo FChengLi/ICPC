@@ -26,7 +26,7 @@ public class Fast_Learning_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fast_learnging, container, false);
+        View view = inflater.inflate(R.layout.fragment_fast_learning, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -34,7 +34,7 @@ public class Fast_Learning_Fragment extends Fragment {
         List<DataItem> dataItemList = new ArrayList<>();
 
         // 获取可读的数据库实例
-        DatabaseHelper dbHelper = new DatabaseHelper(getContext()); // 替换为正确的上下文
+        zDatabaseHelper dbHelper = new zDatabaseHelper(getContext()); // 替换为正确的上下文
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         // 执行查询语句
@@ -48,7 +48,7 @@ public class Fast_Learning_Fragment extends Fragment {
                 // 从游标中获取数据并设置到 DataItem 对象中
                 dataItem.setTitle(cursor.getString(cursor.getColumnIndex("title")));
                 dataItem.setAuthor(cursor.getString(cursor.getColumnIndex("author")));
-                dataItem.setCoverpath(cursor.getInt(cursor.getColumnIndex("cover")));
+                dataItem.setCoverpath(cursor.getString(cursor.getColumnIndex("cover")));
                 dataItem.setDescription(cursor.getString(cursor.getColumnIndex("description")));
                 dataItem.setFilepath(cursor.getString(cursor.getColumnIndex("file_path")));
 
@@ -65,15 +65,16 @@ public class Fast_Learning_Fragment extends Fragment {
         dbHelper.close();
 
         // 创建适配器并设置给 RecyclerView
-        VedioAdapter adapter = new VedioAdapter(dataItemList);
-        adapter.setOnItemClickListener(new VedioAdapter.OnItemClickListener() {
+        VideoAdapter adapter = new VideoAdapter(dataItemList);
+        adapter.setOnItemClickListener(new VideoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 DataItem item = dataItemList.get(position);
 
                 Intent intent = new Intent(getContext(), Vedio_DetailActivity.class);
-                intent.putExtra("dataItem", item);
+                intent.putExtra("data_item", item); // 确保这里的键值是 "data_item"
                 startActivity(intent);
+
             }
         });
 

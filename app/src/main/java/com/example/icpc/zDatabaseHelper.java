@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class zDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "videoDatabase";
+    private static final String DATABASE_NAME = "Database";
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_VIDEO = "Video";

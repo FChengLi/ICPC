@@ -8,18 +8,20 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class DetailPagerAdapter extends FragmentPagerAdapter {
     private static final int NUM_FRAGMENTS = 2;
     private Comment_Fragment commentFragment;
+    private DataItem dataItem;
 
-    public DetailPagerAdapter(@NonNull FragmentManager fm) {
+    public DetailPagerAdapter(@NonNull FragmentManager fm, DataItem dataItem) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.dataItem = dataItem;
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new IntroduceFragment();
+            return IntroduceFragment.newInstance(dataItem);
         } else if (position == 1) {
-            commentFragment = new Comment_Fragment();
+            commentFragment = Comment_Fragment.newInstance(dataItem);
             return commentFragment;
         }
         return null;

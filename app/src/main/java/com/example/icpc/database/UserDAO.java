@@ -1,5 +1,6 @@
 package com.example.icpc.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,12 +65,23 @@ public class UserDAO {
         Cursor cursor = db.query("user", new String[]{"user_id", "nickname", "email"},
                 "user_id=?", new String[]{userId}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
-            String email = cursor.getString(cursor.getColumnIndex("email"));
+            @SuppressLint("Range") String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
+            @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
             user = new User(userId, nickname, email);
             cursor.close();
         }
         return user;
+    }
+
+    @SuppressLint("Range")
+    public String getUsernameByUserId(String userId) {
+        String username = null;
+        Cursor cursor = db.query("user", new String[]{"nickname"}, "user_id=?", new String[]{userId}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            username = cursor.getString(cursor.getColumnIndex("nickname"));
+            cursor.close();
+        }
+        return username;
     }
 
     // 内部类 User

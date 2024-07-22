@@ -1,6 +1,5 @@
 package com.example.icpc;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.ViewHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
     private List<DataItem> dataItemList;
     private OnItemClickListener onItemClickListener;
 
-    public VedioAdapter(List<DataItem> dataItemList) {
+    public VideoAdapter(List<DataItem> dataItemList) {
         this.dataItemList = dataItemList;
     }
 
@@ -39,11 +38,11 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DataItem dataItem = dataItemList.get(position);
-
-        holder.coverImageView.setImageResource(dataItem.getCoverpath());
+        // 获取资源ID
+        int resID = holder.itemView.getContext().getResources().getIdentifier(dataItem.getCoverpath(), "drawable", holder.itemView.getContext().getPackageName());
+        holder.coverImageView.setImageResource(resID);
         holder.titleTextView.setText(dataItem.getTitle());
         holder.authorTextView.setText(dataItem.getAuthor());
-
     }
 
     @Override
@@ -54,13 +53,13 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView coverImageView;
         TextView titleTextView;
-        TextView authorTextView; // Ensure this matches the ID in XML
+        TextView authorTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             coverImageView = itemView.findViewById(R.id.cover);
             titleTextView = itemView.findViewById(R.id.title);
-            authorTextView = itemView.findViewById(R.id.author); // Ensure this matches the ID in XML
+            authorTextView = itemView.findViewById(R.id.author);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

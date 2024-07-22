@@ -54,7 +54,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         viewModel.getComments().observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments) {
-                commentAdapter.setComments(comments);
+
             }
         });
 
@@ -130,7 +130,6 @@ public class ArticleContentActivity extends AppCompatActivity {
 
     private void setupCommentList() {
         commentList.setLayoutManager(new LinearLayoutManager(this));
-        commentAdapter = new CommentAdapter();
         commentList.setAdapter(commentAdapter);
     }
 

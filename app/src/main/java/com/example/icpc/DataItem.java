@@ -9,7 +9,7 @@ public class DataItem implements Parcelable {
     private String description;
     private String author;
     private String filepath;
-    private int coverpath;
+    private String coverpath;
     private int favoritenum;
 
     public int getVideoId() {
@@ -32,7 +32,7 @@ public class DataItem implements Parcelable {
         return filepath;
     }
 
-    public int getCoverpath() {
+    public String getCoverpath() {
         return coverpath;
     }
 
@@ -60,7 +60,7 @@ public class DataItem implements Parcelable {
         this.filepath = filepath;
     }
 
-    public void setCoverpath(int coverpath) {
+    public void setCoverpath(String coverpath) {
         this.coverpath = coverpath;
     }
 
@@ -75,7 +75,7 @@ public class DataItem implements Parcelable {
         description = in.readString();
         author = in.readString();
         filepath = in.readString();
-        coverpath = in.readInt();
+        coverpath = in.readString();
         favoritenum = in.readInt();
     }
 
@@ -105,7 +105,7 @@ public class DataItem implements Parcelable {
         dest.writeString(description);
         dest.writeString(author);
         dest.writeString(filepath);
-        dest.writeInt(coverpath);
+        dest.writeString(coverpath);
         dest.writeInt(favoritenum);
     }
 }
