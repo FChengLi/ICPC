@@ -1,21 +1,28 @@
 package com.example.icpc;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+
 import java.util.List;
 
-public class ArticleContentViewModel extends ViewModel {
+public class ArticleContentViewModel extends AndroidViewModel {
 
     private MutableLiveData<Article> article;
     private MutableLiveData<List<Comment>> comments;
     private ArticleRepository repository;
 
+    public ArticleContentViewModel(Application application) {
+        super(application);
+        repository = ArticleRepository.getInstance(application.getApplicationContext());
+    }
+
     public void init(int articleId) {
-        if (article != null) {
+        if (article != null && comments != null) {
             return;
         }
-        repository = ArticleRepository.getInstance();
         article = repository.getArticle(articleId);
         comments = repository.getComments(articleId);
     }
@@ -29,10 +36,10 @@ public class ArticleContentViewModel extends ViewModel {
     }
 
     public void addComment(String commentText) {
-        repository.addComment(commentText);
+        repository.addComment(commentText, article.getValue().getId());
     }
 
     public void incrementStar() {
-        repository.incrementStar();
+        repository.incrementStar(article.getValue().getId());
     }
 }
