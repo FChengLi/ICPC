@@ -67,6 +67,9 @@
         <activity android:name=".z_delete"></activity>
         <activity android:name=".z_change"></activity>
         <activity android:name=".z_first"></activity>
+        <activity android:name=".z__add" />
+        <activity android:name=".z__change" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

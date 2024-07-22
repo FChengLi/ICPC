@@ -32,4 +32,21 @@
         android:backgroundTint="#E49B9B"
         android:text="删除记录"
         android:textColor="@color/white" />
+    <Button
+        android:id="@+id/e"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#E49B9B"
+        android:text="添加论坛"
+        android:textColor="@color/white" />
+    <Button
+        android:id="@+id/f"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#E49B9B"
+        android:text="修改论坛"
+        android:textColor="@color/white" />
+
 </LinearLayout>
