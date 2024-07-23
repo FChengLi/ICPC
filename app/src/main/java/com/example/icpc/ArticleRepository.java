@@ -86,6 +86,7 @@ public class ArticleRepository {
             cursor.close();
         }
     }
+
     public int getCommentCount(int postId) {
         return database.getCommentCount(postId);
     }
@@ -123,4 +124,5 @@ public class ArticleRepository {
             cursor.close();
         }
     }
+
 }

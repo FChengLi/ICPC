@@ -20,6 +20,9 @@ public class Comment_Feng {
         this.content = content;
         this.starSum = starSum;
     }
+    public void setStarSum(int starSum) {
+        this.starSum = starSum;
+    }
 
     // 获取评论ID
     public int getId() {

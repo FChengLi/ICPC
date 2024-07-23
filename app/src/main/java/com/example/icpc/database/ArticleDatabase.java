@@ -1,5 +1,6 @@
 package com.example.icpc.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -73,4 +74,32 @@ public class ArticleDatabase extends SQLiteOpenHelper {
         cursor.close();
         return count;
     }
+    public void updateCommentStars(int commentId, int newStarCount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_COMMENT_STARS, newStarCount);
+        db.update(TABLE_COMMENTS, values, COLUMN_COMMENT_ID + "=?", new String[] {String.valueOf(commentId)});
+    }
+    // ArticleDatabase.java
+    public void incrementCommentStar(int commentId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            // 获取当前的点赞数
+            Cursor cursor = db.query(TABLE_COMMENTS, new String[]{COLUMN_COMMENT_STARS}, COLUMN_COMMENT_ID + "=?", new String[]{String.valueOf(commentId)}, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int currentStars = cursor.getInt(0);  // 确保 COLUMN_COMMENT_STARS 是第一列，或者使用 cursor.getColumnIndex(COLUMN_COMMENT_STARS)
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_COMMENT_STARS, currentStars + 1);
+                db.update(TABLE_COMMENTS, values, COLUMN_COMMENT_ID + "=?", new String[]{String.valueOf(commentId)});
+            }
+            if (cursor != null) {
+                cursor.close();
+            }
+        } finally {
+            db.close();
+        }
+    }
+
+
+
 }
