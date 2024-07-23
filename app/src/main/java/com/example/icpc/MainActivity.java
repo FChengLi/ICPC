@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 boolean isLoggedIn = checkLoginStatus();
 
-                Intent intent = new Intent(MainActivity.this, ColumnActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.putExtra("id", 5); // 假设文章ID为1
                 intent.putExtra("authorid", 1); // 假设作者ID为1
                 startActivity(intent);

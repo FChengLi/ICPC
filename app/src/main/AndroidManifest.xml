@@ -27,9 +27,6 @@
             android:name=".Vedio_DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".MessageActivity"
             android:exported="false" />
         <activity

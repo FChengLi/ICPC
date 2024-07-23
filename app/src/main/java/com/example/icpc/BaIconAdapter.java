@@ -11,9 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BaIconAdapter extends RecyclerView.Adapter<BaIconAdapter.IconViewHolder> {
-
+public class BaIconAdapter extends RecyclerView.Adapter<BaIconAdapter.ViewHolder> {
     private List<IconItem> iconList;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(IconItem iconItem);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
     public BaIconAdapter(List<IconItem> iconList) {
         this.iconList = iconList;
@@ -21,17 +29,23 @@ public class BaIconAdapter extends RecyclerView.Adapter<BaIconAdapter.IconViewHo
 
     @NonNull
     @Override
-    public IconViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_icon, parent, false);
-        return new IconViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IconViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         IconItem iconItem = iconList.get(position);
         holder.iconImageView.setImageResource(iconItem.getIconResId());
-        holder.iconTextView.setText(iconItem.getIconName());
+        holder.iconNameTextView.setText(iconItem.getIconName());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(iconItem);
+            }
+        });
     }
 
     @Override
@@ -39,14 +53,14 @@ public class BaIconAdapter extends RecyclerView.Adapter<BaIconAdapter.IconViewHo
         return iconList.size();
     }
 
-    public static class IconViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iconImageView;
-        TextView iconTextView;
+        TextView iconNameTextView;
 
-        public IconViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             iconImageView = itemView.findViewById(R.id.iconImageView);
-            iconTextView = itemView.findViewById(R.id.iconTextView);
+            iconNameTextView = itemView.findViewById(R.id.iconTextView);
         }
     }
 }

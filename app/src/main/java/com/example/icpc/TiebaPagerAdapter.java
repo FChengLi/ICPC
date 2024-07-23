@@ -20,7 +20,6 @@ public class TiebaPagerAdapter extends FragmentPagerAdapter {
     protected void initFragments() {
         fragments.add(new Myba_Fragment());
         fragments.add(new Basquare_Fragment());
-        fragments.add(new ColumnFragment());
     }
 
     @NonNull
@@ -41,8 +40,6 @@ public class TiebaPagerAdapter extends FragmentPagerAdapter {
                 return "我的吧";
             case 1:
                 return "吧广场";
-            case 2:
-                return "栏目";
             default:
                 return null;
         }

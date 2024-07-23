@@ -1,6 +1,7 @@
 package com.example.icpc;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -51,11 +52,16 @@ public class ContentFragment extends Fragment {
 
         // 创建适配器
         BaIconAdapter adapter = new BaIconAdapter(iconList);
-
-        // 创建GridLayoutManager，设置每行显示3个图标
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(adapter);
+
+        // 设置图标点击事件监听器
+        adapter.setOnItemClickListener(iconItem -> {
+            Intent intent = new Intent(getActivity(), ColumnActivity.class);
+            // 传递数据到 ColumnActivity，例如图标名称或ID
+            intent.putExtra("iconName", iconItem.getIconName());
+            startActivity(intent);
+        });
 
         return view;
     }

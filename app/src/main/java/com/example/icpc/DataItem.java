@@ -1,6 +1,9 @@
 package com.example.icpc;
 
-public class DataItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class DataItem implements Parcelable {
     private int imageResId;
     private String title;
     private String description;
@@ -8,7 +11,9 @@ public class DataItem {
     private String filepath;
     private String coverpath;
     private int favoritenum;
+    private int videoId;
 
+    // Getters and Setters
     public int getVideoId() {
         return videoId;
     }
@@ -65,7 +70,7 @@ public class DataItem {
         this.favoritenum = favoritenum;
     }
 
-    // Parcelable 接口的实现代码
+    // Parcelable implementation
     protected DataItem(Parcel in) {
         videoId = in.readInt();
         title = in.readString();
@@ -76,9 +81,9 @@ public class DataItem {
         favoritenum = in.readInt();
     }
 
-    public DataItem(){}
+    public DataItem() {}
 
-    public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
+    public static final Parcelable.Creator<DataItem> CREATOR = new Parcelable.Creator<DataItem>() {
         @Override
         public DataItem createFromParcel(Parcel in) {
             return new DataItem(in);

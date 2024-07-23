@@ -32,7 +32,7 @@
             android:translationX="-19dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/profile_icon"
+            app:layout_constraintEnd_toStartOf="@id/message_icon"
             app:layout_constraintStart_toEndOf="@id/logo"
             app:layout_constraintTop_toTopOf="parent">
 

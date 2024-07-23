@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.EditText;
+import android.widget.ImageView;
+
 import android.widget.FrameLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
     private FrameLayout customFab;
     private FrameLayout fabContainer;
+    private int margin = 16; // 边距
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,16 @@ public class HomeActivity extends AppCompatActivity {
         customFab.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, Aides_Activity.class);
             startActivity(intent);
+        });
+
+        ImageView message = findViewById(R.id.message_icon);
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建 Intent 启动 MessageActivity
+                Intent intent = new Intent(HomeActivity.this, MessageActivity.class);
+                startActivity(intent);
+            }
         });
 
         // 设置自定义悬浮按钮的初始位置
