@@ -26,10 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createVideoTable(db);
         createCommentTable(db);
         createFollowForumTable(db);
-/*        createTestTable(db);
-        createQuestionTable(db);
-        createOptionTable(db);
-        createMistakeTable(db);*/
     }
 
     @Override
@@ -97,6 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "content_text TEXT,"
                 + "author TEXT,"
                 + "likes INTEGER DEFAULT 0,"
+                + "star INTEGER DEFAULT 0,"
                 + "view_count INTEGER DEFAULT 0,"
                 + "publish_time DATETIME)";
         db.execSQL(CREATE_INFORMATION_TABLE);
@@ -143,6 +140,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "forum_id TEXT,"
                 + "publish_time DATETIME,"
                 + "title TEXT NOT NULL,"
+                + "content TEXT,"
+                + "answer_count INTEGER DEFAULT 0,"
+                + "like_count INTEGER DEFAULT 0,"
                 + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,"
                 + "FOREIGN KEY (forum_id) REFERENCES forum(forum_id) ON DELETE CASCADE)";
         db.execSQL(CREATE_POST_TABLE);
@@ -188,52 +188,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE)";
         db.execSQL(CREATE_COMMENT_TABLE);
     }
-
-/*    //测试
-    private void createTestTable(SQLiteDatabase db) {
-        String CREATE_TEST_TABLE = "CREATE TABLE test ("
-                + "test_id TEXT PRIMARY KEY,"
-                + "content_id TEXT,"
-                + "question_count INTEGER DEFAULT 0,"
-                + "FOREIGN KEY (content_id) REFERENCES video(video_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_TEST_TABLE);
-    }
-
-    //题目
-    private void createQuestionTable(SQLiteDatabase db) {
-        String CREATE_QUESTION_TABLE = "CREATE TABLE question ("
-                + "question_id TEXT PRIMARY KEY,"
-                + "quiz_id TEXT,"
-                + "content TEXT NOT NULL,"
-                + "question_type TEXT,"
-                + "category TEXT,"
-                + "FOREIGN KEY (quiz_id) REFERENCES test(test_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_QUESTION_TABLE);
-    }
-
-    //选项
-    private void createOptionTable(SQLiteDatabase db) {
-        String CREATE_OPTION_TABLE = "CREATE TABLE option ("
-                + "option_id TEXT PRIMARY KEY,"
-                + "question_id TEXT,"
-                + "content TEXT NOT NULL,"
-                + "is_correct INTEGER DEFAULT 0,"
-                + "FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_OPTION_TABLE);
-    }
-
-    //错题集
-    private void createMistakeTable(SQLiteDatabase db) {
-        String CREATE_MISTAKE_TABLE = "CREATE TABLE mistake ("
-                + "mistake_id TEXT PRIMARY KEY,"
-                + "user_id TEXT,"
-                + "question_id TEXT,"
-                + "test_id TEXT,"
-                + "mistake_time DATETIME,"
-                + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,"
-                + "FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE,"
-                + "FOREIGN KEY (test_id) REFERENCES test(test_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_MISTAKE_TABLE);
-    }*/
 
 }

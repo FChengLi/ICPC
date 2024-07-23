@@ -9,7 +9,7 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.article_content);
+        setContentView(R.layout.discover_article_content);
 
     }
 }

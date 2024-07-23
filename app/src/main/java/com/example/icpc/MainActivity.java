@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DatabaseInitializer.initializeDatabase(this); // 初始化数据库
         // 模拟检查用户登录状态
         new Handler().postDelayed(new Runnable() {
             @Override

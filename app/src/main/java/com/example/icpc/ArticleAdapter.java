@@ -10,22 +10,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
-    private List<Article> articleList;
+    private List<discover_article> articleList;
 
-    public ArticleAdapter(List<Article> articleList) {
+    public ArticleAdapter(List<discover_article> articleList) {
         this.articleList = articleList;
     }
 
     @NonNull
     @Override
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_article, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.discover_item_article, parent, false);
         return new ArticleViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        Article article = articleList.get(position);
+        discover_article article = articleList.get(position);
         holder.title.setText(article.getTitle());
         holder.source.setText(article.getSource());
         holder.date.setText(article.getDate());

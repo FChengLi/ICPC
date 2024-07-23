@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -63,6 +62,10 @@
         <activity android:name=".z_first" />
         <activity android:name=".z__add" />
         <activity android:name=".z__change" />
+        <activity android:name=".discover_add" />
+        <activity android:name=".discover_change" />
+        <activity android:name=".discover_delete" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
