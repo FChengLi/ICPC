@@ -6,6 +6,17 @@
     tools:context=".HomeActivity">
 
     <!-- Top Navigation Bar -->
+    <FrameLayout
+        android:id="@+id/custom_fab"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center|end"
+        android:background="@drawable/ic_custom_image"
+        android:clipToPadding="false"
+        android:elevation="6dp">
+
+    </FrameLayout>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
@@ -87,18 +98,6 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="-85dp">
 
-            <FrameLayout
-                android:id="@+id/custom_fab"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center|end"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/ic_custom_image"
-                android:clipToPadding="false"
-                android:elevation="6dp">
-
-            </FrameLayout>
         </FrameLayout>
     </FrameLayout>
 
