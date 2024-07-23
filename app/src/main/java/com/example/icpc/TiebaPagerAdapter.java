@@ -1,14 +1,9 @@
 package com.example.icpc;
 
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +18,6 @@ public class TiebaPagerAdapter extends FragmentPagerAdapter {
     }
 
     protected void initFragments() {
-        // 在此方法中添加您的 Fragment 实例
         fragments.add(new Myba_Fragment());
         fragments.add(new Basquare_Fragment());
     }

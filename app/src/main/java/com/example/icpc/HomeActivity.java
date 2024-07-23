@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -88,8 +89,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // 为搜索框设置点击监听器
-        EditText searchEditText = findViewById(R.id.search_edit_text);
-        searchEditText.setOnClickListener(this::onSearchClick);
 
         View whiteRectangle = findViewById(R.id.white_rectangle);
         whiteRectangle.setOnClickListener(this::onSearchClick);
