@@ -11,19 +11,21 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.icpc.database.DatabaseHelper;
+
 public class z_delete extends AppCompatActivity {
 
     private EditText editTextId;
     private Button buttonDelete;
 
-    private zDatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z_delete);
 
-        dbHelper = new zDatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
 
         editTextId = findViewById(R.id.a);
         buttonDelete = findViewById(R.id.loginButton);
@@ -69,7 +71,7 @@ public class z_delete extends AppCompatActivity {
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
-            int rowsAffected = db.delete(zDatabaseHelper.TABLE_VIDEO, zDatabaseHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+            int rowsAffected = db.delete("video", "video_id" + " = ?", new String[]{String.valueOf(id)});
             if (rowsAffected > 0) {
                 showSuccessDialog("记录删除成功");
             } else {

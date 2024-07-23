@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.icpc.database.UserDAO;
 
 public class LoginActivity extends AppCompatActivity {
@@ -72,11 +74,13 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // 验证用户
                 if (userDAO.checkUser(phoneNumber, password)) {
-                    // 用户验证成功，保存用户ID到SharedPreferences
-                    saveUserIdToPreferences(phoneNumber);
+                    // 获取用户名
+                    String username = userDAO.getUsernameByUserId(phoneNumber);
+                    // 用户验证成功，保存用户ID和用户名到SharedPreferences
+                    saveUserIdToPreferences(phoneNumber, username);
 
                     // 跳转到HomeActivity
-                    Intent intent = new Intent(LoginActivity.this, z_first.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -115,10 +119,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserIdToPreferences(String userId) {
+    private void saveUserIdToPreferences(String userId, String username) {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("currentUserId", userId);
+        editor.putString("currentUsername", username); // 保存用户名
         editor.apply();
     }
 

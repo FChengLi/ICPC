@@ -40,7 +40,7 @@
             android:translationX="-19dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/profile_icon"
+            app:layout_constraintEnd_toStartOf="@id/message_icon"
             app:layout_constraintStart_toEndOf="@id/logo"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -76,11 +76,11 @@
 
         <!-- Profile Icon -->
         <ImageView
-            android:id="@+id/profile_icon"
+            android:id="@+id/message_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end"
-            android:src="@drawable/ic_profile" />
+            android:src="@drawable/ic_message" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout

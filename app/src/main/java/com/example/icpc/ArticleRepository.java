@@ -2,6 +2,7 @@ package com.example.icpc;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -18,8 +19,10 @@ public class ArticleRepository {
     private MutableLiveData<Article> article;
     private MutableLiveData<List<Comment_Feng>> comments;
     private ArticleDatabase database;
+    private Context context;
 
     private ArticleRepository(Context context) {
+        this.context = context;
         database = new ArticleDatabase(context);
     }
 
@@ -49,7 +52,12 @@ public class ArticleRepository {
     public void addComment(String commentText, int articleId) {
         SQLiteDatabase db = database.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(ArticleDatabase.COLUMN_COMMENT_AUTHOR, "user2"); // Replace with actual user
+
+        // 获取当前登录用户的用户名
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String currentUsername = sharedPreferences.getString("currentUsername", "user2"); // Default to "user2" if not found
+
+        values.put(ArticleDatabase.COLUMN_COMMENT_AUTHOR, currentUsername); // 使用实际的用户名
         values.put(ArticleDatabase.COLUMN_COMMENT_TIME, "2022.5.21"); // Replace with actual time
         values.put(ArticleDatabase.COLUMN_COMMENT_CONTENT, commentText);
         values.put(ArticleDatabase.COLUMN_COMMENT_STARS, 0);
@@ -72,6 +80,7 @@ public class ArticleRepository {
             cursor.close();
         }
     }
+
     public void incrementComment(int articleId) {
         SQLiteDatabase db = database.getWritableDatabase();
         Cursor cursor = db.query(ArticleDatabase.TABLE_ARTICLES, null, ArticleDatabase.COLUMN_ID + "=?",
@@ -79,7 +88,7 @@ public class ArticleRepository {
         if (cursor != null && cursor.moveToFirst()) {
             int comment_sum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_SUM));
             ContentValues values = new ContentValues();
-            values.put(ArticleDatabase.COLUMN_COMMENT_SUM,  comment_sum+ 1);
+            values.put(ArticleDatabase.COLUMN_COMMENT_SUM, comment_sum + 1);
             db.update(ArticleDatabase.TABLE_ARTICLES, values, ArticleDatabase.COLUMN_ID + "=?",
                     new String[]{String.valueOf(articleId)});
             loadArticleFromDatabase(articleId);
@@ -124,5 +133,4 @@ public class ArticleRepository {
             cursor.close();
         }
     }
-
 }

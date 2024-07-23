@@ -1,19 +1,29 @@
 package com.example.icpc;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.EditText;
+import android.widget.ImageView;
+
 import android.widget.FrameLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import com.example.icpc.database.DatabaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     private FrameLayout customFab;
     private FrameLayout fabContainer;
+    private int margin = 16; // 边距
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +46,16 @@ public class HomeActivity extends AppCompatActivity {
         customFab.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, Aides_Activity.class);
             startActivity(intent);
+        });
+
+        ImageView message = findViewById(R.id.message_icon);
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建 Intent 启动 MessageActivity
+                Intent intent = new Intent(HomeActivity.this, MessageActivity.class);
+                startActivity(intent);
+            }
         });
 
         // 设置自定义悬浮按钮的初始位置
@@ -93,6 +113,15 @@ public class HomeActivity extends AppCompatActivity {
         View whiteRectangle = findViewById(R.id.white_rectangle);
         whiteRectangle.setOnClickListener(this::onSearchClick);
 
+        if (savedInstanceState == null) {
+            // 使用 HomeFragment 替换 fragment_container 容器
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fast_Learning_Fragment()).commit();
+        }
+        // 如果 savedInstanceState 为空，表示是第一次创建活动，加载默认的 Fragment
+        if (savedInstanceState == null) {
+            // 使用 Discover_Fragment 替换 fragment_container 容器
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Discover_Fragment()).commit();
+        }
         View searchIcon = findViewById(R.id.search_icon);
         searchIcon.setOnClickListener(this::onSearchClick);
     }

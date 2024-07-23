@@ -12,19 +12,21 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.icpc.database.DatabaseHelper;
+
 public class z_add extends AppCompatActivity {
 
     private EditText editTextId, editTextTitle, editTextDescription, editTextAuthor, editTextFilePath, editTextCover, editTextFavorites;
     private Button buttonAdd;
 
-    private zDatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z_add);
 
-        dbHelper = new zDatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
 
         editTextId = findViewById(R.id.a);
         editTextTitle = findViewById(R.id.b);
@@ -84,15 +86,15 @@ public class z_add extends AppCompatActivity {
         try {
             db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(zDatabaseHelper.COLUMN_ID, id);
-            values.put(zDatabaseHelper.COLUMN_TITLE, title);
-            values.put(zDatabaseHelper.COLUMN_DESCRIPTION, description);
-            values.put(zDatabaseHelper.COLUMN_AUTHOR, author);
-            values.put(zDatabaseHelper.COLUMN_FILE_PATH, filePath);
-            values.put(zDatabaseHelper.COLUMN_COVER, cover);
-            values.put(zDatabaseHelper.COLUMN_FAVORITES, favorites);
+            values.put("video_id", id);
+            values.put("title", title);
+            values.put("description", description);
+            values.put("author", author);
+            values.put("file_path", filePath);
+            values.put("cover", cover);
+            values.put("favorites_count", favorites);
 
-            long newRowId = db.insert(zDatabaseHelper.TABLE_VIDEO, null, values);
+            long newRowId = db.insert("video", null, values);
             if (newRowId == -1) {
                 Log.e("z_add", "Error with saving record");
             } else {
@@ -112,10 +114,10 @@ public class z_add extends AppCompatActivity {
         Cursor cursor = null;
         try {
             db = dbHelper.getReadableDatabase();
-            String[] columns = {zDatabaseHelper.COLUMN_ID};
-            String selection = zDatabaseHelper.COLUMN_ID + " = ?";
+            String[] columns = {"video_id"};
+            String selection = "video_id" + " = ?";
             String[] selectionArgs = {String.valueOf(id)};
-            cursor = db.query(zDatabaseHelper.TABLE_VIDEO, columns, selection, selectionArgs, null, null, null);
+            cursor = db.query("video", columns, selection, selectionArgs, null, null, null);
 
             return !cursor.moveToFirst();
         } catch (SQLException e) {

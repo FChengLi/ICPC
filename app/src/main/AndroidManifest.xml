@@ -18,12 +18,6 @@
         <activity android:name=".ColumnActivity"></activity>
 
         <activity
-            android:name=".WrongActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Special_TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".ArticleContentActivity"
             android:exported="true" />
         <activity
@@ -31,9 +25,6 @@
             android:exported="false" />
         <activity
             android:name=".Vedio_DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TestActivity"
             android:exported="false" />
         <activity
             android:name=".MessageActivity"

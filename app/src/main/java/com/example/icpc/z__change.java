@@ -11,28 +11,26 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.icpc.database.DatabaseHelper;
+
 public class z__change extends AppCompatActivity {
 
     private EditText editTextForumId, editTextSection, editTextForumName, editTextForumDescription, editTextCreatorId, editTextTotalPosts, editTextUsers, editTextCreationTime;
     private Button buttonChange;
 
-    private zDatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z__change);
 
-        dbHelper = new zDatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
 
         editTextForumId = findViewById(R.id.a);
         editTextSection = findViewById(R.id.b);
         editTextForumName = findViewById(R.id.c);
-        editTextForumDescription = findViewById(R.id.d);
-        editTextCreatorId = findViewById(R.id.e);
-        editTextTotalPosts = findViewById(R.id.f);
         editTextUsers = findViewById(R.id.g);
-        editTextCreationTime = findViewById(R.id.h);
         buttonChange = findViewById(R.id.loginButton);
 
         buttonChange.setOnClickListener(new View.OnClickListener() {
@@ -61,25 +59,17 @@ public class z__change extends AppCompatActivity {
 
         String section = editTextSection.getText().toString();
         String forumName = editTextForumName.getText().toString();
-        String forumDescription = editTextForumDescription.getText().toString();
-        int creatorId = Integer.parseInt(editTextCreatorId.getText().toString());
-        int totalPosts = Integer.parseInt(editTextTotalPosts.getText().toString());
         int users = Integer.parseInt(editTextUsers.getText().toString());
-        String creationTime = editTextCreationTime.getText().toString();
 
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(zDatabaseHelper.COLUMN_SECTION, section);
-            values.put(zDatabaseHelper.COLUMN_FORUM_NAME, forumName);
-            values.put(zDatabaseHelper.COLUMN_FORUM_DESCRIPTION, forumDescription);
-            values.put(zDatabaseHelper.COLUMN_CREATOR_ID, creatorId);
-            values.put(zDatabaseHelper.COLUMN_TOTAL_POSTS, totalPosts);
-            values.put(zDatabaseHelper.COLUMN_USERS, users);
-            values.put(zDatabaseHelper.COLUMN_CREATION_TIME, creationTime);
+            values.put("plate_id", section);
+            values.put("forum_name", forumName);
+            values.put("follow_count", users);
 
-            int rowsAffected = db.update(zDatabaseHelper.TABLE_FORUM, values, zDatabaseHelper.COLUMN_FORUM_ID + " = ?", new String[]{String.valueOf(forumId)});
+            int rowsAffected = db.update("form", values, "forum_id" + " = ?", new String[]{String.valueOf(forumId)});
             if (rowsAffected > 0) {
                 showSuccessDialog("论坛更新成功");
             } else {
