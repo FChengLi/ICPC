@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Back"
+        android:padding="16dp"
+
+        android:src="@drawable/ic_back"
+        android:translationX="-170dp"/>
+
+    <ImageView
+        android:id="@+id/ic_logo_red"
+        android:layout_width="285dp"
+        android:layout_height="47dp"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_logo_red"
+        android:translationY="-60dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="《党史故事100讲》之五四运动 唤醒民众"
+        android:textSize="19sp"
+        android:translationY="-35dp"
+        android:textStyle="bold" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="242dp"
+        android:layout_gravity="center"
+        android:translationY="-35dp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="    中国在巴黎和会上外交努力最终失败的消息传到国内，5月4日下午1点左右，一场声势浩大的反帝爱国大游行，正式拉开帷幕。学生们火烧了赵家楼曹汝霖的住宅，痛打了章宗祥。学生的爱国行动，更是赢得了全社会民众普遍的支持。上海工人很快发起了反帝爱国大罢工。工人罢工后，就和学生一道展开各种爱国活动，散发宣传品、上街游行。从5月4日北京学生运动的爆发，经过6月5日“三罢”斗争迫使6月10日曹、章、陆被免职，再到6月28日中国代表巴黎和会拒签和约，中国人民的反帝爱国斗争最终取得了胜利。"
+        android:textSize="16sp" />
+</LinearLayout>

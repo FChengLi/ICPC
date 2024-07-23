@@ -125,10 +125,10 @@
             <!--评论列表-->
 
             <androidx.recyclerview.widget.RecyclerView
-                android:padding="10dp"
                 android:id="@+id/content_comment_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:padding="10dp" />
         </LinearLayout>
 
         <LinearLayout

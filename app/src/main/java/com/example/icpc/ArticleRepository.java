@@ -1,93 +1,126 @@
 package com.example.icpc;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.icpc.database.ArticleDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 文章仓库类，用于管理和提供文章及评论数据。
- */
 public class ArticleRepository {
 
-    // 单例实例
     private static ArticleRepository instance;
-
-    // 用于存储单篇文章的 MutableLiveData
     private MutableLiveData<Article> article;
-
-    // 用于存储评论列表的 MutableLiveData
     private MutableLiveData<List<Comment>> comments;
+    private ArticleDatabase database;
 
-    /**
-     * 获取 ArticleRepository 的单例实例。
-     * @return ArticleRepository 实例
-     */
-    public static ArticleRepository getInstance() {
+    private ArticleRepository(Context context) {
+        database = new ArticleDatabase(context);
+    }
+
+    public static ArticleRepository getInstance(Context context) {
         if (instance == null) {
-            instance = new ArticleRepository();
+            instance = new ArticleRepository(context);
         }
         return instance;
     }
 
-    /**
-     * 获取指定文章的 MutableLiveData 对象。
-     * @param articleId 文章 ID
-     * @return 文章的 MutableLiveData 对象
-     */
     public MutableLiveData<Article> getArticle(int articleId) {
-        // 模拟数据
         if (article == null) {
             article = new MutableLiveData<>();
-            // 创建一个模拟的文章对象
-            Article mockArticle = new Article(articleId, "MeihuTETL", "2022.5.20", "hhhh", 0, 0);
-            article.setValue(mockArticle);
         }
+        loadArticleFromDatabase(articleId);
         return article;
     }
 
-    /**
-     * 获取指定文章的评论列表的 MutableLiveData 对象。
-     * @param articleId 文章 ID
-     * @return 评论列表的 MutableLiveData 对象
-     */
     public MutableLiveData<List<Comment>> getComments(int articleId) {
-        // 模拟数据
         if (comments == null) {
             comments = new MutableLiveData<>();
-            // 创建一个模拟的评论列表
-            List<Comment> mockComments = new ArrayList<>();
-            mockComments.add(new Comment(1, "user1", "2022.5.20", "Great article!", 5));
-            comments.setValue(mockComments);
         }
+        loadCommentsFromDatabase(articleId);
         return comments;
     }
 
-    /**
-     * 添加一条评论到评论列表中。
-     * @param commentText 评论内容
-     */
-    public void addComment(String commentText) {
-        // 判断评论列表是否存在
-        if (comments.getValue() != null) {
-            List<Comment> currentComments = comments.getValue();
-            // 添加新评论到当前评论列表中
-            currentComments.add(new Comment(currentComments.size() + 1, "user2", "2022.5.21", commentText, 0));
-            // 更新评论列表
-            comments.setValue(currentComments);
+    public void addComment(String commentText, int articleId) {
+        SQLiteDatabase db = database.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(ArticleDatabase.COLUMN_COMMENT_AUTHOR, "user2"); // Replace with actual user
+        values.put(ArticleDatabase.COLUMN_COMMENT_TIME, "2022.5.21"); // Replace with actual time
+        values.put(ArticleDatabase.COLUMN_COMMENT_CONTENT, commentText);
+        values.put(ArticleDatabase.COLUMN_COMMENT_STARS, 0);
+        values.put(ArticleDatabase.COLUMN_POST_ID, articleId);
+        db.insert(ArticleDatabase.TABLE_COMMENTS, null, values);
+        loadCommentsFromDatabase(articleId);
+    }
+
+    public void incrementStar(int articleId) {
+        SQLiteDatabase db = database.getWritableDatabase();
+        Cursor cursor = db.query(ArticleDatabase.TABLE_ARTICLES, null, ArticleDatabase.COLUMN_ID + "=?",
+                new String[]{String.valueOf(articleId)}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int starSum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_STAR_SUM));
+            ContentValues values = new ContentValues();
+            values.put(ArticleDatabase.COLUMN_STAR_SUM, starSum + 1);
+            db.update(ArticleDatabase.TABLE_ARTICLES, values, ArticleDatabase.COLUMN_ID + "=?",
+                    new String[]{String.valueOf(articleId)});
+            loadArticleFromDatabase(articleId);
+            cursor.close();
+        }
+    }
+    public void incrementComment(int articleId) {
+        SQLiteDatabase db = database.getWritableDatabase();
+        Cursor cursor = db.query(ArticleDatabase.TABLE_ARTICLES, null, ArticleDatabase.COLUMN_ID + "=?",
+                new String[]{String.valueOf(articleId)}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int comment_sum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_SUM));
+            ContentValues values = new ContentValues();
+            values.put(ArticleDatabase.COLUMN_COMMENT_SUM,  comment_sum+ 1);
+            db.update(ArticleDatabase.TABLE_ARTICLES, values, ArticleDatabase.COLUMN_ID + "=?",
+                    new String[]{String.valueOf(articleId)});
+            loadArticleFromDatabase(articleId);
+            cursor.close();
+        }
+    }
+    public int getCommentCount(int postId) {
+        return database.getCommentCount(postId);
+    }
+
+    private void loadArticleFromDatabase(int articleId) {
+        SQLiteDatabase db = database.getReadableDatabase();
+        Cursor cursor = db.query(ArticleDatabase.TABLE_ARTICLES, null, ArticleDatabase.COLUMN_ID + "=?",
+                new String[]{String.valueOf(articleId)}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            String author = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_AUTHOR));
+            String time = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_TIME));
+            String content = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_CONTENT));
+            int commentSum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_SUM));
+            int starSum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_STAR_SUM));
+            article.postValue(new Article(articleId, author, time, content, commentSum, starSum));
+            cursor.close();
         }
     }
 
-    /**
-     * 增加文章的评分总数。
-     */
-    public void incrementStar() {
-        // 判断文章是否存在
-        if (article.getValue() != null) {
-            Article currentArticle = article.getValue();
-            // 增加评分总数
-            currentArticle.setStarSum(currentArticle.getStarSum() + 1);
-            // 更新文章数据
-            article.setValue(currentArticle);
+    private void loadCommentsFromDatabase(int articleId) {
+        SQLiteDatabase db = database.getReadableDatabase();
+        Cursor cursor = db.query(ArticleDatabase.TABLE_COMMENTS, null, ArticleDatabase.COLUMN_POST_ID + "=?",
+                new String[]{String.valueOf(articleId)}, null, null, ArticleDatabase.COLUMN_COMMENT_ID + " DESC");
+        List<Comment> commentList = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int commentId = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_ID));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_AUTHOR));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_TIME));
+                String content = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_CONTENT));
+                int stars = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_STARS));
+                commentList.add(new Comment(commentId, author, time, content, stars));
+            } while (cursor.moveToNext());
+            comments.postValue(commentList);
+            cursor.close();
         }
     }
 }

@@ -1,10 +1,7 @@
 package com.example.icpc;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class DataItem implements Parcelable {
-    private int videoId;
+public class DataItem {
+    private int imageResId;
     private String title;
     private String description;
     private String author;
