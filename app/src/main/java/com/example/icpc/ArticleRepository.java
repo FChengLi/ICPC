@@ -16,7 +16,7 @@ public class ArticleRepository {
 
     private static ArticleRepository instance;
     private MutableLiveData<Article> article;
-    private MutableLiveData<List<Comment>> comments;
+    private MutableLiveData<List<Comment_Feng>> comments;
     private ArticleDatabase database;
 
     private ArticleRepository(Context context) {
@@ -38,7 +38,7 @@ public class ArticleRepository {
         return article;
     }
 
-    public MutableLiveData<List<Comment>> getComments(int articleId) {
+    public MutableLiveData<List<Comment_Feng>> getComments(int articleId) {
         if (comments == null) {
             comments = new MutableLiveData<>();
         }
@@ -109,7 +109,7 @@ public class ArticleRepository {
         SQLiteDatabase db = database.getReadableDatabase();
         Cursor cursor = db.query(ArticleDatabase.TABLE_COMMENTS, null, ArticleDatabase.COLUMN_POST_ID + "=?",
                 new String[]{String.valueOf(articleId)}, null, null, ArticleDatabase.COLUMN_COMMENT_ID + " DESC");
-        List<Comment> commentList = new ArrayList<>();
+        List<Comment_Feng> commentList = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 int commentId = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_ID));
@@ -117,7 +117,7 @@ public class ArticleRepository {
                 String time = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_TIME));
                 String content = cursor.getString(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_CONTENT));
                 int stars = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_STARS));
-                commentList.add(new Comment(commentId, author, time, content, stars));
+                commentList.add(new Comment_Feng(commentId, author, time, content, stars));
             } while (cursor.moveToNext());
             comments.postValue(commentList);
             cursor.close();

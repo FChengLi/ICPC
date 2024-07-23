@@ -11,7 +11,7 @@ import java.util.List;
 public class ArticleContentViewModel extends AndroidViewModel {
 
     private MutableLiveData<Article> article;
-    private MutableLiveData<List<Comment>> comments;
+    private MutableLiveData<List<Comment_Feng>> comments;
     private ArticleRepository repository;
 
     public ArticleContentViewModel(Application application) {
@@ -31,7 +31,7 @@ public class ArticleContentViewModel extends AndroidViewModel {
         return article;
     }
 
-    public LiveData<List<Comment>> getComments() {
+    public LiveData<List<Comment_Feng>> getComments() {
         return comments;
     }
 

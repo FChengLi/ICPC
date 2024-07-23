@@ -9,20 +9,20 @@
     tools:context=".ArticleContentActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/content_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/back"
-        app:titleTextColor="@color/black"
-        app:title="返回"
-        app:titleMarginStart="100dp">
-        <ImageView
-            android:id="@+id/my"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_tieba"
-            android:layout_gravity="right"
-            android:paddingRight="10dp"/>
+    android:id="@+id/content_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    app:navigationIcon="@drawable/back"
+    app:titleTextColor="@color/black"
+    app:title="返回"
+    app:titleMarginStart="100dp">
+    <ImageView
+        android:id="@+id/my"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_tieba"
+        android:layout_gravity="right"
+        android:paddingRight="10dp"/>
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView

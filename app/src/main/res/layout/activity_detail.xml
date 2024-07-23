@@ -7,25 +7,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/content_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/back"
+            app:titleTextColor="@color/black"
+            android:background="#CCCCCC"
+            app:title=" "
+            app:titleMarginStart="100dp">
+
+            <ImageView
+                android:id="@+id/ic_logo_red"
+                android:layout_width="285dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_logo_red" />
+
+            <ImageView
+                android:id="@+id/my"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:paddingEnd="10dp"
+                android:src="@drawable/ic_tieba" />
+        </androidx.appcompat.widget.Toolbar>
+
+
         <ImageView
             android:id="@+id/back_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Back"
-            android:padding="16dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_back"
-            android:translationX="-170dp"/>
+            android:contentDescription="Back"
+            android:padding="20dp"
+            android:translationX="-170dp"
 
-        <ImageView
-            android:id="@+id/ic_logo_red"
-            android:layout_width="285dp"
-            android:layout_height="47dp"
-            android:layout_gravity="center"
-            android:contentDescription="Back"
-            android:src="@drawable/ic_logo_red"
-            android:translationY="-60dp" />
+            android:translationY="-53dp" />
 
         <ImageView
             android:id="@+id/image_党史导读"
