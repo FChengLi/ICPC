@@ -41,9 +41,10 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
         holder.itemTitle.setText(column.getTitle());
         holder.itemSource.setText(column.getSource());
         holder.itemDate.setText(column.getDate());
+//        holder.itemImage.setImageResource(column.getImageUrl());
+
         // Load image using your preferred image loading library (e.g., Glide or Picasso)
         // Glide.with(context).load(column.getImageUrl()).into(holder.itemImage);
-
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ArticleContentActivity.class);
             intent.putExtra("id", column.getId());

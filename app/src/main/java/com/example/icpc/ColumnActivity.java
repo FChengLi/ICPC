@@ -23,12 +23,12 @@ public class ColumnActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         columnList = new ArrayList<>();
-        columnList.add(new Column(1, "Column 1", "image_url_1", "Source 1", "2022-05-20"));
-        columnList.add(new Column(2, "Column 2", "image_url_2", "Source 2", "2022-05-21"));
-        columnList.add(new Column(3, "Column 3", "image_url_3", "Source 3", "2022-05-22"));
-        columnList.add(new Column(4, "Column 1", "image_url_1", "Source 1", "2022-05-20"));
-        columnList.add(new Column(5, "Column 2", "image_url_2", "Source 2", "2022-05-21"));
-        columnList.add(new Column(6, "Column 3", "image_url_3", "Source 3", "2022-05-22"));
+        columnList.add(new Column(1, "Column 1", "ic_logo_red", "Source 1", "2022-05-20"));
+        columnList.add(new Column(2, "Column 2", "ic_logo_red", "Source 2", "2022-05-21"));
+        columnList.add(new Column(3, "Column 3", "ic_logo_red", "Source 3", "2022-05-22"));
+        columnList.add(new Column(4, "Column 1", "ic_logo_red", "Source 1", "2022-05-20"));
+        columnList.add(new Column(5, "Column 2", "ic_logo_red", "Source 2", "2022-05-21"));
+        columnList.add(new Column(6, "Column 3", "ic_logo_red", "Source 3", "2022-05-22"));
         adapter = new ColumnAdapter(this, columnList);
         recyclerView.setAdapter(adapter);
     }

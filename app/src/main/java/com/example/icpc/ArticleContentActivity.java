@@ -2,7 +2,6 @@ package com.example.icpc;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,8 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ArticleContentActivity extends AppCompatActivity {
@@ -36,7 +33,7 @@ public class ArticleContentActivity extends AppCompatActivity {
     private RecyclerView commentList;
     private int articleId;
     private Bundle data;
-    private CommentAdapter commentAdapter;
+    private CommentAdapter_Feng commentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +54,9 @@ public class ArticleContentActivity extends AppCompatActivity {
         // 初始化ViewModel并观察数据变化
         viewModel = new ViewModelProvider(this).get(ArticleContentViewModel.class);
         viewModel.init(articleId);
-        viewModel.getComments().observe(this, new Observer<List<Comment>>() {
+        viewModel.getComments().observe(this, new Observer<List<Comment_Feng>>() {
             @Override
-            public void onChanged(List<Comment> comments) {
+            public void onChanged(List<Comment_Feng> comments) {
                 commentAdapter.setComments(comments);
             }
         });
@@ -147,7 +144,7 @@ public class ArticleContentActivity extends AppCompatActivity {
     // 设置评论列表
     private void setupCommentList() {
         commentList.setLayoutManager(new LinearLayoutManager(this));
-        commentAdapter = new CommentAdapter();
+        commentAdapter = new CommentAdapter_Feng();
         commentList.setAdapter(commentAdapter);
     }
 

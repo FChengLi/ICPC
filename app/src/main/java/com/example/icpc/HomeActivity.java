@@ -89,8 +89,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // 为搜索框设置点击监听器
-        EditText searchEditText = findViewById(R.id.search_edit_text);
-        searchEditText.setOnClickListener(this::onSearchClick);
 
         View whiteRectangle = findViewById(R.id.white_rectangle);
         whiteRectangle.setOnClickListener(this::onSearchClick);
