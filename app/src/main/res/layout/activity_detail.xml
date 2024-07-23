@@ -7,14 +7,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/content_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/back"
+            app:titleTextColor="@color/black"
+            android:background="#CCCCCC"
+            app:title=" "
+            app:titleMarginStart="100dp">
+
+            <ImageView
+                android:id="@+id/ic_logo_red"
+                android:layout_width="285dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_logo_red" />
+
+            <ImageView
+                android:id="@+id/my"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:paddingEnd="10dp"
+                android:src="@drawable/ic_tieba" />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <ImageView
+            android:id="@+id/back_button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="Back"
+            android:padding="20dp"
+            android:translationX="-170dp"
+
+            android:translationY="-53dp" />
 
         <ImageView
             android:id="@+id/image_党史导读"
             android:layout_width="732dp"
             android:layout_height="70dp"
             android:layout_weight="1"
-            android:translationX="-160dp"
+            android:translationY="-60dp"
+            android:translationX="-170dp"
             app:srcCompat="@drawable/dsdd" />
 
         <TextView
@@ -22,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:translationY="-60dp"
             android:text="    《党史故事100讲》以党的90多年发展历程为顺序，以党的重大事件为线索，以不同时期的典型事例、历史人物、精彩故事为主干，全景式回顾党的伟大历程和辉煌成就。以下为《党史故事100讲·建党篇》内容，带您重温中国共产党传奇的建党历程。"
             android:textColor="#000000"
             android:textSize="16sp"
@@ -32,13 +74,15 @@
             android:layout_width="732dp"
             android:layout_height="70dp"
             android:layout_weight="1"
-            android:translationX="-161dp"
+            android:translationY="-60dp"
+            android:translationX="-170dp"
             app:srcCompat="@drawable/dsml" />
 
         <ImageView
             android:id="@+id/ds_demo1_image"
             android:layout_width="match_parent"
             android:layout_height="199dp"
+            android:translationY="-60dp"
             android:layout_weight="1"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ds_demo1" />
@@ -48,6 +92,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:gravity="center"
+            android:translationY="-60dp"
             android:text="第1集：五四运动 唤醒民众"
             android:textColor="#000000"
             android:textSize="16sp"
@@ -58,6 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="199dp"
             android:layout_weight="1"
+            android:translationY="-60dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ds_demo2" />
         <TextView
@@ -66,6 +112,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:gravity="center"
+            android:translationY="-60dp"
             android:text="第2集：首译宣言 传播真理"
             android:textColor="#000000"
             android:textSize="16sp"
@@ -75,6 +122,7 @@
             android:id="@+id/ds_demo3_image"
             android:layout_width="match_parent"
             android:layout_height="199dp"
+            android:translationY="-60dp"
             android:layout_weight="1"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ds_demo3" />
@@ -83,6 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:translationY="-60dp"
             android:gravity="center"
             android:text="第3集：酝酿建党 各地响应"
             android:textColor="#000000"
@@ -94,6 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="199dp"
             android:layout_weight="1"
+            android:translationY="-60dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ds_demo4" />
         <TextView
@@ -102,6 +152,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:gravity="center"
+            android:translationY="-60dp"
             android:text="第4集：一大首聚 开天辟地"
             android:textColor="#000000"
             android:textSize="16sp"
@@ -113,12 +164,14 @@
             android:layout_height="199dp"
             android:layout_weight="1"
             android:layout_gravity="center"
+            android:translationY="-60dp"
             app:srcCompat="@drawable/ds_demo5" />
         <TextView
             android:id="@+id/ds_demo5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:translationY="-60dp"
             android:gravity="center"
             android:text="第5集：反帝反封 工运高涨"
             android:textColor="#000000"

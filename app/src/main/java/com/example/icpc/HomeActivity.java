@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,7 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
     private FrameLayout customFab;
     private FrameLayout fabContainer;
-    private int margin = 16; // 边距
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +89,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // 为搜索框设置点击监听器
-        EditText searchEditText = findViewById(R.id.search_edit_text);
-        searchEditText.setOnClickListener(this::onSearchClick);
 
         View whiteRectangle = findViewById(R.id.white_rectangle);
         whiteRectangle.setOnClickListener(this::onSearchClick);

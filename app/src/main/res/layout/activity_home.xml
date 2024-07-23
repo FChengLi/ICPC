@@ -34,33 +34,23 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <!-- White Rectangle -->
+
+            <!-- Search EditText -->
+
+            <!-- Search Icon -->
+
             <View
                 android:id="@+id/white_rectangle"
-                android:layout_width="282dp"
-                android:layout_height="40dp"
+                android:layout_width="207dp"
+                android:layout_height="34dp"
                 android:background="@drawable/white_rectangle_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.064"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- Search EditText -->
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="235dp"
-                android:layout_height="31dp"
-                android:background="@drawable/search_background"
-                android:padding="8dp"
-                android:textStyle="bold"
-                android:textColor="#121010"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/search_icon"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                app:layout_constraintVertical_bias="0.0" />
 
-            <!-- Search Icon -->
             <ImageView
                 android:id="@+id/search_icon"
                 android:layout_width="24dp"
@@ -88,7 +78,29 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="70dp"
         android:layout_below="@id/top_toolbar"
-        android:layout_weight="1" />
+        android:layout_weight="1" >
+
+        <FrameLayout
+            android:id="@+id/fab_container"
+            android:layout_width="match_parent"
+            android:layout_height="740dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="-85dp">
+
+            <FrameLayout
+                android:id="@+id/custom_fab"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_custom_image"
+                android:clipToPadding="false"
+                android:elevation="6dp">
+
+            </FrameLayout>
+        </FrameLayout>
+    </FrameLayout>
 
     <!-- 底部导航栏 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -99,26 +111,4 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <!-- 自定义悬浮按钮 -->
-    <FrameLayout
-        android:id="@+id/fab_container"
-        android:layout_width="match_parent"
-        android:layout_height="740dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="-85dp">
-
-        <FrameLayout
-            android:id="@+id/custom_fab"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/ic_custom_image"
-            android:clipToPadding="false"
-            android:elevation="6dp">
-
-        </FrameLayout>
-    </FrameLayout>
 </RelativeLayout>
