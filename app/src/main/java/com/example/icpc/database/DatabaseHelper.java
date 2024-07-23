@@ -233,15 +233,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_MISTAKE_TABLE);
     }*/
 
-    private void insertInitialQuickVideo(SQLiteDatabase db) {
-        String INSERT_INITIAL_VIDEO = "INSERT INTO video (video_id, title, description, author, file_path, cover, favorites_count) VALUES "
-                + "('1', '郭瑞铮：烽火铸就战友情', '郭瑞静，这位勇敢的革命英雄，在中国革命史上留下了深刻的足迹。他坚定的信仰和无畏的精神，深深影响了他的战友们。在抗日战争和解放战争中，郭瑞静领导队伍展战展胜，展现了卓越的军事才能和坚韧不拔的意志。', '北京市退伍军人事务局', 'image1.jpg', 'image1.jpg', 0);";
-        db.execSQL(INSERT_INITIAL_VIDEO);
-    }
-    private void insertInitialInformation(SQLiteDatabase db) {
-        String INSERT_INITIAL_INFORMATION = "INSERT INTO information (information_id, title, content_text, author, likes, view_count, publish_time) VALUES "
-                + "('1', '五四运动--唤醒青年', '中国在巴黎和会上外交努力最终失败的消息传到国内，5月4日下午1点左右，一场声势浩大的反帝爱国大游行，正式拉开帷幕。学生们火烧了赵家楼曹汝霖的住宅，痛打了章宗祥。学生的爱国行动，更是赢得了全社会民众普遍的支持。', '新华社', 0, 0, '2024-07-20');";
-        db.execSQL(INSERT_INITIAL_INFORMATION);
-    }
-
 }
