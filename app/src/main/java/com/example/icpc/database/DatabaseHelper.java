@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createAnswerTable(db);
         createVideoTable(db);
         createCommentTable(db);
+        createFollowForumTable(db);
 /*        createTestTable(db);
         createQuestionTable(db);
         createOptionTable(db);
@@ -122,6 +123,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "follow_count INTEGER DEFAULT 0)";
         db.execSQL(CREATE_FORUM_TABLE);
     }
+
+    private void createFollowForumTable(SQLiteDatabase db) {
+        String CREATE_FOLLOW_FORUM_TABLE = "CREATE TABLE follow_forum ("
+                + "follow_id TEXT PRIMARY KEY,"
+                + "user_id TEXT,"
+                + "forum_id TEXT,"
+                + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,"
+                + "FOREIGN KEY (forum_id) REFERENCES forum(forum_id) ON DELETE CASCADE)";
+        db.execSQL(CREATE_FOLLOW_FORUM_TABLE);
+    }
+
 
     //帖子
     private void createPostTable(SQLiteDatabase db) {

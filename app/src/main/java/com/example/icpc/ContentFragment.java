@@ -78,11 +78,13 @@ public class ContentFragment extends Fragment {
             while (cursor.moveToNext()) {
                 int iconResId = R.drawable.ic_launcher_background; // 示例图标资源ID
                 @SuppressLint("Range") String iconName = cursor.getString(cursor.getColumnIndex("forum_name"));
-                iconList.add(new IconItem(iconResId, iconName));
+                @SuppressLint("Range") String forumId = cursor.getString(cursor.getColumnIndex("forum_id"));
+                iconList.add(new IconItem(iconResId, iconName, forumId)); // 包含论坛 ID
             }
         } finally {
             if (cursor != null) cursor.close();
             if (db != null && db.isOpen()) db.close();
         }
     }
+
 }
