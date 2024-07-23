@@ -11,19 +11,21 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.icpc.database.DatabaseHelper;
+
 public class z__change extends AppCompatActivity {
 
     private EditText editTextForumId, editTextSection, editTextForumName, editTextForumDescription, editTextCreatorId, editTextTotalPosts, editTextUsers, editTextCreationTime;
     private Button buttonChange;
 
-    private zDatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z__change);
 
-        dbHelper = new zDatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
 
         editTextForumId = findViewById(R.id.a);
         editTextSection = findViewById(R.id.b);
@@ -63,11 +65,11 @@ public class z__change extends AppCompatActivity {
         try {
             db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(zDatabaseHelper.COLUMN_SECTION, section);
-            values.put(zDatabaseHelper.COLUMN_FORUM_NAME, forumName);
-            values.put(zDatabaseHelper.COLUMN_USERS, users);
+            values.put("plate_id", section);
+            values.put("forum_name", forumName);
+            values.put("follow_count", users);
 
-            int rowsAffected = db.update(zDatabaseHelper.TABLE_FORUM, values, zDatabaseHelper.COLUMN_FORUM_ID + " = ?", new String[]{String.valueOf(forumId)});
+            int rowsAffected = db.update("form", values, "forum_id" + " = ?", new String[]{String.valueOf(forumId)});
             if (rowsAffected > 0) {
                 showSuccessDialog("论坛更新成功");
             } else {

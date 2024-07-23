@@ -34,7 +34,7 @@ public class Fast_Learning_Fragment extends Fragment {
         List<DataItem> dataItemList = new ArrayList<>();
 
         // 获取可读的数据库实例
-        zDatabaseHelper dbHelper = new zDatabaseHelper(getContext()); // 替换为正确的上下文
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext()); // 替换为正确的上下文
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         // 执行查询语句

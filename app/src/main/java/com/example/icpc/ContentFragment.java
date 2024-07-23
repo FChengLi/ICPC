@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.icpc.database.DatabaseHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class ContentFragment extends Fragment {
 
     private static final String ARG_BOARD_TYPE = "board_type";
     private String boardType;
-    private zDatabaseHelper dbHelper; // 添加数据库助手
+    private DatabaseHelper dbHelper; // 添加数据库助手
 
     public static ContentFragment newInstance(String boardType) {
         ContentFragment fragment = new ContentFragment();
@@ -44,7 +46,7 @@ public class ContentFragment extends Fragment {
         }
 
         // 初始化数据库助手
-        dbHelper = new zDatabaseHelper(getContext());
+        dbHelper = new DatabaseHelper(getContext());
 
         // 从数据库读取图标数据
         List<IconItem> iconList = new ArrayList<>();
@@ -71,7 +73,7 @@ public class ContentFragment extends Fragment {
         Cursor cursor = null;
         try {
             db = dbHelper.getReadableDatabase();
-            String query = "SELECT * FROM Forum WHERE section = ?";
+            String query = "SELECT * FROM forum WHERE plate_id = ?";
             cursor = db.rawQuery(query, new String[]{boardType});
             while (cursor.moveToNext()) {
                 int iconResId = R.drawable.ic_launcher_background; // 示例图标资源ID

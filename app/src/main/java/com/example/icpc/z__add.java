@@ -13,19 +13,22 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.icpc.database.DatabaseHelper;
+
 public class z__add extends AppCompatActivity {
 
     private EditText editTextForumId, editTextSection, editTextForumName, editTextForumDescription, editTextCreatorId, editTextTotalPosts, editTextUsers, editTextCreationTime;
     private Button buttonAdd;
 
-    private zDatabaseHelper dbHelper;
+
+    private com.example.icpc.database.DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z__add);
 
-        dbHelper = new zDatabaseHelper(this);
+        dbHelper = new com.example.icpc.database.DatabaseHelper(this);
 
         editTextForumId = findViewById(R.id.a);
         editTextSection = findViewById(R.id.b);
@@ -72,12 +75,12 @@ public class z__add extends AppCompatActivity {
         try {
             db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(zDatabaseHelper.COLUMN_FORUM_ID, forumId);
-            values.put(zDatabaseHelper.COLUMN_SECTION, section);
-            values.put(zDatabaseHelper.COLUMN_FORUM_NAME, forumName);
-            values.put(zDatabaseHelper.COLUMN_USERS, users);
+            values.put("forum_id", forumId);
+            values.put("plate_id", section);
+            values.put("forum_name", forumName);
+            values.put("follow_count", users);
 
-            long newRowId = db.insert(zDatabaseHelper.TABLE_FORUM, null, values);
+            long newRowId = db.insert("forum", null, values);
             if (newRowId == -1) {
                 Log.e("z__add", "Error with saving forum");
             } else {
@@ -97,10 +100,10 @@ public class z__add extends AppCompatActivity {
         Cursor cursor = null;
         try {
             db = dbHelper.getReadableDatabase();
-            String[] columns = {zDatabaseHelper.COLUMN_FORUM_ID};
-            String selection = zDatabaseHelper.COLUMN_FORUM_ID + " = ?";
+            String[] columns = {"forum_id"};
+            String selection = "forum_id" + " = ?";
             String[] selectionArgs = {String.valueOf(forumId)};
-            cursor = db.query(zDatabaseHelper.TABLE_FORUM, columns, selection, selectionArgs, null, null, null);
+            cursor = db.query("forum", columns, selection, selectionArgs, null, null, null);
 
             return !cursor.moveToFirst();
         } catch (SQLException e) {

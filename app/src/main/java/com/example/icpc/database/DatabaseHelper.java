@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "user.db";
+    private static final String DATABASE_NAME = "Database.db";
     private static final int DATABASE_VERSION = 2; // 更新版本号
 
     public DatabaseHelper(Context context) {
@@ -119,13 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "forum_id TEXT PRIMARY KEY,"
                 + "plate_id TEXT,"
                 + "forum_name TEXT NOT NULL,"
-                + "forum_description TEXT,"
-                + "creator_id TEXT,"
-                + "post_count INTEGER DEFAULT 0,"
-                + "follow_count INTEGER DEFAULT 0,"
-                + "creation_time DATETIME,"
-                + "FOREIGN KEY (plate_id) REFERENCES plate(plate_id) ON DELETE CASCADE,"
-                + "FOREIGN KEY (creator_id) REFERENCES user(user_id) ON DELETE CASCADE)";
+                + "follow_count INTEGER DEFAULT 0)";
         db.execSQL(CREATE_FORUM_TABLE);
     }
 
@@ -137,9 +131,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "forum_id TEXT,"
                 + "publish_time DATETIME,"
                 + "title TEXT NOT NULL,"
-                + "content TEXT,"
-                + "answer_count INTEGER DEFAULT 0,"
-                + "like_count INTEGER DEFAULT 0,"
                 + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,"
                 + "FOREIGN KEY (forum_id) REFERENCES forum(forum_id) ON DELETE CASCADE)";
         db.execSQL(CREATE_POST_TABLE);

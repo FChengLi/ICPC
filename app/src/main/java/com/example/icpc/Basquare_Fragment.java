@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.icpc.database.DatabaseHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,12 +29,12 @@ public class Basquare_Fragment extends Fragment {
     private List<String> boardList;
     private List<ContentFragment> fragmentList;
     private ContentPagerAdapter pagerAdapter;
-    private zDatabaseHelper dbHelper; // 添加数据库助手
+    private DatabaseHelper dbHelper; // 添加数据库助手
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbHelper = new zDatabaseHelper(getContext()); // 初始化数据库助手
+        dbHelper = new DatabaseHelper(getContext()); // 初始化数据库助手
     }
 
     @Override
@@ -81,7 +83,7 @@ public class Basquare_Fragment extends Fragment {
 
         try {
             db = dbHelper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT section FROM Forum GROUP BY section", null);
+            cursor = db.rawQuery("SELECT plate_id FROM forum GROUP BY plate_id", null);
             while (cursor.moveToNext()) {
                 String section = cursor.getString(0);
                 String displayName = sectionNameMap.getOrDefault(section, section); // 使用映射来获取显示名称

@@ -9,7 +9,7 @@ public class CommentDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_COMMENTS = "comments";
-    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_ID = "id";
     public static final String COLUMN_VIDEO_ID = "video_id";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_COMMENT = "comment";
