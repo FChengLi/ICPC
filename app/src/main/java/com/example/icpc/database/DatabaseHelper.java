@@ -3,10 +3,11 @@ package com.example.icpc.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "user.db";
-    private static final int DATABASE_VERSION = 2; // 更新版本号
+    private static final int DATABASE_VERSION = 3; // 更新版本号
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -14,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("DatabaseHelper", "Creating database tables");
         db.execSQL("PRAGMA foreign_keys=ON;"); // 启用外键支持
         createUserTable(db);
         createHistoryTable(db);
@@ -25,14 +27,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createAnswerTable(db);
         createVideoTable(db);
         createCommentTable(db);
-/*        createTestTable(db);
-        createQuestionTable(db);
-        createOptionTable(db);
-        createMistakeTable(db);*/
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("DatabaseHelper", "Upgrading database from version " + oldVersion + " to " + newVersion);
         // 删除所有旧表
         db.execSQL("DROP TABLE IF EXISTS user");
         db.execSQL("DROP TABLE IF EXISTS history");
@@ -96,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "content_text TEXT,"
                 + "author TEXT,"
                 + "likes INTEGER DEFAULT 0,"
+                + "star INTEGER DEFAULT 0,"
                 + "view_count INTEGER DEFAULT 0,"
                 + "publish_time DATETIME)";
         db.execSQL(CREATE_INFORMATION_TABLE);
@@ -184,64 +185,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (information_id) REFERENCES information(information_id) ON DELETE CASCADE,"
                 + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE)";
         db.execSQL(CREATE_COMMENT_TABLE);
-    }
-
-/*    //测试
-    private void createTestTable(SQLiteDatabase db) {
-        String CREATE_TEST_TABLE = "CREATE TABLE test ("
-                + "test_id TEXT PRIMARY KEY,"
-                + "content_id TEXT,"
-                + "question_count INTEGER DEFAULT 0,"
-                + "FOREIGN KEY (content_id) REFERENCES video(video_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_TEST_TABLE);
-    }
-
-    //题目
-    private void createQuestionTable(SQLiteDatabase db) {
-        String CREATE_QUESTION_TABLE = "CREATE TABLE question ("
-                + "question_id TEXT PRIMARY KEY,"
-                + "quiz_id TEXT,"
-                + "content TEXT NOT NULL,"
-                + "question_type TEXT,"
-                + "category TEXT,"
-                + "FOREIGN KEY (quiz_id) REFERENCES test(test_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_QUESTION_TABLE);
-    }
-
-    //选项
-    private void createOptionTable(SQLiteDatabase db) {
-        String CREATE_OPTION_TABLE = "CREATE TABLE option ("
-                + "option_id TEXT PRIMARY KEY,"
-                + "question_id TEXT,"
-                + "content TEXT NOT NULL,"
-                + "is_correct INTEGER DEFAULT 0,"
-                + "FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_OPTION_TABLE);
-    }
-
-    //错题集
-    private void createMistakeTable(SQLiteDatabase db) {
-        String CREATE_MISTAKE_TABLE = "CREATE TABLE mistake ("
-                + "mistake_id TEXT PRIMARY KEY,"
-                + "user_id TEXT,"
-                + "question_id TEXT,"
-                + "test_id TEXT,"
-                + "mistake_time DATETIME,"
-                + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,"
-                + "FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE,"
-                + "FOREIGN KEY (test_id) REFERENCES test(test_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_MISTAKE_TABLE);
-    }*/
-
-    private void insertInitialQuickVideo(SQLiteDatabase db) {
-        String INSERT_INITIAL_VIDEO = "INSERT INTO video (video_id, title, description, author, file_path, cover, favorites_count) VALUES "
-                + "('1', '郭瑞铮：烽火铸就战友情', '郭瑞静，这位勇敢的革命英雄，在中国革命史上留下了深刻的足迹。他坚定的信仰和无畏的精神，深深影响了他的战友们。在抗日战争和解放战争中，郭瑞静领导队伍展战展胜，展现了卓越的军事才能和坚韧不拔的意志。', '北京市退伍军人事务局', 'image1.jpg', 'image1.jpg', 0);";
-        db.execSQL(INSERT_INITIAL_VIDEO);
-    }
-    private void insertInitialInformation(SQLiteDatabase db) {
-        String INSERT_INITIAL_INFORMATION = "INSERT INTO information (information_id, title, content_text, author, likes, view_count, publish_time) VALUES "
-                + "('1', '五四运动--唤醒青年', '中国在巴黎和会上外交努力最终失败的消息传到国内，5月4日下午1点左右，一场声势浩大的反帝爱国大游行，正式拉开帷幕。学生们火烧了赵家楼曹汝霖的住宅，痛打了章宗祥。学生的爱国行动，更是赢得了全社会民众普遍的支持。', '新华社', 0, 0, '2024-07-20');";
-        db.execSQL(INSERT_INITIAL_INFORMATION);
     }
 
 }

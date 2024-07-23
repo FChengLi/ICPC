@@ -48,5 +48,28 @@
         android:backgroundTint="#E49B9B"
         android:text="修改论坛"
         android:textColor="@color/white" />
-
+    <Button
+        android:id="@+id/g"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#E49B9B"
+        android:text="添加文章"
+        android:textColor="@color/white" />
+    <Button
+        android:id="@+id/t"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#E49B9B"
+        android:text="修改文章"
+        android:textColor="@color/white" />
+    <Button
+        android:id="@+id/i"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#E49B9B"
+        android:text="删除文章"
+        android:textColor="@color/white" />
 </LinearLayout>

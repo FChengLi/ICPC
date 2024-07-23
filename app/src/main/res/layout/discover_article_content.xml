@@ -151,6 +151,7 @@
                 android:layout_below="@+id/oragment"
                 android:layout_width="wrap_content"
                 android:layout_height="230dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/gs_surface" />
         </LinearLayout>
     </ScrollView>

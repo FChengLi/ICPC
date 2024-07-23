@@ -17,6 +17,9 @@ public class z_first extends AppCompatActivity {
         Button deleteButton = findViewById(R.id.c);
         Button addForumButton = findViewById(R.id.e);
         Button changeForumButton = findViewById(R.id.f);
+        Button addArticleButton = findViewById(R.id.g); // 添加文章按钮
+        Button changeArticleButton = findViewById(R.id.t); // 修改文章按钮
+        Button deleteArticleButton = findViewById(R.id.i); // 删除文章按钮
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +57,30 @@ public class z_first extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(z_first.this, z__change.class);
+                startActivity(intent);
+            }
+        });
+
+        addArticleButton.setOnClickListener(new View.OnClickListener() { // 添加文章按钮点击事件
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(z_first.this, discover_add.class);
+                startActivity(intent);
+            }
+        });
+
+        changeArticleButton.setOnClickListener(new View.OnClickListener() { // 修改文章按钮点击事件
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(z_first.this, discover_change.class);
+                startActivity(intent);
+            }
+        });
+
+        deleteArticleButton.setOnClickListener(new View.OnClickListener() { // 删除文章按钮点击事件
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(z_first.this, discover_delete.class);
                 startActivity(intent);
             }
         });
