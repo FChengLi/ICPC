@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Database.db";
-    private static final int DATABASE_VERSION = 2; // 更新版本号
+    private static final int DATABASE_VERSION = 3; // 更新版本号
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -138,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //帖子
     private void createPostTable(SQLiteDatabase db) {
         String CREATE_POST_TABLE = "CREATE TABLE post ("
-                + "post_id TEXT PRIMARY KEY,"
+                + "post_id INTEGER PRIMARY KEY,"
                 + "user_id TEXT,"
                 + "forum_id TEXT,"
                 + "publish_time DATETIME,"

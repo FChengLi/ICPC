@@ -24,6 +24,8 @@ public class ArticleRepository {
     private ArticleRepository(Context context) {
         this.context = context;
         database = new ArticleDatabase(context);
+        article = new MutableLiveData<>();
+        comments = new MutableLiveData<>();
     }
 
     public static ArticleRepository getInstance(Context context) {
@@ -34,17 +36,11 @@ public class ArticleRepository {
     }
 
     public MutableLiveData<Article> getArticle(int articleId) {
-        if (article == null) {
-            article = new MutableLiveData<>();
-        }
         loadArticleFromDatabase(articleId);
         return article;
     }
 
     public MutableLiveData<List<Comment_Feng>> getComments(int articleId) {
-        if (comments == null) {
-            comments = new MutableLiveData<>();
-        }
         loadCommentsFromDatabase(articleId);
         return comments;
     }
@@ -57,7 +53,7 @@ public class ArticleRepository {
         SharedPreferences sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         String currentUsername = sharedPreferences.getString("currentUsername", "user2"); // Default to "user2" if not found
 
-        values.put(ArticleDatabase.COLUMN_COMMENT_AUTHOR, currentUsername); // 使用实际的用户名
+        values.put(ArticleDatabase.COLUMN_COMMENT_AUTHOR, currentUsername);
         values.put(ArticleDatabase.COLUMN_COMMENT_TIME, "2022.5.21"); // Replace with actual time
         values.put(ArticleDatabase.COLUMN_COMMENT_CONTENT, commentText);
         values.put(ArticleDatabase.COLUMN_COMMENT_STARS, 0);
@@ -86,9 +82,9 @@ public class ArticleRepository {
         Cursor cursor = db.query(ArticleDatabase.TABLE_ARTICLES, null, ArticleDatabase.COLUMN_ID + "=?",
                 new String[]{String.valueOf(articleId)}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            int comment_sum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_SUM));
+            int commentSum = cursor.getInt(cursor.getColumnIndexOrThrow(ArticleDatabase.COLUMN_COMMENT_SUM));
             ContentValues values = new ContentValues();
-            values.put(ArticleDatabase.COLUMN_COMMENT_SUM, comment_sum + 1);
+            values.put(ArticleDatabase.COLUMN_COMMENT_SUM, commentSum + 1);
             db.update(ArticleDatabase.TABLE_ARTICLES, values, ArticleDatabase.COLUMN_ID + "=?",
                     new String[]{String.valueOf(articleId)});
             loadArticleFromDatabase(articleId);

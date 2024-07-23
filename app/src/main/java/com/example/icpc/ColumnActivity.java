@@ -1,9 +1,12 @@
 package com.example.icpc;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,17 +28,25 @@ public class ColumnActivity extends AppCompatActivity {
     private List<Column> columnList;
     private TextView middleTextView;
     private Button subscribeButton;
+    private Button addColumnButton; // 添加的按钮
     private DatabaseHelper dbHelper;
     private String forumId; // 当前论坛的 ID
+    private TextView followNumTextView;
+
+    private static final int ADD_COLUMN_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_column);
 
+        // 初始化 UI 组件
         middleTextView = findViewById(R.id.middle);
         subscribeButton = findViewById(R.id.subscribebutton);
+        addColumnButton = findViewById(R.id.addcolumn);
         recyclerView = findViewById(R.id.recyclerView);
+        followNumTextView = findViewById(R.id.follownum);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         columnList = new ArrayList<>();
@@ -43,26 +54,98 @@ public class ColumnActivity extends AppCompatActivity {
 
         // 获取传递的数据
         String iconName = getIntent().getStringExtra("iconName");
-        forumId = getIntent().getStringExtra("forumId"); // 获取传递的论坛 ID
+        forumId = getIntent().getStringExtra("forumId");
 
-        // 设置论坛名称
+        if (forumId == null) {
+            Toast.makeText(this, "Forum ID is missing or not available.", Toast.LENGTH_SHORT).show();
+            forumId = "default_forum_id"; // 设置默认值用于测试
+        }
+
         middleTextView.setText(iconName);
+        Log.d("ColumnActivity", "Adapter initialized: " + (adapter != null));
 
-        // 根据 iconName 或其他标识来加载相应的数据
+        // 初始化适配器
+        adapter = new ColumnAdapter(this, columnList);
+        Log.d("ColumnActivity", "Adapter initialized: " + (adapter != null));
+
+        recyclerView.setAdapter(adapter);
+
+        // 加载数据
         loadColumnData(iconName);
 
-        adapter = new ColumnAdapter(this, columnList);
-        recyclerView.setAdapter(adapter);
+        // 显示关注人数
+        updateFollowNum();
 
         // 关注按钮点击事件
         subscribeButton.setOnClickListener(v -> subscribeToForum());
+
+        // 添加栏目按钮点击事件
+        addColumnButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ColumnActivity.this, AddColumnActivity.class);
+            intent.putExtra("forumId", forumId);
+            startActivityForResult(intent, ADD_COLUMN_REQUEST_CODE);
+        });
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADD_COLUMN_REQUEST_CODE && resultCode == RESULT_OK) {
+            // 重新加载栏目数据
+            loadColumnData(middleTextView.getText().toString());
+        }
     }
 
     private void loadColumnData(String iconName) {
-        // 根据 iconName 从数据库或其他来源加载数据
-        columnList.add(new Column(1, iconName + " Column 1", "image_url_1", "Source 1", "2022-05-20"));
-        columnList.add(new Column(2, iconName + " Column 2", "image_url_2", "Source 2", "2022-05-21"));
-        // 添加更多的数据
+        columnList.clear();
+        if (forumId == null) {
+            Toast.makeText(this, "Forum ID is missing.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM post WHERE forum_id=?", new String[]{forumId});
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    @SuppressLint("Range") int postId = cursor.getInt(cursor.getColumnIndex("post_id"));
+                    @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
+                    @SuppressLint("Range") String publishTime = cursor.getString(cursor.getColumnIndex("publish_time"));
+
+                    Column column = new Column(postId, title, "image_url", "Source", publishTime);
+                    columnList.add(column);
+                } while (cursor.moveToNext());
+            } else {
+                Toast.makeText(this, "No posts available.", Toast.LENGTH_SHORT).show();
+            }
+            cursor.close();
+        } else {
+            Toast.makeText(this, "Error loading data.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "Adapter is not initialized.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+    private void updateFollowNum() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM follow_forum WHERE forum_id=?", new String[]{forumId});
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int followCount = cursor.getInt(0);
+                followNumTextView.setText("关注人数: " + followCount);
+            }
+            cursor.close();
+        }
     }
 
     private void subscribeToForum() {
@@ -83,6 +166,7 @@ public class ColumnActivity extends AppCompatActivity {
         long result = db.insert("follow_forum", null, values);
         if (result != -1) {
             Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
+            updateFollowNum();
         } else {
             Toast.makeText(this, "关注失败", Toast.LENGTH_SHORT).show();
         }

@@ -6,15 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.icpc.ArticleContentActivity;
-import com.example.icpc.R;
-import com.example.icpc.Column;
 
 import java.util.List;
 
@@ -41,13 +35,13 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
         holder.itemTitle.setText(column.getTitle());
         holder.itemSource.setText(column.getSource());
         holder.itemDate.setText(column.getDate());
-//        holder.itemImage.setImageResource(column.getImageUrl());
 
-        // Load image using your preferred image loading library (e.g., Glide or Picasso)
+        // 如果需要加载图片
         // Glide.with(context).load(column.getImageUrl()).into(holder.itemImage);
+
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ArticleContentActivity.class);
-            intent.putExtra("id", column.getId());
+            intent.putExtra("id", column.getId()); // 传递文章 ID
             context.startActivity(intent);
         });
     }
@@ -60,7 +54,6 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemTitle, itemSource, itemDate;
         ImageView itemImage;
-        LinearLayout titleImageContainer;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -68,7 +61,6 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
             itemSource = itemView.findViewById(R.id.itemSource);
             itemDate = itemView.findViewById(R.id.itemDate);
             itemImage = itemView.findViewById(R.id.itemImage);
-            titleImageContainer = itemView.findViewById(R.id.titleImageContainer);
         }
     }
 }

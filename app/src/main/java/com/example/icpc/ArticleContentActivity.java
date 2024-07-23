@@ -2,7 +2,6 @@ package com.example.icpc;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,13 +19,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ArticleContentActivity extends AppCompatActivity {
 
-    // 声明ViewModel和各种视图控件
     private ArticleContentViewModel viewModel;
     private Toolbar toolbar;
     private LinearLayout llContent, llComment, llBottom, llShoucang, llStar, comment;
@@ -35,7 +31,6 @@ public class ArticleContentActivity extends AppCompatActivity {
     private ImageView headPic, ivShoucang, ivStar;
     private RecyclerView commentList;
     private int articleId;
-    private Bundle data;
     private CommentAdapter_Feng commentAdapter;
 
     @Override
@@ -44,8 +39,12 @@ public class ArticleContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article_content);
 
         // 获取传递的数据并初始化articleId
-        data = getIntent().getExtras();
-        articleId = data.getInt("id");
+        articleId = getIntent().getIntExtra("id", -1);
+        if (articleId == -1) {
+            Toast.makeText(this, "无效的文章ID", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         // 初始化视图
         initView();
@@ -57,6 +56,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         // 初始化ViewModel并观察数据变化
         viewModel = new ViewModelProvider(this).get(ArticleContentViewModel.class);
         viewModel.init(articleId);
+
         viewModel.getComments().observe(this, new Observer<List<Comment_Feng>>() {
             @Override
             public void onChanged(List<Comment_Feng> comments) {
@@ -73,32 +73,37 @@ public class ArticleContentActivity extends AppCompatActivity {
 
         // 发送评论按钮点击事件
         sendComment.setOnClickListener(v -> {
-            String commentText = commentContent.getText().toString();
+            String commentText = commentContent.getText().toString().trim();
             if (!commentText.isEmpty()) {
                 viewModel.addComment(commentText);
                 commentContent.setText("");
                 Toast.makeText(ArticleContentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
-                commentSum.setText(String.valueOf(data.getInt("content_comment_sum") + 1));
                 viewModel.incrementComment();
+            } else {
+                Toast.makeText(ArticleContentActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
             }
         });
 
         // 作者头像点击事件，导航到作者详情页
-        headPic.setOnClickListener(v -> navigateToAuthorDetail(data.getInt("authorid")));
-        author.setOnClickListener(v -> navigateToAuthorDetail(data.getInt("authorid")));
+        headPic.setOnClickListener(v -> navigateToAuthorDetail(getIntent().getIntExtra("authorid", -1)));
+        author.setOnClickListener(v -> navigateToAuthorDetail(getIntent().getIntExtra("authorid", -1)));
 
         // 收藏按钮点击事件
         llShoucang.setOnClickListener(v -> {
-            ivShoucang.setSelected(true);
-            Toast.makeText(ArticleContentActivity.this, "收藏成功!", Toast.LENGTH_SHORT).show();
+            ivShoucang.setSelected(!ivShoucang.isSelected());
+            Toast.makeText(ArticleContentActivity.this, ivShoucang.isSelected() ? "收藏成功!" : "取消收藏", Toast.LENGTH_SHORT).show();
         });
 
         // 点赞按钮点击事件
         llStar.setOnClickListener(v -> {
-            ivStar.setSelected(true);
-            starSum.setText(String.valueOf(data.getInt("star_sum") + 1));
-            viewModel.incrementStar();
-            Toast.makeText(ArticleContentActivity.this, "点赞成功!", Toast.LENGTH_SHORT).show();
+            ivStar.setSelected(!ivStar.isSelected());
+            if (ivStar.isSelected()) {
+                starSum.setText(String.valueOf(Integer.parseInt(starSum.getText().toString()) + 1));
+                viewModel.incrementStar();
+                Toast.makeText(ArticleContentActivity.this, "点赞成功!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(ArticleContentActivity.this, "取消点赞", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // 显示评论输入框
@@ -159,10 +164,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         commentSum.setText(String.valueOf(article.getCommentSum()));
         starSum.setText(String.valueOf(article.getStarSum()));
     }
-    private void updateCommentCount() {
-        int commentCount = viewModel.getCommentCount(articleId);
-        commentSum.setText(String.valueOf(commentCount));
-    }
+
     // 导航到作者详情页
     private void navigateToAuthorDetail(int authorId) {
         Intent intent = new Intent(ArticleContentActivity.this, PersonalInformationDetailsPageActivity.class);
@@ -178,7 +180,9 @@ public class ArticleContentActivity extends AppCompatActivity {
             View v = getCurrentFocus();
             if (isShouldHideInput(v, ev)) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
             }
         }
         return super.dispatchTouchEvent(ev);

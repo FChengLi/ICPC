@@ -41,7 +41,7 @@ public class BaList_Fragment extends Fragment {
         // 创建图标数据列表
         List<IconItem> iconList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            iconList.add(new IconItem(R.drawable.ic_launcher_background, boardType + " Icon " + (i + 1)));
+            iconList.add(new IconItem(R.drawable.ic_launcher_background, boardType + " Icon " + (i + 1), "forumId_" + (i + 1)));
         }
 
         // 创建适配器
