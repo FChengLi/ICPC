@@ -32,7 +32,9 @@ android {
 }
 
 dependencies {
-
+    // 添加 Glide 依赖
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

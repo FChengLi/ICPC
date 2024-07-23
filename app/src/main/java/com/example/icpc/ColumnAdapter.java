@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.icpc.ArticleContentActivity;
 import com.example.icpc.R;
 import com.example.icpc.Column;
@@ -44,7 +45,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
 //        holder.itemImage.setImageResource(column.getImageUrl());
 
         // Load image using your preferred image loading library (e.g., Glide or Picasso)
-        // Glide.with(context).load(column.getImageUrl()).into(holder.itemImage);
+        Glide.with(context).load(column.getImageUrl()).into(holder.itemImage);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ArticleContentActivity.class);
             intent.putExtra("id", column.getId());
