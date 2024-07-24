@@ -13,6 +13,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Database.db";
     private static final int DATABASE_VERSION = 6; // 更新版本号
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -48,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //用户
+    // 用户表
     private void createUserTable(SQLiteDatabase db) {
         String CREATE_USER_TABLE = "CREATE TABLE user ("
                 + "user_id TEXT PRIMARY KEY,"
@@ -59,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_USER_TABLE);
     }
 
-    //浏览历史
+    // 浏览历史表
     private void createHistoryTable(SQLiteDatabase db) {
         String CREATE_HISTORY_TABLE = "CREATE TABLE history ("
                 + "history_id TEXT PRIMARY KEY,"
@@ -71,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_HISTORY_TABLE);
     }
 
-    //收藏
+    // 收藏表
     private void createFavoriteTable(SQLiteDatabase db) {
         String CREATE_FAVORITE_TABLE = "CREATE TABLE favorite ("
                 + "favorite_id TEXT PRIMARY KEY,"
@@ -83,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_FAVORITE_TABLE);
     }
 
-    //发现
+    // 信息表
     private void createInformationTable(SQLiteDatabase db) {
         String CREATE_INFORMATION_TABLE = "CREATE TABLE information ("
                 + "information_id TEXT PRIMARY KEY,"
@@ -97,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_INFORMATION_TABLE);
     }
 
-    //论坛
+    // 论坛表
     private void createForumTable(SQLiteDatabase db) {
         String CREATE_FORUM_TABLE = "CREATE TABLE forum ("
                 + "forum_id INTEGER PRIMARY KEY,"
@@ -107,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_FORUM_TABLE);
     }
 
-    //关注论坛
+    // 关注论坛表
     private void createFollowForumTable(SQLiteDatabase db) {
         String CREATE_FOLLOW_FORUM_TABLE = "CREATE TABLE follow_forum ("
                 + "follow_id TEXT PRIMARY KEY,"
@@ -118,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_FOLLOW_FORUM_TABLE);
     }
 
-    //帖子
+    // 帖子表
     private void createPostTable(SQLiteDatabase db) {
         String CREATE_POST_TABLE = "CREATE TABLE post ("
                 + "post_id TEXT PRIMARY KEY,"
@@ -133,7 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_POST_TABLE);
     }
 
-    //快学
+    // 视频表
     private void createVideoTable(SQLiteDatabase db) {
         String CREATE_VIDEO_TABLE = "CREATE TABLE video ("
                 + "video_id TEXT PRIMARY KEY,"
@@ -146,7 +147,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_VIDEO_TABLE);
     }
 
-    //评论
+    // 评论表
     private void createCommentTable(SQLiteDatabase db) {
         String CREATE_COMMENT_TABLE = "CREATE TABLE comment ("
                 + "comment_id TEXT PRIMARY KEY,"
