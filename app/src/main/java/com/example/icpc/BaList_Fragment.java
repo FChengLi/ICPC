@@ -39,18 +39,18 @@ public class BaList_Fragment extends Fragment {
         }
 
         // 创建图标数据列表
-        List<IconItem> iconList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            iconList.add(new IconItem(R.drawable.ic_launcher_background, boardType + " Icon " + (i + 1)));
-        }
+//        List<IconItem> iconList = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            iconList.add(new IconItem(R.drawable.ic_launcher_background, boardType + " Icon " + (i + 1)));
+//        }
 
         // 创建适配器
-        BaIconAdapter adapter = new BaIconAdapter(iconList);
-
-        // 创建GridLayoutManager，设置每行显示3个图标
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+//        BaIconAdapter adapter = new BaIconAdapter(iconList);
+//
+//        // 创建GridLayoutManager，设置每行显示3个图标
+//        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
 
         return view;
     }
