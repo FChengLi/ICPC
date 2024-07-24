@@ -3,7 +3,7 @@ package com.example.icpc;
 // 文章类，表示一篇文章
 public class discover_article {
     // 文章的ID
-    private int id;
+    private int postid;
     // 文章的作者
     private String author;
     // 文章发布时间
@@ -24,8 +24,8 @@ public class discover_article {
     private int imageResource;
 
     // 完整构造函数，初始化所有属性
-    public discover_article(int id, String author, String time, String content, int commentSum, int starSum, String title, String source, String date, int imageResource) {
-        this.id = id;
+    public discover_article(int postid, String author, String time, String content, int commentSum, int starSum, String title, String source, String date, int imageResource) {
+        this.postid = postid;
         this.author = author;
         this.time = time;
         this.content = content;
@@ -43,8 +43,8 @@ public class discover_article {
     }
 
     // 获取文章ID
-    public int getId() {
-        return id;
+    public int getPostid() {
+        return postid;
     }
 
     // 获取文章作者

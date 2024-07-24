@@ -14,12 +14,14 @@ import java.util.List;
 
 public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder> {
 
-    private List<Column> columns;
-    private Context context;
+    private final Context context;
+    private final List<Post> columns;
+    private final int forumId; // 添加 forumId
 
-    public ColumnAdapter(Context context, List<Column> columns) {
+    public ColumnAdapter(Context context, List<Post> columns, int forumId) {
         this.context = context;
         this.columns = columns;
+        this.forumId = forumId; // 初始化 forumId
     }
 
     @NonNull
@@ -31,17 +33,17 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Column column = columns.get(position);
+        Post column = columns.get(position);
         holder.itemTitle.setText(column.getTitle());
-        holder.itemSource.setText(column.getSource());
-        holder.itemDate.setText(column.getDate());
+        holder.itemDate.setText(column.getPublishtime());
 
         // 如果需要加载图片
         // Glide.with(context).load(column.getImageUrl()).into(holder.itemImage);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ArticleContentActivity.class);
-            intent.putExtra("id", column.getId()); // 传递文章 ID
+            Intent intent = new Intent(context, PostContentActivity.class);
+            intent.putExtra("postId", column.getPostid()); // 传递文章 ID
+            intent.putExtra("forumId", forumId); // 传递论坛 ID
             context.startActivity(intent);
         });
     }
@@ -52,15 +54,15 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView itemTitle, itemSource, itemDate;
+        TextView itemTitle, itemDate;
         ImageView itemImage;
 
         ViewHolder(View itemView) {
             super(itemView);
             itemTitle = itemView.findViewById(R.id.itemTitle);
-            itemSource = itemView.findViewById(R.id.itemSource);
             itemDate = itemView.findViewById(R.id.itemDate);
             itemImage = itemView.findViewById(R.id.itemImage);
         }
     }
 }
+

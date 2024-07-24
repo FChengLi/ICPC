@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +24,12 @@ public class ColumnActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ColumnAdapter adapter;
-    private List<Column> columnList;
+    private List<Post> columnList;
     private TextView middleTextView;
     private Button subscribeButton;
-    private Button addColumnButton; // 添加的按钮
+    private Button addColumnButton;
     private DatabaseHelper dbHelper;
-    private String forumId; // 当前论坛的 ID
+    private int forumId; // 当前论坛的 ID
     private TextView followNumTextView;
 
     private static final int ADD_COLUMN_REQUEST_CODE = 1;
@@ -54,20 +53,26 @@ public class ColumnActivity extends AppCompatActivity {
 
         // 获取传递的数据
         String iconName = getIntent().getStringExtra("iconName");
-        forumId = getIntent().getStringExtra("forumId");
+        String forumIdString = getIntent().getStringExtra("forumId");
 
-        if (forumId == null) {
+        // 检查 forumIdString 是否为 null 或空
+        if (forumIdString != null && !forumIdString.isEmpty()) {
+            try {
+                forumId = Integer.parseInt(forumIdString);
+            } catch (NumberFormatException e) {
+                Log.e("ColumnActivity", "Invalid forumId format", e);
+                Toast.makeText(this, "Invalid Forum ID format.", Toast.LENGTH_SHORT).show();
+                forumId = -1; // 设置一个无效的默认值
+            }
+        } else {
             Toast.makeText(this, "Forum ID is missing or not available.", Toast.LENGTH_SHORT).show();
-            forumId = "default_forum_id"; // 设置默认值用于测试
+            forumId = -1; // 设置一个无效的默认值
         }
 
         middleTextView.setText(iconName);
-        Log.d("ColumnActivity", "Adapter initialized: " + (adapter != null));
 
         // 初始化适配器
-        adapter = new ColumnAdapter(this, columnList);
-        Log.d("ColumnActivity", "Adapter initialized: " + (adapter != null));
-
+        adapter = new ColumnAdapter(this, columnList, forumId); // 传递 forumId
         recyclerView.setAdapter(adapter);
 
         // 加载数据
@@ -81,12 +86,11 @@ public class ColumnActivity extends AppCompatActivity {
 
         // 添加栏目按钮点击事件
         addColumnButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ColumnActivity.this, AddColumnActivity.class);
-            intent.putExtra("forumId", forumId);
+            Intent intent = new Intent(ColumnActivity.this, AddPostActivity.class);
+            intent.putExtra("forumId", String.valueOf(forumId)); // 发送字符串格式的 forumId
             startActivityForResult(intent, ADD_COLUMN_REQUEST_CODE);
         });
     }
-
 
 
     @Override
@@ -100,23 +104,22 @@ public class ColumnActivity extends AppCompatActivity {
 
     private void loadColumnData(String iconName) {
         columnList.clear();
-        if (forumId == null) {
+        if (forumId == -1) { // 检查无效的 forumId
             Toast.makeText(this, "Forum ID is missing.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM post WHERE forum_id=?", new String[]{forumId});
+        Cursor cursor = db.rawQuery("SELECT * FROM post WHERE forum_id=?", new String[]{String.valueOf(forumId)});
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    @SuppressLint("Range") int postId = cursor.getInt(cursor.getColumnIndex("post_id"));
+                    @SuppressLint("Range") String postId = cursor.getString(cursor.getColumnIndex("post_id"));
                     @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
                     @SuppressLint("Range") String publishTime = cursor.getString(cursor.getColumnIndex("publish_time"));
-
-                    Column column = new Column(postId, title, "image_url", "Source", publishTime);
-                    columnList.add(column);
+                    Post post = new Post(postId, title, forumId, publishTime);
+                    columnList.add(post);
                 } while (cursor.moveToNext());
             } else {
                 Toast.makeText(this, "No posts available.", Toast.LENGTH_SHORT).show();
@@ -133,12 +136,9 @@ public class ColumnActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     private void updateFollowNum() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM follow_forum WHERE forum_id=?", new String[]{forumId});
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM follow_forum WHERE forum_id=?", new String[]{String.valueOf(forumId)});
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 int followCount = cursor.getInt(0);

@@ -2,6 +2,7 @@ package com.example.icpc;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,26 +22,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ArticleContentActivity extends AppCompatActivity {
+public class PostContentActivity extends AppCompatActivity {
 
-    private ArticleContentViewModel viewModel;
+    private PostContentViewModel viewModel;
     private Toolbar toolbar;
     private LinearLayout llContent, llComment, llBottom, llShoucang, llStar, comment;
     private EditText commentContent;
-    private TextView sendComment, author, registerTime, content, commentSum, starSum, tvShoucang, tvStarSum;
+    private TextView sendComment, author, registerTime, title, commentSum, starSum, tvShoucang, tvStarSum;
     private ImageView headPic, ivShoucang, ivStar;
     private RecyclerView commentList;
-    private int articleId;
+    private String postId;
     private CommentAdapter_Feng commentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article_content);
+        setContentView(R.layout.activity_post_content);
 
-        // 获取传递的数据并初始化articleId
-        articleId = getIntent().getIntExtra("id", -1);
-        if (articleId == -1) {
+        // 获取传递的数据并初始化 postId
+        postId = getIntent().getStringExtra("postId");
+
+        if (postId == null) {
             Toast.makeText(this, "无效的文章ID", Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -53,9 +55,9 @@ public class ArticleContentActivity extends AppCompatActivity {
         // 设置评论列表
         setupCommentList();
 
-        // 初始化ViewModel并观察数据变化
-        viewModel = new ViewModelProvider(this).get(ArticleContentViewModel.class);
-        viewModel.init(articleId);
+        // 初始化 ViewModel 并观察数据变化
+        viewModel = new ViewModelProvider(this).get(PostContentViewModel.class);
+        viewModel.init(postId);
 
         viewModel.getComments().observe(this, new Observer<List<Comment_Feng>>() {
             @Override
@@ -64,10 +66,10 @@ public class ArticleContentActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getArticle().observe(this, new Observer<Article>() {
+        viewModel.getPost().observe(this, new Observer<Post>() {
             @Override
-            public void onChanged(Article article) {
-                updateArticleView(article);
+            public void onChanged(Post post) {
+                updatePostView(post);
             }
         });
 
@@ -77,32 +79,39 @@ public class ArticleContentActivity extends AppCompatActivity {
             if (!commentText.isEmpty()) {
                 viewModel.addComment(commentText);
                 commentContent.setText("");
-                Toast.makeText(ArticleContentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostContentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
                 viewModel.incrementComment();
             } else {
-                Toast.makeText(ArticleContentActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostContentActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
             }
         });
 
         // 作者头像点击事件，导航到作者详情页
-        headPic.setOnClickListener(v -> navigateToAuthorDetail(getIntent().getIntExtra("authorid", -1)));
-        author.setOnClickListener(v -> navigateToAuthorDetail(getIntent().getIntExtra("authorid", -1)));
+        int authorId = getIntent().getIntExtra("authorid", -1);
+        headPic.setOnClickListener(v -> navigateToUsernameDetail(authorId));
+        author.setOnClickListener(v -> navigateToUsernameDetail(authorId));
 
         // 收藏按钮点击事件
         llShoucang.setOnClickListener(v -> {
             ivShoucang.setSelected(!ivShoucang.isSelected());
-            Toast.makeText(ArticleContentActivity.this, ivShoucang.isSelected() ? "收藏成功!" : "取消收藏", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PostContentActivity.this, ivShoucang.isSelected() ? "收藏成功!" : "取消收藏", Toast.LENGTH_SHORT).show();
         });
 
         // 点赞按钮点击事件
         llStar.setOnClickListener(v -> {
-            ivStar.setSelected(!ivStar.isSelected());
-            if (ivStar.isSelected()) {
+            boolean newState = !ivStar.isSelected();
+            ivStar.setSelected(newState);
+            SharedPreferences prefs = getSharedPreferences("PostPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("isStarred_" + postId, newState);
+            editor.apply();
+
+            if (newState) {
                 starSum.setText(String.valueOf(Integer.parseInt(starSum.getText().toString()) + 1));
                 viewModel.incrementStar();
-                Toast.makeText(ArticleContentActivity.this, "点赞成功!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostContentActivity.this, "点赞成功!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(ArticleContentActivity.this, "取消点赞", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostContentActivity.this, "取消点赞", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -131,7 +140,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         headPic = findViewById(R.id.article_head_pic);
         author = findViewById(R.id.contet_userName);
         registerTime = findViewById(R.id.content_release_time);
-        content = findViewById(R.id.content_article_content);
+        title = findViewById(R.id.title);
         commentSum = findViewById(R.id.content_comment_sum);
         starSum = findViewById(R.id.star_sum);
         llShoucang = findViewById(R.id.ll_shoucang);
@@ -157,17 +166,17 @@ public class ArticleContentActivity extends AppCompatActivity {
     }
 
     // 更新文章视图
-    private void updateArticleView(Article article) {
-        author.setText(article.getAuthor());
-        registerTime.setText(article.getTime());
-        content.setText(article.getContent());
-        commentSum.setText(String.valueOf(article.getCommentSum()));
-        starSum.setText(String.valueOf(article.getStarSum()));
+    private void updatePostView(Post post) {
+        author.setText(post.getUserid());
+        registerTime.setText(post.getPublishtime());
+        title.setText(post.getTitle());
+        commentSum.setText(String.valueOf(post.getCommentSum()));
+        starSum.setText(String.valueOf(post.getLikeSum()));
     }
 
     // 导航到作者详情页
-    private void navigateToAuthorDetail(int authorId) {
-        Intent intent = new Intent(ArticleContentActivity.this, PersonalInformationDetailsPageActivity.class);
+    private void navigateToUsernameDetail(int authorId) {
+        Intent intent = new Intent(PostContentActivity.this, PersonalInformationDetailsPageActivity.class);
         intent.putExtra("id", authorId);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.anim_no);
@@ -199,7 +208,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         return false;
     }
 
-    // 重写finish方法，添加动画效果
+    // 重写 finish 方法，添加动画效果
     @Override
     public void finish() {
         super.finish();

@@ -62,6 +62,7 @@ public class ContentFragment extends Fragment {
             Intent intent = new Intent(getActivity(), ColumnActivity.class);
             // 传递数据到 ColumnActivity，例如图标名称或ID
             intent.putExtra("iconName", iconItem.getIconName());
+            intent.putExtra("forumId", iconItem.getForumId()); // 传递 forumId
             startActivity(intent);
         });
 
@@ -86,5 +87,4 @@ public class ContentFragment extends Fragment {
             if (db != null && db.isOpen()) db.close();
         }
     }
-
 }

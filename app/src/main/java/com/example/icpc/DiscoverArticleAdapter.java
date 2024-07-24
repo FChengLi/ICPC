@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
+public class DiscoverArticleAdapter extends RecyclerView.Adapter<DiscoverArticleAdapter.ArticleViewHolder> {
     private List<discover_article> articleList;
 
-    public ArticleAdapter(List<discover_article> articleList) {
+    public DiscoverArticleAdapter(List<discover_article> articleList) {
         this.articleList = articleList;
     }
 

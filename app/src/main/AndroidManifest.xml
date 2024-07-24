@@ -16,14 +16,14 @@
         android:theme="@style/Theme.ICPC"
         tools:targetApi="31">
         <activity
-            android:name=".AddColumnActivity"
+            android:name=".AddPostActivity"
             android:exported="false" />
         <activity android:name=".ColumnActivity" />
         <activity
-            android:name=".ArticleContentActivity"
+            android:name=".PostContentActivity"
             android:exported="true" />
         <activity
-            android:name=".ArticleActivity"
+            android:name=".DiscoverArticleActivity"
             android:exported="false" />
         <activity
             android:name=".Vedio_DetailActivity"
