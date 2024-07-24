@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="0dp"
-    android:layout_margin="0dp">
+    android:layout_margin="0dp"
+    android:background="@android:color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/content_toolbar"
@@ -24,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
             android:src="@drawable/ic_logo_red"
-            android:translationX="102dp"/>
+            android:translationX="108dp"/>
         <ImageView
             android:id="@+id/ellipsis"
             android:layout_width="30dp"
@@ -35,16 +36,17 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/content_toolbar"
+        android:layout_marginBottom="45dp"
         android:layout_marginTop="7dp"
         android:layout_weight="5">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="550dp"
-            android:layout_below="@id/content_toolbar"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/date_text"
@@ -58,14 +60,13 @@
                 android:id="@+id/background"
                 android:layout_width="410dp"
                 android:layout_height="7dp"
-                android:layout_below="@id/date_text"
                 android:layout_marginTop="10dp"
                 android:background="#F6F6F8"
                 android:textSize="14sp" />
             <TextView
                 android:id="@+id/title"
                 android:layout_width="380dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:minLines="3"
                 android:text="标题"
@@ -73,11 +74,11 @@
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal" />
             <TextView
-                android:id="@+id/author"
+                android:id="@+id/source"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="作者"
+                android:text="来源"
                 android:textColor="@android:color/darker_gray"
                 android:layout_gravity="center_horizontal"/>
             <TextView
@@ -100,7 +101,7 @@
                     android:layout_width="170dp"
                     android:layout_height="30dp"
                     android:textSize="16sp"
-                    android:text="阅读12452"
+                    android:text="阅读0"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:background="@drawable/gs_rounded_corner"/>
@@ -109,7 +110,7 @@
                     android:layout_width="140dp"
                     android:layout_height="30dp"
                     android:textSize="16sp"
-                    android:text="点赞4235"
+                    android:text="点赞0"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
@@ -129,7 +130,6 @@
                 android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:padding="10dp"
-                android:layout_below="@+id/bottom_bar"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
                 <View
@@ -148,8 +148,7 @@
             </LinearLayout>
             <ImageView
                 android:id="@+id/surface"
-                android:layout_below="@+id/oragment"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/gs_surface" />

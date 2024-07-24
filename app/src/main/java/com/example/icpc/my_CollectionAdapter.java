@@ -8,28 +8,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import java.util.List;
 
-public class DiscoverArticleAdapter extends RecyclerView.Adapter<DiscoverArticleAdapter.ArticleViewHolder> {
-    private List<discover_article> articleList;
+public class my_CollectionAdapter extends RecyclerView.Adapter<my_CollectionAdapter.CollectionViewHolder> {
+    private List<discover_article> collectionList;
     private Context context;
 
-    public DiscoverArticleAdapter(Context context, List<discover_article> articleList) {
+    public my_CollectionAdapter(Context context, List<discover_article> collectionList) {
         this.context = context;
-        this.articleList = articleList;
+        this.collectionList = collectionList;
     }
 
     @NonNull
     @Override
-    public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CollectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.discover_item_article, parent, false);
-        return new ArticleViewHolder(view);
+        return new CollectionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        discover_article article = articleList.get(position);
+    public void onBindViewHolder(@NonNull CollectionViewHolder holder, int position) {
+        discover_article article = collectionList.get(position);
         holder.title.setText(article.getTitle());
         holder.source.setText(article.getSource() != null ? article.getSource() : "未知来源");
         holder.date.setText(article.getDate() != null ? article.getDate() : "未知日期");
@@ -37,26 +36,19 @@ public class DiscoverArticleAdapter extends RecyclerView.Adapter<DiscoverArticle
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, discover_article_content.class);
             intent.putExtra("article_id", String.valueOf(article.getId()));
-            Log.d("ArticleAdapter", "Sending article ID to detail view: " + article.getId());
-
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return articleList.size();
+        return collectionList.size();
     }
 
-    public void updateData(List<discover_article> newArticleList) {
-        this.articleList = newArticleList;
-        notifyDataSetChanged();
-    }
-
-    public static class ArticleViewHolder extends RecyclerView.ViewHolder {
+    public static class CollectionViewHolder extends RecyclerView.ViewHolder {
         TextView title, source, date;
 
-        public ArticleViewHolder(@NonNull View itemView) {
+        public CollectionViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.itemTitle);
             source = itemView.findViewById(R.id.itemSource);

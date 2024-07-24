@@ -11,12 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Collection_Fragment extends Fragment {
+import com.example.icpc.database.DatabaseHelper;
+
+import java.util.List;
+
+public class my_collection extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_collection, container, false);
+        return inflater.inflate(R.layout.my_collection, container, false);
     }
 
     @Override
@@ -26,8 +30,10 @@ public class Collection_Fragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Set adapter for RecyclerView here
-        // Example:
-        // recyclerView.setAdapter(new CollectionAdapter(...));
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        List<discover_article> collectionList = dbHelper.getFavoriteArticles();
+
+        my_CollectionAdapter adapter = new my_CollectionAdapter(getContext(), collectionList);
+        recyclerView.setAdapter(adapter);
     }
 }

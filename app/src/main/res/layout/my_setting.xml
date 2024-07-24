@@ -25,53 +25,37 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="编辑资料"
+            android:text="设置"
             android:textSize="22sp" />
     </RelativeLayout>
 
-    <com.example.icpc.ClipPathCircleImage
-        android:layout_below="@+id/title"
-        android:id="@+id/avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/avatar">
-    </com.example.icpc.ClipPathCircleImage>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignRight="@id/avatar"
-        android:layout_alignBottom="@id/avatar"
-        app:srcCompat="@drawable/scaning" />
-
     <LinearLayout
-        android:id="@+id/phone"
+        android:id="@+id/zhaq"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="60dp"
         android:background="@color/white"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_below="@id/avatar"
-        android:layout_marginTop="60dp">
+        android:paddingRight="20dp">
+
         <TextView
             android:id="@+id/chphone"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:textSize="20sp"
-            android:text="手机号" />
+            android:text="账号与安全"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/egphone"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center_vertical|right"
-            android:text="phone"
+            android:text=""
             android:textSize="20sp" />
+
         <ImageView
             android:id="@+id/go1"
             android:layout_width="20dp"
@@ -81,21 +65,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/name"
+        android:id="@+id/xxtz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_below="@id/zhaq"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_below="@id/phone">
+        android:paddingRight="20dp">
+
         <TextView
             android:id="@+id/chnickname"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:textSize="20sp"
-            android:text="昵称" />
+            android:text="新消息通知"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/egnickname"
             android:layout_width="0dp"
@@ -104,6 +91,7 @@
             android:gravity="center_vertical|right"
             android:text=""
             android:textSize="20sp" />
+
         <ImageView
             android:id="@+id/go2"
             android:layout_width="20dp"
@@ -113,21 +101,21 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/email"
+        android:id="@+id/yjms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_below="@id/xxtz"
         android:background="@color/white"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_below="@id/name">
+        android:paddingRight="20dp">
         <TextView
             android:id="@+id/chemail"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:textSize="20sp"
-            android:text="邮箱" />
+            android:text="夜间模式"
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/egemail"
             android:layout_width="0dp"
@@ -145,21 +133,22 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/passward"
+        android:id="@+id/ys"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_below="@id/yjms"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_below="@id/email">
+        android:paddingRight="20dp">
         <TextView
             android:id="@+id/changepassword"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:textSize="20sp"
-            android:text="修改密码" />
+            android:text="隐私"
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/blank"
             android:layout_width="0dp"
@@ -175,5 +164,13 @@
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/right" />
     </LinearLayout>
-
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ys"
+        android:backgroundTint="#E49B9B"
+        android:text="退出登录"
+        android:textColor="@color/white" />
 </RelativeLayout>

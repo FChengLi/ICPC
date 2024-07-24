@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class z_first extends AppCompatActivity {
@@ -12,14 +13,22 @@ public class z_first extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z_first);
 
+        ImageView backButton = findViewById(R.id.back);
         Button addButton = findViewById(R.id.a);
         Button changeButton = findViewById(R.id.b);
         Button deleteButton = findViewById(R.id.c);
         Button addForumButton = findViewById(R.id.e);
         Button changeForumButton = findViewById(R.id.f);
-        Button addArticleButton = findViewById(R.id.g); // 添加文章按钮
-        Button changeArticleButton = findViewById(R.id.t); // 修改文章按钮
-        Button deleteArticleButton = findViewById(R.id.i); // 删除文章按钮
+        Button addArticleButton = findViewById(R.id.g);
+        Button changeArticleButton = findViewById(R.id.t);
+        Button deleteArticleButton = findViewById(R.id.i);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +70,7 @@ public class z_first extends AppCompatActivity {
             }
         });
 
-        addArticleButton.setOnClickListener(new View.OnClickListener() { // 添加文章按钮点击事件
+        addArticleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(z_first.this, discover_add.class);
@@ -69,7 +78,7 @@ public class z_first extends AppCompatActivity {
             }
         });
 
-        changeArticleButton.setOnClickListener(new View.OnClickListener() { // 修改文章按钮点击事件
+        changeArticleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(z_first.this, discover_change.class);
@@ -77,7 +86,7 @@ public class z_first extends AppCompatActivity {
             }
         });
 
-        deleteArticleButton.setOnClickListener(new View.OnClickListener() { // 删除文章按钮点击事件
+        deleteArticleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(z_first.this, discover_delete.class);

@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -65,6 +66,8 @@
         <activity android:name=".discover_add" />
         <activity android:name=".discover_change" />
         <activity android:name=".discover_delete" />
+        <activity android:name=".discover_article_content"></activity>
+        <activity android:name=".my_setting" />
 
         <activity
             android:name=".MainActivity"
