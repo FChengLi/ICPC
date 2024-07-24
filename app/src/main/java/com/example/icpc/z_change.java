@@ -11,19 +11,21 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.icpc.database.DatabaseHelper;
+
 public class z_change extends AppCompatActivity {
 
     private EditText editTextId, editTextTitle, editTextDescription, editTextAuthor, editTextFilePath, editTextCover, editTextFavorites;
     private Button buttonChange;
 
-    private zDatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z_change);
 
-        dbHelper = new zDatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
 
         editTextId = findViewById(R.id.a);
         editTextTitle = findViewById(R.id.b);
@@ -75,14 +77,14 @@ public class z_change extends AppCompatActivity {
         try {
             db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(zDatabaseHelper.COLUMN_TITLE, title);
-            values.put(zDatabaseHelper.COLUMN_DESCRIPTION, description);
-            values.put(zDatabaseHelper.COLUMN_AUTHOR, author);
-            values.put(zDatabaseHelper.COLUMN_FILE_PATH, filePath);
-            values.put(zDatabaseHelper.COLUMN_COVER, cover);
-            values.put(zDatabaseHelper.COLUMN_FAVORITES, favorites);
+            values.put("title", title);
+            values.put("description", description);
+            values.put("author", author);
+            values.put("file_path", filePath);
+            values.put("cover", cover);
+            values.put("favorites_count", favorites);
 
-            int rowsAffected = db.update(zDatabaseHelper.TABLE_VIDEO, values, zDatabaseHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+            int rowsAffected = db.update("video", values, "video_id" + " = ?", new String[]{String.valueOf(id)});
             if (rowsAffected > 0) {
                 showSuccessDialog("记录更新成功");
             } else {

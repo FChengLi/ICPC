@@ -3,10 +3,14 @@ package com.example.icpc;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class Profile_Fragment extends Fragment {
 
@@ -28,6 +32,17 @@ public class Profile_Fragment extends Fragment {
             }
         });
 
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
         return view;
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        RecordPagerAdapter adapter = new RecordPagerAdapter(getChildFragmentManager());
+        viewPager.setAdapter(adapter);
     }
 }

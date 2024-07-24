@@ -1,6 +1,5 @@
 package com.example.icpc;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,44 +12,64 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
-    private List<DataItem> mDataList;
-    private Context mContext;
+    private List<DataItem> dataItemList;
+    private OnItemClickListener onItemClickListener;
 
-    public VideoAdapter(Context context, List<DataItem> dataList) {
-        mContext = context;
-        mDataList = dataList;
+    public VideoAdapter(List<DataItem> dataItemList) {
+        this.dataItemList = dataItemList;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.video_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.video_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DataItem item = mDataList.get(position);
-
-
-        holder.textView1.setText(item.getTitle());
+        DataItem dataItem = dataItemList.get(position);
+        // 获取资源ID
+        int resID = holder.itemView.getContext().getResources().getIdentifier(dataItem.getCoverpath(), "drawable", holder.itemView.getContext().getPackageName());
+        holder.coverImageView.setImageResource(resID);
+        holder.titleTextView.setText(dataItem.getTitle());
+        holder.authorTextView.setText(dataItem.getAuthor());
     }
 
     @Override
     public int getItemCount() {
-        return mDataList.size();
+        return dataItemList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView1;
-        TextView textView2;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView coverImageView;
+        TextView titleTextView;
+        TextView authorTextView;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.cover);
-            textView1 = itemView.findViewById(R.id.source);
-            textView2 = itemView.findViewById(R.id.title);
+            coverImageView = itemView.findViewById(R.id.cover);
+            titleTextView = itemView.findViewById(R.id.title);
+            authorTextView = itemView.findViewById(R.id.author);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
+                        onItemClickListener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 }

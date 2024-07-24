@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,25 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ICPC"
         tools:targetApi="31">
-        <activity android:name=".ColumnActivity"></activity>
-
         <activity
-            android:name=".WrongActivity"
+            android:name=".AddPostActivity"
             android:exported="false" />
+        <activity android:name=".ColumnActivity" />
         <activity
-            android:name=".Special_TestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ArticleContentActivity"
+            android:name=".PostContentActivity"
             android:exported="true" />
         <activity
-            android:name=".ArticleActivity"
+            android:name=".DiscoverArticleActivity"
             android:exported="false" />
         <activity
             android:name=".Vedio_DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TestActivity"
             android:exported="false" />
         <activity
             android:name=".MessageActivity"
@@ -50,29 +43,23 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
-        <activity
-            android:name=".EditingActivity">
-
-        </activity>
-
+        <activity android:name=".EditingActivity"></activity>
         <activity
             android:name=".RetrieveActivity"
             android:exported="true" />
-
-        <activity android:name=".Search_Fragment"
-            android:exported="true">
-
-        </activity>
-        <activity android:name=".History_Fragment$DetailActivity"
-            android:exported="true">
-        </activity>
-        <activity android:name=".History_Fragment$DsDemo1DetailActivity"
-            android:exported="true">
-        </activity>
-        <activity android:name=".z_add"></activity>
-        <activity android:name=".z_delete"></activity>
-        <activity android:name=".z_change"></activity>
-        <activity android:name=".z_first"></activity>
+        <activity
+            android:name=".Search_Fragment"
+            android:exported="true"></activity>
+        <activity
+            android:name=".History_Fragment$DetailActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".History_Fragment$DsDemo1DetailActivity"
+            android:exported="true"></activity>
+        <activity android:name=".z_add" />
+        <activity android:name=".z_delete" />
+        <activity android:name=".z_change" />
+        <activity android:name=".z_first" />
         <activity android:name=".z__add" />
         <activity android:name=".z__change" />
         <activity android:name=".discover_add" />
@@ -84,6 +71,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

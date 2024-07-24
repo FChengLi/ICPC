@@ -3,6 +3,7 @@ package com.example.icpc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -72,11 +73,23 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // 验证用户
                 if (userDAO.checkUser(phoneNumber, password)) {
-                    // 用户验证成功，保存用户ID到SharedPreferences
-                    saveUserIdToPreferences(phoneNumber);
+                    // 获取用户信息
+                    UserDAO.User user = userDAO.getUserInfo(phoneNumber);
+
+                    // 如果没有头像，则设置默认头像
+                    if (user.getAvatarUri() == null || user.getAvatarUri().isEmpty()) {
+                        // 设置默认头像 URI
+                        Uri defaultAvatarUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.avatar);
+                        userDAO.updateAvatar(phoneNumber, defaultAvatarUri.toString());
+                        user.setAvatarUri(defaultAvatarUri.toString());
+                    }
+
+                    // 用户验证成功，保存用户信息到SharedPreferences
+                    saveUserToPreferences(phoneNumber, user.getNickname(), user.getAvatarUri());
+
 
                     // 跳转到HomeActivity
-                    Intent intent = new Intent(LoginActivity.this, z_first.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -115,10 +128,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserIdToPreferences(String userId) {
+    private void saveUserToPreferences(String userId, String username, String avatarUri) {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("currentUserId", userId);
+        editor.putString("currentUsername", username); // 保存用户名
+        editor.putString("currentUserAvatar", avatarUri); // 保存头像 URI
         editor.apply();
     }
 

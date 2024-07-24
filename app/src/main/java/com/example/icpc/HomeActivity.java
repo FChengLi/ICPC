@@ -1,23 +1,29 @@
 package com.example.icpc;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     private FrameLayout customFab;
-    private FrameLayout fabContainer;
+    private int margin = 16; // 边距
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         // Setup the top toolbar
         Toolbar topToolbar = findViewById(R.id.top_toolbar);
         setSupportActionBar(topToolbar);
@@ -28,23 +34,28 @@ public class HomeActivity extends AppCompatActivity {
         // 设置导航栏的选择监听器
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        // Default fragment
+        // 设置底部导航栏默认选中的项为 Discover
+        bottomNav.setSelectedItemId(R.id.nav_discover);
+
         // 初始化自定义悬浮按钮
         customFab = findViewById(R.id.custom_fab);
-        fabContainer = findViewById(R.id.fab_container);
 
         customFab.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, Aides_Activity.class);
             startActivity(intent);
         });
 
+        ImageView message = findViewById(R.id.message_icon);
+        message.setOnClickListener(v -> {
+            // 创建 Intent 启动 MessageActivity
+            Intent intent = new Intent(HomeActivity.this, MessageActivity.class);
+            startActivity(intent);
+        });
+
         // 设置自定义悬浮按钮的初始位置
         customFab.post(() -> {
-            int fabContainerHeight = fabContainer.getHeight();
-            int fabHeight = customFab.getHeight();
-            int centerY = (fabContainerHeight - fabHeight) / 2;
-            customFab.setX(fabContainer.getWidth() - customFab.getWidth() - 16);
-            customFab.setY(centerY);
+            customFab.setX(getWindowManager().getDefaultDisplay().getWidth() - customFab.getWidth() - margin);
+            customFab.setY(getWindowManager().getDefaultDisplay().getHeight() - customFab.getHeight() - margin);
         });
 
         // 设置自定义悬浮按钮的触摸监听器
@@ -67,9 +78,9 @@ public class HomeActivity extends AppCompatActivity {
 
                         // 检查是否在边界内
                         if (newX < 0) newX = 0;
-                        if (newX > fabContainer.getWidth() - view.getWidth()) newX = fabContainer.getWidth() - view.getWidth();
+                        if (newX > getWindowManager().getDefaultDisplay().getWidth() - view.getWidth()) newX = getWindowManager().getDefaultDisplay().getWidth() - view.getWidth();
                         if (newY < 0) newY = 0;
-                        if (newY > fabContainer.getHeight() - view.getHeight()) newY = fabContainer.getHeight() - view.getHeight();
+                        if (newY > getWindowManager().getDefaultDisplay().getHeight() - view.getHeight()) newY = getWindowManager().getDefaultDisplay().getHeight() - view.getHeight();
 
                         view.setX(newX);
                         view.setY(newY);
@@ -89,18 +100,24 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // 为搜索框设置点击监听器
-
         View whiteRectangle = findViewById(R.id.white_rectangle);
         whiteRectangle.setOnClickListener(this::onSearchClick);
+
+        // 如果 savedInstanceState 为空，表示是第一次创建活动，加载默认的 Fragment
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Discover_Fragment()).commit();
+        }
 
         View searchIcon = findViewById(R.id.search_icon);
         searchIcon.setOnClickListener(this::onSearchClick);
     }
+
     // 定义搜索框和图标的点击事件处理函数
     public void onSearchClick(View view) {
         Intent intent = new Intent(HomeActivity.this, Search_Fragment.class);
         startActivity(intent);
     }
+
     // 定义底部导航栏的选择监听器
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {

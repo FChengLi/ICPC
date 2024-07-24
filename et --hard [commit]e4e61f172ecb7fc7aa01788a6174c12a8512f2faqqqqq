@@ -1,0 +1,225 @@
+[33mcommit e4e61f172ecb7fc7aa01788a6174c12a8512f2fa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32minfor[m[33m, [m[1;31morigin/infor[m[33m)[m
+Author: luke <manmail993@163.com>
+Date:   Sat Jul 20 11:27:11 2024 +0800
+
+    跳转界面实现第2次
+
+[33mcommit bbfcbb7f9cf6bcd6303f71d7bb8c13b992329e37[m
+Author: luke <manmail993@163.com>
+Date:   Fri Jul 19 23:42:56 2024 +0800
+
+    我的界面UI设计第二次
+
+[33mcommit ea5294e6be73ef226f15a5c61b22465721516916[m
+Author: luke <manmail993@163.com>
+Date:   Fri Jul 19 22:55:52 2024 +0800
+
+    党史界面UI设计第二次
+
+[33mcommit d589946911c2a9a6383bd6a2720814933124d097[m
+Author: luke <manmail993@163.com>
+Date:   Fri Jul 19 22:19:52 2024 +0800
+
+    党史界面UI设计第二次
+
+[33mcommit f125ba717e6ddd0b1badb6c2540fd0594cbea808[m
+Author: luke <manmail993@163.com>
+Date:   Fri Jul 19 21:31:54 2024 +0800
+
+    快学、发现、党史界面UI设计第一次
+
+[33mcommit 25e3b02731860dd491db1f52038d3be7110c13dd[m
+Author: luke <manmail993@163.com>
+Date:   Fri Jul 19 16:28:48 2024 +0800
+
+    贴吧界面UI设计第一次
+
+[33mcommit ab79d70a4dac00d18a1612a5b3ac5d4c089df3ea[m
+Author: luke <manmail993@163.com>
+Date:   Fri Jul 19 16:27:28 2024 +0800
+
+    贴吧界面UI设计第一次
+
+[33mcommit dcd346dc517679ae9e0c0fd0757005d1de665c05[m
+Author: luke <manmail993@163.com>
+Date:   Fri Jul 19 16:24:40 2024 +0800
+
+    贴吧界面UI设计第一次
+
+[33mcommit c3829cca0e201de18187946351552881168496e9[m
+Author: mls <3274467242@qq.com>
+Date:   Thu Jul 18 21:01:17 2024 +0800
+
+    2024 7.18 luke+fchengli+addison
+
+[33mcommit 026be44839bc042b4dbb763b44384a990521391d[m
+Author: mls <3274467242@qq.com>
+Date:   Thu Jul 18 21:00:56 2024 +0800
+
+    2024 7.18 luke+fchengli+addison
+
+[33mcommit e8290e8cd28fa80498df5f7e4d501f6a0a6994ad[m
+Merge: 099d0f9 81de59b
+Author: mls <3274467242@qq.com>
+Date:   Thu Jul 18 20:52:36 2024 +0800
+
+    Merge branch 'refs/heads/gs'
+    
+    # Conflicts:
+    #       app/src/main/AndroidManifest.xml
+    #       app/src/main/java/com/example/icpc/HomeActivity.java
+
+[33mcommit 81de59b6baa48c1009ec6fa371918fd302bc9f39[m
+Author: mls <3274467242@qq.com>
+Date:   Thu Jul 18 20:45:44 2024 +0800
+
+    郭森:第一次:注册登录
+
+[33mcommit 099d0f957177621cafecb7398b289ca54d5616f5[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Thu Jul 18 20:41:26 2024 +0800
+
+    2024.7.18 luke+Fchengli
+
+[33mcommit 693b396bde34f047c1d9db8f9fba46b56d47cca5[m
+Merge: 9be71ca 2e1da25
+Author: FChengLi <1179228210@qq.com>
+Date:   Thu Jul 18 20:35:37 2024 +0800
+
+    Merge branch 'refs/heads/homepage'
+    
+    # Conflicts:
+    #       app/build.gradle.kts
+    #       app/src/main/AndroidManifest.xml
+
+[33mcommit 9be71ca1e053e194cfc6a9f0221f5d2d8cd9f9fc[m
+Author: luke <manmail993@163.com>
+Date:   Thu Jul 18 20:11:41 2024 +0800
+
+    消息界面UI设计第一次
+
+[33mcommit 61aaad8d69b335ad50cf3b4922d0359dfc27892f[m
+Author: luke <manmail993@163.com>
+Date:   Thu Jul 18 20:10:54 2024 +0800
+
+    消息界面UI设计第一次
+
+[33mcommit 6810500d2dbc0c41d5012ec97be2ac74da6c1bfa[m
+Author: luke <manmail993@163.com>
+Date:   Thu Jul 18 19:23:00 2024 +0800
+
+    用户信息编辑界面UI设计第一次
+
+[33mcommit d4978932b765b86a5b008a751b7ec2fe53dfb18c[m
+Author: luke <manmail993@163.com>
+Date:   Thu Jul 18 19:22:20 2024 +0800
+
+    用户信息编辑界面UI设计第一次
+
+[33mcommit 2e1da258fa4fbfb6f8e8ba7f169f3e7d79d6e72a[m[33m ([m[1;31morigin/homepage[m[33m)[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Thu Jul 18 16:54:25 2024 +0800
+
+    2024.7.17主页顶部导航栏 修改第san次
+
+[33mcommit 57db942be042809357ea1ec257d2b7db6eb8d6d0[m
+Merge: 631fce3 aaf684c
+Author: FChengLi <1179228210@qq.com>
+Date:   Thu Jul 18 14:11:45 2024 +0800
+
+    Merge remote-tracking branch 'origin/homepage' into homepage
+
+[33mcommit a4fba5d5bbbc2ee900b996672b018eece3cfb43a[m
+Author: luke <manmail993@163.com>
+Date:   Thu Jul 18 11:40:20 2024 +0800
+
+    个人信息界面UI设计第一次
+
+[33mcommit 631fce325c8dcb3b09f3a7cc2c85b47f27a8bd00[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 21:15:25 2024 +0800
+
+    2024.7.17主页顶部导航栏 修改第二次
+
+[33mcommit aaf684c47df25ab156d2672f10ab876e8724eb0e[m[33m ([m[1;32mhomepage[m[33m)[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 21:15:25 2024 +0800
+
+    2024.7.17主页顶部导航栏 修改第二次
+
+[33mcommit e30d9085fc23019ca658be3a42d3c900f887eb84[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 20:39:18 2024 +0800
+
+    2024.7.17主页顶部导航栏 修改第二次
+
+[33mcommit 71bae35b3a2fc69f4a1bf8c0b4eb80d011219e13[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 19:34:43 2024 +0800
+
+    2024.7.17主页顶部导航栏
+
+[33mcommit cb1a803affbdb6d608d4b65cdf0a104b80927d38[m[33m ([m[1;31morigin/Fchengli[m[33m)[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 14:40:30 2024 +0800
+
+    冯圣阳
+
+[33mcommit a2c31ba8fada3fa21239cc6af9fab52c35afb895[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 14:39:38 2024 +0800
+
+    冯圣阳
+
+[33mcommit c53420816af8c29b02cf1c67c00558fc5471d134[m
+Merge: 1580606 db22c26
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 14:38:36 2024 +0800
+
+    Merge branch 'refs/heads/ICPC_login' into Fchengli
+
+[33mcommit 1580606f0e8d26cb4492e4d070e842e5ec77ccf4[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 14:38:11 2024 +0800
+
+    冯圣阳
+
+[33mcommit db22c26bbb998b5e3d6cf7af37508005243b74ee[m
+Merge: a80b91d 031fd25
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 14:37:18 2024 +0800
+
+    Merge branch 'refs/heads/Fchengli' into ICPC_login
+    
+    # Conflicts:
+    #       app/src/main/java/com/example/icpc/HomeActivity.java
+
+[33mcommit 031fd25df617b20d4e59d17a89eced32f827ec6b[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 14:36:13 2024 +0800
+
+    冯圣阳
+
+[33mcommit a80b91d7b054decd317353ba5e9179f542273a9f[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 14:31:18 2024 +0800
+
+    冯圣阳
+
+[33mcommit 43f8fd842ac950df61d12379c52004b301e0e036[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 13:48:11 2024 +0800
+
+    注释
+
+[33mcommit b6705a6c5a20d407d66680cc23f7170e06813822[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 13:39:06 2024 +0800
+
+    注释
+
+[33mcommit 2b441ad9485c81a6d843be5a5537dedfaeb1d0b3[m
+Author: FChengLi <1179228210@qq.com>
+Date:   Wed Jul 17 00:01:05 2024 +0800
+
+    Initial commit

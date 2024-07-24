@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +27,13 @@ public class CommentAdapter_Feng extends RecyclerView.Adapter<CommentAdapter_Fen
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment_Feng comment = comments.get(position);
-        holder.commentAuthorName.setText(comment.getAuthorName());
+        holder.commentAuthorName.setText(comment.getUserid());
         holder.commentContent.setText(comment.getContent());
-        holder.commentTime.setText(comment.getTime());
-        holder.commentSum.setText(String.valueOf(comment.getStarSum()));
+        holder.commentTime.setText(comment.getCommenttime());
+        holder.commentSum.setText(String.valueOf(comment.getLikeSum()));
+
+        // 可以根据需要设置其他属性
+        // holder.commentHeadPic.setImageResource(R.drawable.some_image); // 示例：设置头像图片
     }
 
     @Override
@@ -55,6 +60,21 @@ public class CommentAdapter_Feng extends RecyclerView.Adapter<CommentAdapter_Fen
             llCommentStar = itemView.findViewById(R.id.ll_comment_star);
             ivCommentStar = itemView.findViewById(R.id.iv_comment_star);
             commentHeadPic = itemView.findViewById(R.id.comment_head_pic);
+
+            // 设置评论点赞按钮的点击事件
+            llCommentStar.setOnClickListener(v -> {
+                // 在这里处理评论点赞的逻辑
+                // 比如更新评论的点赞状态
+                if (ivCommentStar.isSelected()) {
+                    ivCommentStar.setSelected(false);
+                    // 执行取消点赞的逻辑，比如更新数据库
+                } else {
+                    ivCommentStar.setSelected(true);
+                    // 执行点赞的逻辑，比如更新数据库
+                }
+                // 更新评论的点赞数显示
+                // 注意需要通知数据更新
+            });
         }
     }
 }

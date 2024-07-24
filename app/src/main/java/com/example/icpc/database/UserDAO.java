@@ -1,5 +1,6 @@
 package com.example.icpc.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,7 +19,7 @@ public class UserDAO {
     }
 
     public void close() {
-        dbHelper.close();
+        db.close();
     }
 
     public boolean checkUser(String userId, String password) {
@@ -59,17 +60,36 @@ public class UserDAO {
         return rows > 0;
     }
 
+    public boolean updateAvatar(String userId, String avatarUri) {
+        ContentValues values = new ContentValues();
+        values.put("avatar_uri", avatarUri);
+        int rows = db.update("user", values, "user_id=?", new String[]{userId});
+        return rows > 0;
+    }
+
     public User getUserInfo(String userId) {
         User user = null;
-        Cursor cursor = db.query("user", new String[]{"user_id", "nickname", "email"},
+        Cursor cursor = db.query("user", new String[]{"user_id", "nickname", "email", "avatar_uri"},
                 "user_id=?", new String[]{userId}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
-            String email = cursor.getString(cursor.getColumnIndex("email"));
-            user = new User(userId, nickname, email);
+            @SuppressLint("Range") String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
+            @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
+            @SuppressLint("Range") String avatar = cursor.getString(cursor.getColumnIndex("avatar_uri"));
+            user = new User(userId, nickname, email, avatar);
             cursor.close();
         }
         return user;
+    }
+
+    @SuppressLint("Range")
+    public String getUsernameByUserId(String userId) {
+        String username = null;
+        Cursor cursor = db.query("user", new String[]{"nickname"}, "user_id=?", new String[]{userId}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            username = cursor.getString(cursor.getColumnIndex("nickname"));
+            cursor.close();
+        }
+        return username;
     }
 
     // 内部类 User
@@ -77,11 +97,13 @@ public class UserDAO {
         private String userId;
         private String nickname;
         private String email;
+        private String avatarUri;
 
-        public User(String userId, String nickname, String email) {
+        public User(String userId, String nickname, String email, String avatarUri) {
             this.userId = userId;
             this.nickname = nickname;
             this.email = email;
+            this.avatarUri = avatarUri;
         }
 
         public String getUserId() {
@@ -96,12 +118,20 @@ public class UserDAO {
             return email;
         }
 
+        public String getAvatarUri() {
+            return avatarUri;
+        }
+
         public void setNickname(String nickname) {
             this.nickname = nickname;
         }
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public void setAvatarUri(String avatarUri) {
+            this.avatarUri = avatarUri;
         }
     }
 }

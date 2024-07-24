@@ -37,21 +37,12 @@
         android:layout_marginTop="4dp">
 
         <TextView
-            android:id="@+id/itemSource"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="来源"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray" />
-
-        <TextView
             android:id="@+id/itemDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="日期"
             android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginStart="16dp" />
+            android:textColor="@android:color/darker_gray" />
     </LinearLayout>
 
 </RelativeLayout>
