@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class RecordPagerAdapter extends FragmentPagerAdapter {
+public class my_RecordAdapter extends FragmentPagerAdapter {
 
-    public RecordPagerAdapter(@NonNull FragmentManager fm) {
+    public my_RecordAdapter(@NonNull FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
@@ -16,11 +16,11 @@ public class RecordPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new Collection_Fragment();
+                return new my_collection();
             case 1:
-                return new Browsing_History_Fragment();
+                return new my_browsing_history();
             default:
-                return new Collection_Fragment();
+                return new my_collection();
         }
     }
 

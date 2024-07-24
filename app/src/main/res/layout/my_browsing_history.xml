@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Browsing_History_Fragment">
+    tools:context=".my_browsing_history">
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -55,7 +55,7 @@ public class Discover_Fragment extends Fragment {
         // 设置RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ArticleAdapter articleAdapter = new ArticleAdapter(getContext(), articleList);
+        DiscoverArticleAdapter articleAdapter = new DiscoverArticleAdapter(getContext(), articleList);
         recyclerView.setAdapter(articleAdapter);
 
         return view;

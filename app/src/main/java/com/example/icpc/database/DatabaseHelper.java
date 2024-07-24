@@ -1,6 +1,7 @@
 package com.example.icpc.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -12,7 +13,6 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Database.db";
     private static final int DATABASE_VERSION = 6; // 更新版本号
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -118,7 +118,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_FOLLOW_FORUM_TABLE);
     }
 
-
     //帖子
     private void createPostTable(SQLiteDatabase db) {
         String CREATE_POST_TABLE = "CREATE TABLE post ("
@@ -132,20 +131,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,"
                 + "FOREIGN KEY (forum_id) REFERENCES forum(forum_id) ON DELETE CASCADE)";
         db.execSQL(CREATE_POST_TABLE);
-    }
-
-    //评论
-    private void createCommentTable(SQLiteDatabase db) {
-        String CREATE_ANSWER_TABLE = "CREATE TABLE comment ("
-                + "comment_id TEXT PRIMARY KEY,"
-                + "post_id INTEGER,"
-                + "user_id TEXT,"
-                + "content TEXT NOT NULL,"
-                + "comment_time DATETIME,"
-                + "like_count INTEGER DEFAULT 0,"
-                + "FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE,"
-                + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE)";
-        db.execSQL(CREATE_ANSWER_TABLE);
     }
 
     //快学
@@ -200,6 +185,61 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return articles;
     }
 
+    // 获取浏览历史
+    public List<discover_article> getBrowsingHistory() {
+        List<discover_article> articles = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM information WHERE information_id IN (SELECT information_id FROM history ORDER BY browse_time DESC)", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(getColumnIndexSafe(cursor, "information_id"));
+                String author = cursor.getString(getColumnIndexSafe(cursor, "author"));
+                String publishTime = cursor.getString(getColumnIndexSafe(cursor, "publish_time"));
+                String content = cursor.getString(getColumnIndexSafe(cursor, "content_text"));
+                int likes = cursor.getInt(getColumnIndexSafe(cursor, "likes"));
+                int star = cursor.getInt(getColumnIndexSafe(cursor, "star"));
+                String title = cursor.getString(getColumnIndexSafe(cursor, "title"));
+                String source = cursor.getString(getColumnIndexSafe(cursor, "author")); // Assuming source is stored in author column
+                String date = cursor.getString(getColumnIndexSafe(cursor, "publish_time")); // Assuming date is the publish time
+
+                articles.add(new discover_article(id, author, publishTime, content, likes, star, title, source, date));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return articles;
+    }
+
+    // 获取收藏文章
+    public List<discover_article> getFavoriteArticles() {
+        List<discover_article> articles = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM information WHERE information_id IN (SELECT information_id FROM favorite WHERE user_id = ?)", new String[]{getCurrentUserId()});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(getColumnIndexSafe(cursor, "information_id"));
+                String author = cursor.getString(getColumnIndexSafe(cursor, "author"));
+                String publishTime = cursor.getString(getColumnIndexSafe(cursor, "publish_time"));
+                String content = cursor.getString(getColumnIndexSafe(cursor, "content_text"));
+                int likes = cursor.getInt(getColumnIndexSafe(cursor, "likes"));
+                int star = cursor.getInt(getColumnIndexSafe(cursor, "star"));
+                String title = cursor.getString(getColumnIndexSafe(cursor, "title"));
+                String source = cursor.getString(getColumnIndexSafe(cursor, "author")); // Assuming source is stored in author column
+                String date = cursor.getString(getColumnIndexSafe(cursor, "publish_time")); // Assuming date is the publish time
+
+                articles.add(new discover_article(id, author, publishTime, content, likes, star, title, source, date));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return articles;
+    }
+
+    private String getCurrentUserId() {
+        // Return the current user ID
+        return "current_user_id"; // Replace with actual logic to get current user ID
+    }
+
     private int getColumnIndexSafe(Cursor cursor, String columnName) {
         int index = cursor.getColumnIndex(columnName);
         if (index == -1) {
@@ -207,5 +247,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return index;
     }
-
 }

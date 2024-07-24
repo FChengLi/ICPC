@@ -11,12 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Browsing_History_Fragment extends Fragment {
+import com.example.icpc.database.DatabaseHelper;
+
+import java.util.List;
+
+public class my_browsing_history extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_browsing_history, container, false);
+        return inflater.inflate(R.layout.my_browsing_history, container, false);
     }
 
     @Override
@@ -26,8 +30,10 @@ public class Browsing_History_Fragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Set adapter for RecyclerView here
-        // Example:
-        // recyclerView.setAdapter(new BrowsingHistoryAdapter(...));
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        List<discover_article> historyList = dbHelper.getBrowsingHistory();
+
+        my_BrowsingHistoryAdapter adapter = new my_BrowsingHistoryAdapter(getContext(), historyList);
+        recyclerView.setAdapter(adapter);
     }
 }

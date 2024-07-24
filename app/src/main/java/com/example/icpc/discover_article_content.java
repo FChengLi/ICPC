@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.icpc.database.DatabaseHelper;
@@ -14,10 +15,12 @@ import com.example.icpc.database.DatabaseHelper;
 public class discover_article_content extends AppCompatActivity {
     private static final String TAG = "ArticleContentActivity"; // 日志标签
     private TextView titleTextView, sourceTextView, contentTextView, dateTextView, readTextView, likeTextView;
-    private ImageView likeIconImageView, shareIconImageView;
+    private ImageView likeIconImageView, shareIconImageView, starIconImageView, logoImageView;
+    private ScrollView scrollView;
     private DatabaseHelper dbHelper;
     private String articleId;
     private boolean isLiked = false; // 标记是否已经点赞
+    private boolean isStarred = false; // 标记是否已经收藏
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class discover_article_content extends AppCompatActivity {
         likeTextView = findViewById(R.id.likes);
         likeIconImageView = findViewById(R.id.like_icon);
         shareIconImageView = findViewById(R.id.share);
+        starIconImageView = findViewById(R.id.star);
+        logoImageView = findViewById(R.id.logo);
+        scrollView = findViewById(R.id.scrollview);
 
         ImageView backImageView = findViewById(R.id.back);
         backImageView.setOnClickListener(v -> finish());
@@ -63,6 +69,29 @@ public class discover_article_content extends AppCompatActivity {
 
         // 设置分享图标点击事件
         shareIconImageView.setOnClickListener(v -> shareArticle());
+
+        // 设置收藏图标点击事件
+        starIconImageView.setOnClickListener(v -> {
+            if (!isStarred) {
+                addToFavorites(articleId);
+            } else {
+                removeFromFavorites(articleId);
+            }
+        });
+
+        // 设置滚动事件监听器
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    // 向下滚动，隐藏logo
+                    logoImageView.setVisibility(View.GONE);
+                } else if (scrollY < oldScrollY && scrollY == 0) {
+                    // 向上滚动且滚动到顶部，显示logo
+                    logoImageView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void loadArticleContent(String articleId) {
@@ -90,6 +119,12 @@ public class discover_article_content extends AppCompatActivity {
 
             // 增加阅读数并更新数据库
             incrementViewCount(articleId, viewCount);
+
+            // 添加到浏览历史
+            addToBrowsingHistory(articleId);
+
+            // 检查是否已收藏
+            checkIfStarred(articleId);
         } else {
             Log.e(TAG, "No data found for article ID: " + articleId);
             showArticleNotFound();
@@ -148,6 +183,21 @@ public class discover_article_content extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "分享文章到"));
     }
 
+    private void addToBrowsingHistory(String articleId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("INSERT INTO history (history_id, information_id, user_id, browse_time) VALUES (?, ?, ?, datetime('now'))",
+                new Object[]{generateId(), articleId, getCurrentUserId()});
+    }
+
+    private String generateId() {
+        return java.util.UUID.randomUUID().toString();
+    }
+
+    private String getCurrentUserId() {
+        // Return the current user ID
+        return "current_user_id"; // Replace with actual logic to get current user ID
+    }
+
     private void showArticleNotFound() {
         Log.e(TAG, "Displaying 'article not found' information.");
         titleTextView.setText("文章未找到");
@@ -156,5 +206,35 @@ public class discover_article_content extends AppCompatActivity {
         dateTextView.setText("无");
         readTextView.setText("阅读0");
         likeTextView.setText("点赞0");
+    }
+
+    private void addToFavorites(String articleId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("INSERT INTO favorite (favorite_id, user_id, information_id, favorite_time) VALUES (?, ?, ?, datetime('now'))",
+                new Object[]{generateId(), getCurrentUserId(), articleId});
+        starIconImageView.setImageResource(R.drawable.gs_star_fill); // 假设 gs_star_fill 是收藏后的图标
+        isStarred = true;
+        Log.d(TAG, "Article added to favorites: " + articleId);
+    }
+
+    private void removeFromFavorites(String articleId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("DELETE FROM favorite WHERE information_id = ? AND user_id = ?", new Object[]{articleId, getCurrentUserId()});
+        starIconImageView.setImageResource(R.drawable.gs_star); // 假设 gs_star 是默认的图标
+        isStarred = false;
+        Log.d(TAG, "Article removed from favorites: " + articleId);
+    }
+
+    private void checkIfStarred(String articleId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM favorite WHERE information_id = ? AND user_id = ?", new String[]{articleId, getCurrentUserId()});
+        if (cursor != null && cursor.moveToFirst()) {
+            starIconImageView.setImageResource(R.drawable.gs_star_fill); // 假设 gs_star_fill 是收藏后的图标
+            isStarred = true;
+        } else {
+            starIconImageView.setImageResource(R.drawable.gs_star); // 假设 gs_star 是默认的图标
+            isStarred = false;
+        }
+        cursor.close();
     }
 }

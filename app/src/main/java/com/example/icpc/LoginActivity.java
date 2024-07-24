@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView clearImageView;
     private ImageView eyeImageView;
     private TextView forgotPasswordTextView;
+    private TextView vistorLoginTextView;
     private boolean isPasswordVisible = false;
     private UserDAO userDAO;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         clearImageView = findViewById(R.id.clear);
         eyeImageView = findViewById(R.id.eye_close);
         forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
+        vistorLoginTextView = findViewById(R.id.vistor);
 
         // 初始化UserDAO，用于数据库操作
         userDAO = new UserDAO(this);
@@ -67,34 +69,40 @@ public class LoginActivity extends AppCompatActivity {
             String phoneNumber = phoneNumberEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            // 验证手机号长度
-            if (phoneNumber.length() != 11) {
-                Toast.makeText(LoginActivity.this, "手机号错误", Toast.LENGTH_SHORT).show();
+            // 特殊账号处理
+            if (phoneNumber.equals("99999999999") && password.equals("999")) {
+                Intent intent = new Intent(LoginActivity.this, z_first.class);
+                startActivity(intent);
+                finish();
             } else {
-                // 验证用户
-                if (userDAO.checkUser(phoneNumber, password)) {
-                    // 获取用户信息
-                    UserDAO.User user = userDAO.getUserInfo(phoneNumber);
-
-                    // 如果没有头像，则设置默认头像
-                    if (user.getAvatarUri() == null || user.getAvatarUri().isEmpty()) {
-                        // 设置默认头像 URI
-                        Uri defaultAvatarUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.avatar);
-                        userDAO.updateAvatar(phoneNumber, defaultAvatarUri.toString());
-                        user.setAvatarUri(defaultAvatarUri.toString());
-                    }
-
-                    // 用户验证成功，保存用户信息到SharedPreferences
-                    saveUserToPreferences(phoneNumber, user.getNickname(), user.getAvatarUri());
-
-
-                    // 跳转到HomeActivity
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                // 验证手机号长度
+                if (phoneNumber.length() != 11) {
+                    Toast.makeText(LoginActivity.this, "手机号错误", Toast.LENGTH_SHORT).show();
                 } else {
-                    // 用户验证失败，显示错误信息
-                    Toast.makeText(LoginActivity.this, "手机号或密码错误", Toast.LENGTH_SHORT).show();
+                    // 验证用户
+                    if (userDAO.checkUser(phoneNumber, password)) {
+                        // 获取用户信息
+                        UserDAO.User user = userDAO.getUserInfo(phoneNumber);
+
+                        // 如果没有头像，则设置默认头像
+                        if (user.getAvatarUri() == null || user.getAvatarUri().isEmpty()) {
+                            // 设置默认头像 URI
+                            Uri defaultAvatarUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.avatar);
+                            userDAO.updateAvatar(phoneNumber, defaultAvatarUri.toString());
+                            user.setAvatarUri(defaultAvatarUri.toString());
+                        }
+
+                        // 用户验证成功，保存用户信息到SharedPreferences
+                        saveUserToPreferences(phoneNumber, user.getNickname(), user.getAvatarUri());
+
+                        // 跳转到HomeActivity
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // 用户验证失败，显示错误信息
+                        Toast.makeText(LoginActivity.this, "手机号或密码错误", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -126,6 +134,13 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RetrieveActivity.class);
             startActivity(intent);
         });
+
+        // 游客登录
+        vistorLoginTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void saveUserToPreferences(String userId, String username, String avatarUri) {
@@ -134,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("currentUserId", userId);
         editor.putString("currentUsername", username); // 保存用户名
         editor.putString("currentUserAvatar", avatarUri); // 保存头像 URI
+        editor.putString("currentPhoneNumber", userId); // 保存手机号
         editor.apply();
     }
 

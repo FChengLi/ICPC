@@ -53,8 +53,8 @@
         </TextView>
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/setting"
             android:layout_marginRight="20dp"
             android:layout_alignTop="@id/username"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/avatar"
             android:layout_marginTop="10dp"
-            android:text="个性签名"
+            android:text="忠于党,忠于人民"
             android:textColor="@color/white"
             android:layout_alignLeft="@id/avatar"
             android:textSize="18sp">
@@ -83,7 +83,7 @@
             android:layout_alignLeft="@id/avatar"
             android:layout_marginTop="20dp"
             android:gravity="center|center_vertical"
-            android:text="6"
+            android:text="1"
             android:textColor="@color/white"
             android:textSize="25sp">
         </TextView>
@@ -104,7 +104,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:gravity="center|center_vertical"
-            android:text="6"
+            android:text="3"
             android:textSize="25sp"
             android:layout_marginLeft="45dp"
             android:id="@+id/idolsnumber"
