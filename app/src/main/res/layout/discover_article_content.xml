@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="0dp"
-    android:layout_margin="0dp">
+    android:layout_margin="0dp"
+    android:background="@android:color/white"> <!-- 添加了这行代码 -->
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/content_toolbar"
@@ -35,9 +36,11 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/content_toolbar"
+        android:layout_marginBottom="45dp"
         android:layout_marginTop="7dp"
         android:layout_weight="5">
 
@@ -73,11 +76,11 @@
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal" />
             <TextView
-                android:id="@+id/author"
+                android:id="@+id/source"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="作者"
+                android:text="来源"
                 android:textColor="@android:color/darker_gray"
                 android:layout_gravity="center_horizontal"/>
             <TextView
@@ -100,7 +103,7 @@
                     android:layout_width="170dp"
                     android:layout_height="30dp"
                     android:textSize="16sp"
-                    android:text="阅读12452"
+                    android:text="阅读0"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:background="@drawable/gs_rounded_corner"/>
@@ -109,7 +112,7 @@
                     android:layout_width="140dp"
                     android:layout_height="30dp"
                     android:textSize="16sp"
-                    android:text="点赞4235"
+                    android:text="点赞0"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
@@ -149,8 +152,8 @@
             <ImageView
                 android:id="@+id/surface"
                 android:layout_below="@+id/oragment"
-                android:layout_width="wrap_content"
-                android:layout_height="230dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/gs_surface" />
         </LinearLayout>

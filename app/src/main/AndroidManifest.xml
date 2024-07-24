@@ -78,7 +78,7 @@
         <activity android:name=".discover_add" />
         <activity android:name=".discover_change" />
         <activity android:name=".discover_delete" />
-
+        <activity android:name=".discover_article_content"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

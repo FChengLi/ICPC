@@ -1,99 +1,62 @@
 package com.example.icpc;
 
-// 文章类，表示一篇文章
 public class discover_article {
-    // 文章的ID
     private int id;
-    // 文章的作者
     private String author;
-    // 文章发布时间
-    private String time;
-    // 文章内容
+    private String publishTime;
     private String content;
-    // 评论总数
-    private int commentSum;
-    // 点赞总数
-    private int starSum;
-    // 文章标题
+    private int likes;
+    private int star;
     private String title;
-    // 文章来源
     private String source;
-    // 文章日期
     private String date;
-    // 文章图片资源ID
-    private int imageResource;
 
-    // 完整构造函数，初始化所有属性
-    public discover_article(int id, String author, String time, String content, int commentSum, int starSum, String title, String source, String date, int imageResource) {
+    public discover_article(int id, String author, String publishTime, String content, int likes, int star, String title, String source, String date) {
         this.id = id;
         this.author = author;
-        this.time = time;
+        this.publishTime = publishTime;
         this.content = content;
-        this.commentSum = commentSum;
-        this.starSum = starSum;
+        this.likes = likes;
+        this.star = star;
         this.title = title;
         this.source = source;
         this.date = date;
-        this.imageResource = imageResource;
     }
 
-    // 部分构造函数，只初始化必要属性
-    public discover_article(int id, String author, String time, String content, int commentSum, int starSum) {
-        this(id, author, time, content, commentSum, starSum, null, null, null, 0);
-    }
-
-    // 获取文章ID
+    // Getter methods
     public int getId() {
         return id;
     }
 
-    // 获取文章作者
     public String getAuthor() {
         return author;
     }
 
-    // 获取文章发布时间
-    public String getTime() {
-        return time;
+    public String getPublishTime() {
+        return publishTime;
     }
 
-    // 获取文章内容
     public String getContent() {
         return content;
     }
 
-    // 获取评论总数
-    public int getCommentSum() {
-        return commentSum;
+    public int getLikes() {
+        return likes;
     }
 
-    // 获取点赞总数
-    public int getStarSum() {
-        return starSum;
+    public int getStar() {
+        return star;
     }
 
-    // 设置点赞总数
-    public void setStarSum(int starSum) {
-        this.starSum = starSum;
-    }
-
-    // 获取文章标题
     public String getTitle() {
         return title;
     }
 
-    // 获取文章来源
     public String getSource() {
         return source;
     }
 
-    // 获取文章日期
     public String getDate() {
         return date;
-    }
-
-    // 获取文章图片资源ID
-    public int getImageResource() {
-        return imageResource;
     }
 }

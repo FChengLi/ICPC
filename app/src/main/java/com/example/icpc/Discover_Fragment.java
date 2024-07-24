@@ -9,12 +9,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.ArrayList;
+
+import com.example.icpc.database.DatabaseHelper;
+
 import java.util.List;
 
 public class Discover_Fragment extends Fragment {
     private ViewPager2 viewPager;
-    private List<Integer> imageList = new ArrayList<>();
+    private List<Integer> imageList;
     private Handler handler = new Handler();
     private int currentPage = 0;
     private final long DELAY_MS = 3000; // 轮播间隔时间
@@ -35,9 +37,7 @@ public class Discover_Fragment extends Fragment {
         viewPager = view.findViewById(R.id.slideshow);
 
         // 添加轮播图图片资源
-        imageList.add(R.drawable.image1);
-        imageList.add(R.drawable.image2);
-        imageList.add(R.drawable.image3);
+        imageList = List.of(R.drawable.image1, R.drawable.image2, R.drawable.image3);
 
         // 创建适配器
         Discover_image_Adapter discoverImageAdapter = new Discover_image_Adapter(imageList);
@@ -46,20 +46,16 @@ public class Discover_Fragment extends Fragment {
         // 启动轮播
         handler.postDelayed(runnable, DELAY_MS);
 
-        // 初始化文章列表
-        List<discover_article> articleList = new ArrayList<>();
-        articleList.add(new discover_article(1, "Author 1", "Time 1", "Content 1", 10, 20, "Title 1", "Source 1", "Date 1", R.drawable.image1));
-        articleList.add(new discover_article(2, "Author 2", "Time 2", "Content 2", 15, 25, "Title 2", "Source 2", "Date 2", R.drawable.image2));
-        articleList.add(new discover_article(3, "Author 3", "Time 3", "Content 3", 20, 30, "Title 3", "Source 3", "Date 3", R.drawable.image3));
-        articleList.add(new discover_article(3, "Author 3", "Time 3", "Content 3", 20, 30, "Title 3", "Source 3", "Date 3", R.drawable.image3));
-        articleList.add(new discover_article(3, "Author 3", "Time 3", "Content 3", 20, 30, "Title 3", "Source 3", "Date 3", R.drawable.image3));
-        articleList.add(new discover_article(3, "Author 3", "Time 3", "Content 3", 20, 30, "Title 3", "Source 3", "Date 3", R.drawable.image3));
-        articleList.add(new discover_article(3, "Author 3", "Time 3", "Content 3", 20, 30, "Title 3", "Source 3", "Date 3", R.drawable.image3));
+        // 初始化数据库助手
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+
+        // 从数据库中获取随机文章列表
+        List<discover_article> articleList = dbHelper.getRandomArticles(7);
 
         // 设置RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ArticleAdapter articleAdapter = new ArticleAdapter(articleList);
+        ArticleAdapter articleAdapter = new ArticleAdapter(getContext(), articleList);
         recyclerView.setAdapter(articleAdapter);
 
         return view;
