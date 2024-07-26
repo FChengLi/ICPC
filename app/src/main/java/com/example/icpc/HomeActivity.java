@@ -52,12 +52,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // 设置自定义悬浮按钮的初始位置
-        customFab.post(() -> {
-            customFab.setX(getWindowManager().getDefaultDisplay().getWidth() - customFab.getWidth() - margin);
-            customFab.setY(getWindowManager().getDefaultDisplay().getHeight() - customFab.getHeight() - margin);
-        });
-
         // 设置自定义悬浮按钮的触摸监听器
         customFab.setOnTouchListener(new View.OnTouchListener() {
             private float dX, dY;
