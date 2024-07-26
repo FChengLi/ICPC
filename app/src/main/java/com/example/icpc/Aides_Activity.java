@@ -17,7 +17,9 @@ import okhttp3.MediaType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,13 +79,16 @@ public class Aides_Activity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         try {
+            // 读取 system_prompt.txt 文件内容
+            String systemPrompt = readSystemPromptFromFile();
+
             // 创建请求内容
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("model", "gpt-3.5-turbo");
+            jsonObject.put("model", "gpt-4o");
 
             // 添加默认提示词和用户消息
             JSONArray messagesArray = new JSONArray();
-            messagesArray.put(new JSONObject().put("role", "system").put("content", "你是一个党史小助手，你的名字是“i党史”小助手，你服务于i党史app，你主要回答用户关于党史或者时事政治的问题，注意要避免回答过于敏感的问题（中国敏感的内容），回答相关问题的时候要具有中国特色"));
+            messagesArray.put(new JSONObject().put("role", "system").put("content", systemPrompt));
             messagesArray.put(new JSONObject().put("role", "user").put("content", userMessage));
 
             jsonObject.put("messages", messagesArray);
@@ -148,6 +153,17 @@ public class Aides_Activity extends AppCompatActivity {
         } catch (Exception e) {
             addMessage("Error", e.getMessage());
         }
+    }
+
+    private String readSystemPromptFromFile() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("system_prompt.txt")));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            stringBuilder.append(line).append("\n");
+        }
+        reader.close();
+        return stringBuilder.toString().trim();
     }
 
     private void typeMessage(final String message, final String sender) {

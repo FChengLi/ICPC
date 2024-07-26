@@ -6,16 +6,6 @@
     tools:context=".HomeActivity">
 
     <!-- Top Navigation Bar -->
-    <FrameLayout
-        android:id="@+id/custom_fab"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center|end"
-        android:background="@drawable/ic_custom_image"
-        android:clipToPadding="false"
-        android:elevation="6dp">
-
-    </FrameLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/top_toolbar"
@@ -29,6 +19,7 @@
         <!-- Logo -->
         <ImageView
             android:id="@+id/logo"
+            android:translationX="-16dp"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_gravity="start"
@@ -89,17 +80,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="70dp"
         android:layout_below="@id/top_toolbar"
-        android:layout_weight="1" >
-
-        <FrameLayout
-            android:id="@+id/fab_container"
-            android:layout_width="match_parent"
-            android:layout_height="740dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="-85dp">
-
-        </FrameLayout>
-    </FrameLayout>
+        android:layout_weight="1" />
 
     <!-- 底部导航栏 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -110,4 +91,14 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <!-- 自定义悬浮按钮 -->
+    <FrameLayout
+        android:id="@+id/custom_fab"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_custom_image"
+        android:clipToPadding="false"
+        android:elevation="6dp" />
 </RelativeLayout>
