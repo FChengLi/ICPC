@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Database.db";
-    private static final int DATABASE_VERSION = 6; // 更新版本号
+    private static final int DATABASE_VERSION = 7; // 更新版本号
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -111,7 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // 关注论坛表
     private void createFollowForumTable(SQLiteDatabase db) {
         String CREATE_FOLLOW_FORUM_TABLE = "CREATE TABLE follow_forum ("
-                + "follow_id TEXT PRIMARY KEY,"
+                + "follow_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "user_id TEXT,"
                 + "forum_id INTEGER,"
                 + "FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,"

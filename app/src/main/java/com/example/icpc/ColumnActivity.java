@@ -150,7 +150,6 @@ public class ColumnActivity extends AppCompatActivity {
 
     private void subscribeToForum() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
 
         // 从 SharedPreferences 获取用户 ID
         String userId = getSharedPreferences("UserPrefs", MODE_PRIVATE).getString("currentUserId", null);
@@ -160,15 +159,35 @@ public class ColumnActivity extends AppCompatActivity {
             return;
         }
 
-        values.put("user_id", userId);
-        values.put("forum_id", forumId);
+        // 检查用户是否已关注该论坛
+        Cursor cursor = db.rawQuery("SELECT * FROM follow_forum WHERE user_id=? AND forum_id=?", new String[]{userId, String.valueOf(forumId)});
 
-        long result = db.insert("follow_forum", null, values);
-        if (result != -1) {
-            Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
-            updateFollowNum();
+        if (cursor != null && cursor.getCount() > 0) {
+            // 用户已经关注了该论坛，执行取消关注操作
+            int deletedRows = db.delete("follow_forum", "user_id=? AND forum_id=?", new String[]{userId, String.valueOf(forumId)});
+            if (deletedRows > 0) {
+                Toast.makeText(this, "取消关注成功", Toast.LENGTH_SHORT).show();
+                updateFollowNum();
+            } else {
+                Toast.makeText(this, "取消关注失败", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, "关注失败", Toast.LENGTH_SHORT).show();
+            // 用户未关注该论坛，执行关注操作
+            ContentValues values = new ContentValues();
+            values.put("user_id", userId);
+            values.put("forum_id", forumId);
+
+            long result = db.insert("follow_forum", null, values);
+            if (result != -1) {
+                Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
+                updateFollowNum();
+            } else {
+                Toast.makeText(this, "关注失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (cursor != null) {
+            cursor.close();
         }
     }
 }
