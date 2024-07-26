@@ -16,57 +16,57 @@
         android:theme="@style/Theme.ICPC"
         tools:targetApi="31">
         <activity
-            android:name=".AddPostActivity"
+            android:name=".tieba.AddPostActivity"
             android:exported="false" />
-        <activity android:name=".ColumnActivity" />
+        <activity android:name=".tieba.ColumnActivity" />
         <activity
-            android:name=".PostContentActivity"
+            android:name=".tieba.PostContentActivity"
             android:exported="true" />
         <activity
-            android:name=".DiscoverArticleActivity"
+            android:name=".discover.DiscoverArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".Vedio_DetailActivity"
+            android:name=".fastlearning.Vedio_DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MessageActivity"
+            android:name=".message.MessageActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".Aides_Activity"
+            android:name=".ai.Aides_Activity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".login.RegisterActivity"
             android:exported="true" />
-        <activity android:name=".EditingActivity"></activity>
+        <activity android:name=".myinfor.EditingActivity"></activity>
         <activity
-            android:name=".RetrieveActivity"
+            android:name=".login.RetrieveActivity"
             android:exported="true" />
         <activity
-            android:name=".Search_Fragment"
+            android:name=".search.Search_Fragment"
             android:exported="true"></activity>
         <activity
-            android:name=".History_Fragment$DetailActivity"
+            android:name=".history.History_Fragment$DetailActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".History_Fragment$DsDemo1DetailActivity"
+            android:name=".history.History_Fragment$DsDemo1DetailActivity"
             android:exported="true"></activity>
-        <activity android:name=".z_add" />
-        <activity android:name=".z_delete" />
-        <activity android:name=".z_change" />
-        <activity android:name=".z_first" />
-        <activity android:name=".z__add" />
-        <activity android:name=".z__change" />
-        <activity android:name=".discover_add" />
-        <activity android:name=".discover_change" />
-        <activity android:name=".discover_delete" />
-        <activity android:name=".discover_article_content"></activity>
-        <activity android:name=".my_setting" />
+        <activity android:name=".login.z_add" />
+        <activity android:name=".login.z_delete" />
+        <activity android:name=".login.z_change" />
+        <activity android:name=".login.z_first" />
+        <activity android:name=".login.z__add" />
+        <activity android:name=".login.z__change" />
+        <activity android:name=".discover.discover_add" />
+        <activity android:name=".discover.discover_change" />
+        <activity android:name=".discover.discover_delete" />
+        <activity android:name=".discover.discover_article_content"></activity>
+        <activity android:name=".myinfor.my_setting" />
 
         <activity
             android:name=".MainActivity"

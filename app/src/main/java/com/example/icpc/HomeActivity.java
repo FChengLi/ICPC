@@ -12,6 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.icpc.ai.Aides_Activity;
+import com.example.icpc.discover.Discover_Fragment;
+import com.example.icpc.fastlearning.Fast_Learning_Fragment;
+import com.example.icpc.history.History_Fragment;
+import com.example.icpc.message.MessageActivity;
+import com.example.icpc.myinfor.Profile_Fragment;
+import com.example.icpc.search.Search_Fragment;
+import com.example.icpc.tieba.Tieba_Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
